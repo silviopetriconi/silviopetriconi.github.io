@@ -1,11 +1,11 @@
 ---
-title: "Teaching experience 2"
+title: "Economics of Banking"
 collection: teaching
-type: "Workshop"
-permalink: /teaching/2015-spring-teaching-1
-venue: "University 1, Department"
-date: 2015-01-01
-location: "City, Country"
+type: "PhD course"
+permalink: /teaching/2018-cornell-banking
+venue: "Cornell University"
+date: 2018-04-24
+location: "Ithaca, USA"
 ---
 
 This is a description of a teaching experience. You can use markdown like any other post.
