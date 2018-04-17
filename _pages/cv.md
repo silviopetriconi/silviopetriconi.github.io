@@ -11,21 +11,15 @@ redirect_from:
 
 Education
 ======
-* B.S. in Github, Github University, 2012
-* M.S. in Jekyll, Github University, 2014
-* Ph.D in Version Control Theory, Github University, 2018 (expected)
+* Ph.D in Economics, Finance and Management, Universitat Pompeu Fabra, 2014
+* M.Res. in Economics, Finance and Management, Universitat Pompeu Fabra, 2008
+* Diplom in Physics, Universitaet Leipzig, 2006
+* M.S. in Physics, Michigan State University, 2003
 
-Work experience
+Positions held
 ======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Visiting Assistant Professor, Cornell University (Aug 2017 - Jul 2018)
+* Assistant Professor of Finance, Bocconi University (2013-ongoing)
   
 Skills
 ======
@@ -54,6 +48,6 @@ Teaching
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Service and leadership
+Service 
 ======
-* Currently signed in to 43 different slack teams
+* Referee for Journal of Financial Economics, Management Science, Review of Economic Studies, JEEA, IJCB 
