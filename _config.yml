@@ -82,7 +82,7 @@ author:
   avatar           : "headshot.jpg"
   bio              : "Assistant Professor of Finance"
   location         : "Ithaca, NY"
-  employer         : "Bocconi University"
+  employer         : # "Bocconi University"
   googlescholar    : # "http://yourfullgooglescholarurl.com"
   email            : silvio.petriconi(at)unibocconi.it 
   uri              :

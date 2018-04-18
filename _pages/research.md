@@ -10,8 +10,8 @@ My research interests are banking, corporate finance, and digital payments.
 ## Working papers
 
 __[Bank competition, information choice and inefficient lending booms](https://silviopetriconi.github.io/files/petriconi2016.pdf)__ 
-:  If loan offers of informed banks are observed by uninformed competitors, 
-   it becomes optimal for banks to lend excessively and screen too little in good times. Via this externality, bank competition drives inefficient credit cycles.
+:  If loan offers of informed banks can be observed by uninformed competitors, 
+   banks will lend excessively and screen too little. More bank competition exacerbates the problem and yields inefficient boom-bust cycles in credit.
 
 
 __[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/redist.pdf)__ 
