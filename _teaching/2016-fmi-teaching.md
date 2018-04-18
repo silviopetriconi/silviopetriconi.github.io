@@ -3,18 +3,11 @@ title: "30006 Financial Markets and Institutions"
 collection: teaching
 type: "Undergraduate course"
 permalink: /teaching/2016-fmi-teaching
-venue: "Bocconi University, Department of Finance"
+venue: "Bocconi University"
 date: 2016-09-01
 location: "Milano, Italy"
 ---
 
-This is a description of a teaching experience. You can use markdown like any other post.
-
-Heading 1
-======
-
-Heading 2
-======
-
-Heading 3
-======
+I have taught two sections of this course from the 2013/14 until the 2016/17 
+academic year. The material provides a basic introduction to financial markets
+and financial economics. Textbook: [Mishkin & Eakins](http://catalogue.pearsoned.co.uk/educator/product/Financial-Markets-and-Institutions-Global-Edition-9E/9781292215006.page)

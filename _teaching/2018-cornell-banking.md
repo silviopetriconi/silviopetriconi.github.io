@@ -8,13 +8,7 @@ date: 2018-04-04
 location: "Ithaca, USA"
 ---
 
-This is a description of a teaching experience. You can use markdown like any other post.
+This is a short "workshop-style" compact course in banking for PhD students in applied macroeconomics and finance. The course has two fundamental objectives:
+1. to give an introduction to the banking literature with particular emphasis on recent developments
+2. to teach young researchers how to develop their own applied theories. 
 
-Heading 1
-======
-
-Heading 2
-======
-
-Heading 3
-======
