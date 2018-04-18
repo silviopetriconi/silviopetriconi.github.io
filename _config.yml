@@ -79,12 +79,12 @@ analytics:
 # Site Author
 author:
   name             : "Silvio Petriconi"
-  avatar           : "profile.png"
+  avatar           : "headshot.jpg"
   bio              : "Assistant Professor of Finance"
   location         : "Ithaca, NY"
   employer         : "Bocconi University"
   googlescholar    : # "http://yourfullgooglescholarurl.com"
-  email            : 
+  email            : silvio.petriconi(at)unibocconi.it 
   uri              :
   bitbucket        :
   codepen          :

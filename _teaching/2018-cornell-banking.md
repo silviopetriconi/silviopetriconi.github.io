@@ -1,10 +1,10 @@
 ---
 title: "Economics of Banking"
 collection: teaching
-type: "PhD course"
+type: "Graduate course (PhD)"
 permalink: /teaching/2018-cornell-banking
 venue: "Cornell University"
-date: 2018-04-24
+date: 2018-04-04
 location: "Ithaca, USA"
 ---
 
