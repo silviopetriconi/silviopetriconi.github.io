@@ -9,12 +9,12 @@ My research interests are banking, corporate finance, and digital payments.
 
 ## Working papers
 
-__[Bank competition, information choice and inefficient lending booms](https://silviopetriconi.github.io/files/petriconi2016.pdf)__ 
+__[Bank competition, information choice and inefficient lending booms](https://silviopetriconi.github.io/files/petriconi_lending_boom.pdf)__ 
 :  If loan offers of informed banks can be observed by uninformed competitors, 
    banks will lend excessively and screen too little. More bank competition exacerbates the problem and yields inefficient boom-bust cycles in credit.
 
 
-__[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/redist.pdf)__ 
+__[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/CMP_redistributive_regulation.pdf)__ 
 _(with E. Carletti & R. Marquez)_
 :  In a general equilibrium model of bank capital, we show that
    depositors are likely to bear most of the cost of stricter regulatory
