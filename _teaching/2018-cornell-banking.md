@@ -1,5 +1,5 @@
 ---
-title: "Economics of Banking"
+title: "Introductory Banking Theory"
 collection: teaching
 type: "Graduate course (PhD)"
 permalink: /teaching/2018-cornell-banking
