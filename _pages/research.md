@@ -14,7 +14,7 @@ __[Bank competition, information choice and inefficient lending booms](https://s
    banks will lend excessively and screen too little. More bank competition exacerbates the problem and yields inefficient boom-bust cycles in credit.
 
 
-__[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/CMP_redistributive_regulation.pdf)__ 
+__[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/files/CMP_redistributive_regulation.pdf)__ 
 _(with E. Carletti & R. Marquez)_
 :  In a general equilibrium model of bank capital, we show that
    depositors are likely to bear most of the cost of stricter regulatory
