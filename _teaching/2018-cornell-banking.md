@@ -1,5 +1,5 @@
 ---
-title: "Introductory Banking Theory"
+title: "Banking Theory"
 collection: teaching
 type: "Graduate course (PhD)"
 permalink: /teaching/2018-cornell-banking
@@ -12,3 +12,4 @@ This is a short "workshop-style" compact course in banking for PhD students in a
 1. to give an introduction to the banking literature with particular emphasis on recent developments
 2. to teach young researchers how to develop their own applied theories. 
 
+[Attach: Syllabus](https://silviopetriconi.github.io/files/syllabus-banking.pdf)
