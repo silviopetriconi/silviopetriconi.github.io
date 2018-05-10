@@ -9,5 +9,5 @@ redirect_from:
 
 {% include base_path %}
 
-Download: [PDF](https://silviopetriconi.github.io/files/cv.pdf)
+Download: [PDF](https://silviopetriconi.github.io/files/cv-long.pdf)
 
