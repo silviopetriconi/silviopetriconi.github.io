@@ -22,13 +22,8 @@ _(with E. Carletti & R. Marquez)_
 
 
 __[Geeks Bearing Gifts: Competition and Information Sharing in Knowledge-Based Service Industry](https://silviopetriconi.github.io/files/knowledgesharing.pdf)__ _(with Doh-Shin Jeon)_
-:  In a service economy where domain-specific knowledge and service value 
-are co-created by service providers and customers, hold-up concerns 
-prevent customers from supplying efficient levels of collaboration effort.
-We show that the commitment to share customer-specific gains in knowledge 
-with competitors, for example via the release of commercial software under 
-open source licensing, can be an optimal strategy under competition.
-
+:  In a service economy where value is co-created by service providers and customers, a commitment to knowledge sharing with rival firms by means of open source software licensing can incentivize stronger customer collaboration and raise the incumbent's profitability.
+ 
 
 
 ## Publications
