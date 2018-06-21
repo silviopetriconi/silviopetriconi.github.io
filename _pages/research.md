@@ -26,11 +26,5 @@ __[Geeks Bearing Gifts: Competition and Information Sharing in Knowledge-Based S
  
 
 
-## Publications
-
-__The statistics and timing of TARGET2 interbank payments__ 
-_(with M. Massarenti and J. Lindner)_.
-_Journal of Financial Market Infrastructure_ (2012), 1 (2), pp. 3-24
-
 
 
