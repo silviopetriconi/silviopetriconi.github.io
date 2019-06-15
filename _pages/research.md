@@ -5,7 +5,7 @@ permalink: /research/
 author_profile: true
 ---
 
-My research interests are banking, corporate finance, and digital payments.
+My research interests are banking theory, fintech, networks and blockchain.
 
 ## Working papers
 
@@ -19,7 +19,7 @@ _(with E. Carletti & R. Marquez)_
 :  In a general equilibrium model of bank capital, we show that
    depositors are likely to bear most of the cost of stricter regulatory
    capital standards, whereas shareholders may benefit from regulation.
-
+_Conditionally accepted at JFE_
 
 __[Geeks Bearing Gifts: Competition and Information Sharing in Knowledge-Based Service Industry](https://silviopetriconi.github.io/files/knowledgesharing.pdf)__ _(with Doh-Shin Jeon)_
 :  In a service economy where value is co-created by service providers and customers, a commitment to knowledge sharing with rival firms by means of open source software licensing can incentivize stronger customer collaboration and raise the incumbent's profitability.
