@@ -12,4 +12,4 @@ I have taught two sections of this course for four years, including the 2016/17
 academic year. The course provides a basic introduction to financial markets and financial economics. 
 
  * Textbook: [Mishkin & Eakins](http://catalogue.pearsoned.co.uk/educator/product/Financial-Markets-and-Institutions-Global-Edition-9E/9781292215006.page)
- * Syllabus: [Bocconi intranet](https://agenda.unibocconi.it)
+ * Syllabus: [Download](https://silviopetriconi.github.io/files/syllabus-fmi.pdf)
