@@ -15,11 +15,10 @@ __[Bank competition, information choice and inefficient lending booms](https://s
 
 
 __[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/files/CMP_redistributive_regulation.pdf)__ 
-_(with E. Carletti & R. Marquez)_
+_(with E. Carletti & R. Marquez)_  _Accepted, Journal of Financial Economics_
 :  In a general equilibrium model of bank capital, we show that
    depositors are likely to bear most of the cost of stricter regulatory
    capital standards, whereas shareholders may benefit from regulation.
-_Conditionally accepted at JFE_
 
 __[Geeks Bearing Gifts: Competition and Information Sharing in Knowledge-Based Service Industry](https://silviopetriconi.github.io/files/knowledgesharing.pdf)__ _(with Doh-Shin Jeon)_
 :  In a service economy where value is co-created by service providers and customers, a commitment to knowledge sharing with rival firms by means of open source software licensing can incentivize stronger customer collaboration and raise the incumbent's profitability.
