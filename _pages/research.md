@@ -17,7 +17,7 @@ _(with E. Carletti & R. Marquez)_  _Accepted, Journal of Financial Economics_
 
 ## Working papers
 
-__[Bank competition, information choice and inefficient lending booms](https://silviopetriconi.github.io/files/petriconi_lending_boom.pdf)__ _R \& R_ 
+__[Bank competition, information choice and inefficient lending booms](https://silviopetriconi.github.io/files/petriconi_lending_boom.pdf)__ _R & R_ 
 :  If loan offers of informed banks can be observed by uninformed competitors, 
    banks will lend excessively and screen too little. More bank competition exacerbates the problem and yields inefficient boom-bust cycles in credit.
 
