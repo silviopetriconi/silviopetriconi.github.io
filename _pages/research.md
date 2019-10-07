@@ -21,8 +21,7 @@ __[Bank competition, information choice and inefficient lending booms](https://s
 :  If loan offers of informed banks can be observed by uninformed competitors, 
    banks will lend excessively and screen too little. More bank competition exacerbates the problem and yields inefficient boom-bust cycles in credit.
 
-__[NEW: Bank competition and information production](https://silviopetriconi.github.io/files/demarco_petriconi_information.pdf)__ _(with [Filippo De Marco](http://mypage.unibocconi.eu/filippodemarco/))_
-_(with Filippo De Marco)_
+__[NEW: Bank competition and information production](https://silviopetriconi.github.io/files/demarco_petriconi_information.pdf)__ _(with Filippo De Marco)_
 :  We show that competition adversely affects information production in the banking industry. In particular, we observe that the positive abnormal return associated with the announcement of a bank loan is reduced in US states that deregulate interstate branching. The negative effect of competition on information production is present only for informationally opaque firms (i.e., firms with few tangible assets and bank-dependent borrowers) and for banks that rely more on "soft" information (i.e., small banks). Moreover, we find that charge-off rates on small business loans are higher in deregulated states. 
 Our results suggest that competition decreases loan quality because it reduces banks' incentives to invest in information.
 
