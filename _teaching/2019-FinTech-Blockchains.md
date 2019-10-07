@@ -10,7 +10,7 @@ location: "Milano, Italy"
 
 This is a hands-on introduction to FinTech and Blockchains for future data scientists. The course has the following objectives:
  * teach blockchain and its technological foundations in a hands-on, code-driven approach
- * explore the disruptive impact of digital transformation on financial intermediation
+ * explore the disruptive potential of digital transformation for financial intermediation
  * discuss machine learning strategies that future data scientists should know for FinTech lending and insurance underwriting.
  * enable students to run their first project of their own and explore creatively.
  * develop the necessary coding skills on the side.
