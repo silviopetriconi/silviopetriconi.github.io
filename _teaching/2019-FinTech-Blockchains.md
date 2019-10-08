@@ -1,7 +1,7 @@
 ---
 title: "FinTech and Blockchains"
 collection: teaching
-type: "Graduate course (Machine Learning MSc)"
+type: "Graduate course (Data Science MSc)"
 permalink: /teaching/2019-FinTech-Blockchains
 venue: "Bocconi University"
 date: 2019-09-07
