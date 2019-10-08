@@ -1,0 +1,23 @@
+.title-slide {
+  background-image: url("img/hacker-4031973_1920.jpg");
+  background-size: cover;
+}
+
+.blackboard-slide {
+  background-image:url("img/black-1072366_1920.jpg");
+  background-size:cover;
+}
+
+.remark-inline-code{
+  /* background: #F5F5F5; /* lighter */
+  background: #e7e8e2; /* darker */
+  border-radius: 3px;
+  padding: 4px;
+}
+
+
+.red { color: #fa0000; }
+.magenta { color: rgb(249, 38, 114); }
+.large { font-size: 2em; }
+.medium { font-size: 1.2em; }
+

@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 1: Introduction
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-09-05 (updated: 2019-09-09)
+
+---
+
+class: inverse, left
+background-image:url("img/compass-2779371_1280.jpg")
+
+
+# Syllabus
+
+
+
+--
+
+### | Class Structure
+### | Prerequisites 
+### | Grading 
+### | Attendance
+### | Pre-class survey
+### | FAQ's
+
+
+
+---
+
+# About this class
+
+In this class we'll study FinTech, a young but rapidly growing industry that is built around innovative digital financial services such as
+
+  * Payment services
+  * Blockchains
+  * Smart contracts
+  * Crowdfunding
+  * Crypto tokens
+  * Robo-advising
+  
+
+
+
+---
+
+# About this class (cont.)
+
+The teaching philosophy of this class deviates significantly from most of your earlier coursework. 
+
+Key principles that we're trying to implement is to have
+  * less face to face lectures, and more discussions.
+  * less material to learn by heart, and more space for your own thoughts.
+  * less pressure from exams, and more rewards to being being creative. 
+  * more space for your own experimentation.
+
+Needless to say, this only works if you're willing to take initiative.
+We're working on fun problems and have a lot of interesting material,
+so we hope you'll feel that you __want__ to take a very active role.
+If you're not interested taking in such an active role, I recommend 
+that you choose to be evaluated as a non-attending student. 
+
+
+.footnote[[*] You should soon start thinking about the topic of your
+Master thesis. If you want to write a thesis on FinTech or 
+financial topics, this class will provide you with the necessary tools and mindset. Please
+[contact me](mailto:silvio.petriconi@unibocconi.it) if you're interested
+in writing a thesis under my supervision.]
+
+
+---
+# Class Structure
+
+.pull-left[
+&lt;table class="table" style=""&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Week &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Topic &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Introduction to FinTech &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Financial Intermediaries &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Blockchain: Foundations &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Blockchain: Bitcoin &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cryptoeconomics and Blockchain Security &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Smart Contracts, Tokens and ICO's &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Distributed Ledgers, Facebook Libra &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+&lt;table class="table" style=""&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Week &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Topic &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Competing in Adverse Selection Markets &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; PSD2 and the Value of Payment Data &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; InsurTech // Financial Inclusion &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Regulation of Financial Innovation &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Alternative Data, and Asset Pricing I &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asset Pricing II, Outlook &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+---
+
+# Prerequisites
+
+This course assumes that you
+ * already have basic-to-intermediate Python programming skills 
+ * have completed the DSBA first-year curriculum and are thus familiar with
+    - cleaning, handling and storing data
+    - machine learning
+    - econometrics
+ * are curious about digital technology 
+ * bring a hands-on, problem-solver mentality and are willing to explore
+ * have a laptop at your disposition (see also Bocconi's program rules)
+ 
+Previous knowledge of finance is useful, but not a prerequisite. We'll try to keep things self-contained.
+
+---
+# Technical Prerequisites 
+
+Ideally, you
+ * are running (or have access to) a UNIX-based environment in which you have easy access to `bash`, `git`, `npm` etc:
+    - **macOS** with developer tools and ideally also [homebrew](https://brew.sh) installed, or 
+    -  **Linux** (preferably [Ubuntu](https://ubuntu.com), [Debian](https://www.debian.org) or Debian derivatives)
+    - **Windows** users may run a virtual Linux machine in [VirtualBox](https://www.virtualbox.org) or resort to [Windows Subsystem for Linux 2](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install). 
+    - If none of this works for you, recall that the DSBA class compute server also runs Linux and is accessible via `ssh`.
+    
+ * have [Anaconda Python](https://www.anaconda.com/distribution/) installed.
+
+
+We will talk about your software installation in more detail in the lab classes.
+Depending on our speed of progress, I might also provide [Docker](https://www.docker.com) images for you at a later stage.
+
+
+---
+# Your professors
+
+.left-column[
+![](img/petriconi.jpg)
+
+[Silvio Petriconi](https://silviopetriconi.github.io/)
+Office 2-d2-04
+
+Office hours:
+
+Mon 18-20
+
+] 
+.right-column[I'm the primary instructor andwill  course director.
+
+I have joined Bocconi in 2013 as an Assistant Professor of Finance. In addition, 
+I have been a Visiting Professor at [Cornell](https://www.cornell.edu), and have
+worked for [ECB's](https://www.ecb.int) payment system oversight division.
+
+I hold a PhD from [Universitat Pompeu Fabra](https://www.upf.edu), and Master's degrees in Economics and Physics from [UPF](https://www.upf.edu) and [Michigan State University.](https://www.pa.msu.edu)
+
+My research revolves around financial intermediation, networks, cryptocurrencies 
+and payment systems, and has been published in international journals such as the 
+[Journal of Financial Economics](http://jfe.rochester.edu/). 
+
+
+You can reach me anytime via  [email](mailto:silvio.petriconi@unibocconi.it)
+or come to my [office hour](https://agenda.unibocconi.it) with any question that you may have.
+]
+
+???
+
+.footnote[[*] I'm also a technology enthusiast. I have been using Linux since 1997, and have programmed in C/C++, Python, Pascal, 80x86 Assembly, Java, R, MATLAB and Julia. My most exotic software project was probably the development of a Linux
+kernel module which controls the beam of a [nuclear accelerator](https://bloch.physgeo.uni-leipzig.de/fileadmin/exp2.physgeo.uni-leipzig.de/nfp/uploads/bilder/Labore/laborbild3.jpg). 
+]
+
+---
+#Your professors
+.left-column[
+![](img/corielli3.jpg)
+[Francesco Corielli](http://faculty.unibocconi.eu/francescocorielli/)
+
+Office 2-d1-15
+
+Office Hours: TBA
+]
+
+.right-column[
+In the last two weeks of the course, Professor Francesco Corielli (Dept. of Finance) will teach a four-hour crash course in asset pricing such
+that we can look at some interesting asset pricing applications of 
+machine learning. 
+
+Francesco Corielli is an Associate Professor of Applied Mathematics at the
+Department of Finance at Bocconi and has been a Visiting Professor
+at [London Business School](https://www.london.edu). He is the also coordinator of the Bocconi [Master in Quantitative Finance and Risk Management](https://www.unibocconi.eu/wps/wcm/connect/Bocconi/SitoPubblico_EN/Navigation+Tree/Home/Programs/Specialized+Masters/MAFINRISK+-+Master+of+Quantitative+Finance+and+Risk+Management/).
+
+His primary research interests are mathematical statistics,
+financial econometrics and mathematical finance. His work has been published in a number of high ranked international journals such as
+the [Journal of Money, Credit and Banking](https://jmcb.osu.edu), the [Journal of 
+Banking and Finance](http://www.journals.elsevier.com/journal-of-banking-and-finance/), the [SIAM Journal on Financial Mathematics](https://www.siam.org/publications/journals/siam-journal-on-financial-mathematics-sifin) and [Mathematical Finance](https://onlinelibrary.wiley.com/journal/14679965).]
+
+---
+
+# Schedule
+
+
+.pull-left[
+We'll meet twice a week:
+
+&lt;table class="table" style="width: auto !important; float: left; margin-right: 10px;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Day &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Time &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Room &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Class length &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tuesday &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8:30-10:00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Room 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 90 min &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Thursday &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13:30-16:00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Room 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 150 min &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+Some classes will be designated as __lab classes__ in which you'll
+actually get your hands dirty with code. Lab classes will
+be scheduled mostly (but not exclusively) on Tuesdays.
+
+Whenever our schedule requires it, we may split the Thursday class into 60 minutes lab plus 90 minutes lecture. The lab/lecture allocation for each week can be found in a separate document on [Blackboard](https://blackboard.unibocconi.it). It will be updated week by week as we progress. 
+]
+---
+
+# Course Materials
+
+There is no course textbook. We will draw on a large variety of sources, which will be referenced in the lecture notes. The lecture slides and lab codes (as distributed via Blackboard) are your primary course materials. 
+
+A substantial part of the first half of the course is covered relatively
+well in the following book: 
+
+
+.left-column[
+[![Image](img/pup_book.jpg)](https://press.princeton.edu/titles/10908.html)
+
+]
+.right-column[
+_Arvind Narayanan, Joseph Bonneau, Edward Felten, Andrew Miller &amp; Steven Goldfeder:_ ["Bitcoin and Cryptocurrency Technologies: A Comprehensive Introduction"](https://press.princeton.edu/titles/10908.html). 1st edition, Princeton University Press, 2016, ISBN 9780691171692. 
+]
+
+.footnote[*
+An early draft of the book is freely available [online.](https://freedom-to-tinker.com/2016/02/09/the-princeton-bitcoin-textbook-is-now-freely-available/)]
+
+
+
+
+
+---
+# Grading
+
+**Attending students:** 
+ * 35% of grade comes from final group project (launch around midterm)
+ * 40% of grade is individual work:
+     - one FinTech presentation of 10 min. + 4 min. Q&amp;A
+     - plus individual assignments
+     - plus your proposal for the group project
+     
+  Alternatively, only by __special permission__ (get it in my office hour): 
+     - present one idea/development/prototype of your own at end of course in 20 min. + 4 min Q&amp;A
+     - no individual assignments, just the group project proposal
+     
+* 25% Quizzes (open book, every __odd__ week, i.e. 3, 5, 7, 9, 11): 
+     - 5 quizzes in total
+     - the best 4 count
+     - they're not going to be hard at all, if you just stay on top of what we're doing
+    
+ 
+
+---
+
+# Attendance
+
+
+
+We don't check attendance in class, and we understand that for various reasons
+(exchange, internship etc.) you may even choose not to attend any of the lectures at all.
+
+Non-attending students are evaluated based on two elements: they write a (closed book)
+__final exam__ which tests the understanding of all the material covered in the 
+class notes. In addition they hand in an __individual project__ (the topic of which is assigned around the mid-term break). 
+
+Until the first quiz, you can announce that you would like to be evaluated as a non-attending student, even if you regularly sit in class.
+
+The choice is yours.
+
+---
+#Frequently Asked Questions
+
+* __Isn't there an error? Isn't the course officialy entitled "DSBA 20598: Finance with Big Data?"__ &lt;p&gt;
+  
+  Technology advances faster than bureaucracy. Course titles and 
+  syllabi were
+  different when Bocconi filed for ministerial approval of the 
+  DSBA Master program because times were different:
+  Blockchain was still more of a fringe technology than the 
+  potential disruptor of Financial Industry that it has become 
+  in the meanwhile, whereas there was growing demand for data 
+  scientists for quant applications. Both of this has changed.
+  
+  We won't let an outdated title keep us from teaching
+  what likely matters more for your future. We are looking into ways to
+  change the class title for the coming years (which requires ministerial approval). 
+  
+* __How do I prepare myself for the quizzes?__  
+
+  As an attending student, just stay on top of what we're doing in class. Ability to see the big picture matters. Don't obsess about details. All quizzes are open book, any aids that you can carry are allowed.
+
+---
+
+# Frequently Asked Questions (cont.)
+  
+* __What happens if I miss a quiz because of reason X?__
+
+ There are five quizzes. As an attending student, your written grade is calculated as the
+ arithmetic mean of your four best quiz results. This means that you can miss one quiz without negatively impacting your grade. If you are about to
+miss more than one quiz for a reason that is beyond your control, please contact me as soon as possible. 
+ 
+* __What's the electronic device policy?__
+
+  __Laptops:__ 
+  Your computer is a source of great power, but also of great distraction. Bring it along for both lectures and labs, but keep it closed during
+  lectures (unless advised otherwise).
+  
+  __Phones:__ There's nothing important going on in your mobile phone while you're sitting in class. Keep it in silent mode and out of reach. 
+
+---
+
+
+.left-column[
+## Pre-class survey 
+]
+.right-column[
+For this class to be as productive and as little redundant as possible,
+we would like to know what you know (beyond the things that are on the
+official DSBA first year study program). 
+
+We would also like to hear what you're particularly interested in learning about.
+
+We'll therefore have a short __anonymous__ pre-class survey. Please 
+[log in to Blackboard](https://blackboard.unibocconi.it), which will now display a survey page.
+
+]
+
+
+---
+.left-column[
+## Finance jargon
+
+]
+
+.right-column[One last thing before we start: Finance comes with its own jargon. I realise that some of you
+do not have an economics or finance background, so I will 
+do my best to define relevant finance specific words and concepts before we encounter them. 
+
+In case
+you find me referring to something that is new to you, don't feel shy to [ask.](mailto:silvio.petriconi@unibocconi.it)
+A good place to look up specific words is [this link.](https://www.ruf.rice.edu/~kemmer/Words04/usage/jargon_financial.html)
+
+For now, I assume that you know at least the following:
+
+
+**Asset**: a resource with economic value that one can own or control,
+           and that can be sold for money.
+
+**Security**: a financial asset that promises future cash flows (e.g., bond), and/or ownership (e.g. share of stock). 
+
+**Linear (or simple) return**: the relative gain from holding a security over a certain period. Assuming initial price `\(P_t\)`, final price `\(P_{t+1}\)` and extra cash flows `\(C_t\)` (e.g., dividend), the linear return is
+
+`$$R_{t+1} = \frac{P_{t+1}-P_t}{P_t} + \frac{C_t}{P_t}$$`
+
+]
+ 
+---
+class: left, inverse
+background-image:url("./img/blur-1853262_1920-blue.jpg")
+background-size:cover
+background-position:center
+
+
+# Introduction to FinTech
+
+--
+
+### | Disruptive digital innovation
+### | What business model are banks in, after all?
+### | The innovation - regulation tradeoff 
+### | A glimpse at FinTech
+### | Discussion
+
+
+
+---
+
+class: center, middle, inverse
+background-image:url("img/background-2846165_1920.jpg")
+background-size:cover
+background-position:left
+# Disruptive digital innovation
+
+---
+
+# Long term technological trends 
+
+Differently from what some economists might tell you, 
+most "disruptive" innovations are quite predictable outcomes of long-term
+technological trends. To briefly talk about those, we need to go back to the 1960's.
+
+Computers were around in the 60's already. However, they were 
+_slightly_ bigger...
+
+Feature         | [UNIVAC LARC (1961)](https://en.wikipedia.org/wiki/UNIVAC_LARC)               | iPhone 6 
+----------------|---------------------------|---------------
+Compute speed   | 500 kFlops                |  7,300,000 kFlops
+Bits per word   | 48                        |  64
+Processors      | 2                         |  2
+Storage         | 97,500 machine words      |  35,360 _million_ machine words
+Weight          | 115,000 pounds (52 t)     |  192 grams
+Main purpose    | Hydrogen bomb calculations|  WhatsApp, Facebook?
+
+
+
+---
+
+class:left, inverse
+background-image:url("img/UNIVAC_LARC-BRL61-0959.jpg")
+background-size:contain
+background-position:top
+
+
+.footnote[UNIVAC LARC, 1961]
+
+
+---
+#The origins of digitalization
+
+The enormous advances in digital technology, such as the exponential growth 
+in computational power and storage, and the vast improvements in network
+technologies are have one single origin:
+
+--
+
+.center[
+####__Miniaturization__ 
+]
+
+It doesn't take a genius today to explain how things have evolved from 1960 to 2000,
+but it is breathtaking to which extent a genius already foresaw most of it back then:
+
+In December 1959, physicist [Richard Philips Feynman](https://en.wikipedia.org/wiki/Richard_Feynman) gave a talk at Caltech
+with the title __"There is plenty of room at the bottom__". You can find the PDF 
+transcript [here]( http://resolver.caltech.edu/CaltechES:23.5.1960Bottom). Read it.
+It's nothing short of impressive (and Feynman is a very entertaining narrator).
+
+One could call this a _visionary idea_ that outlined the foundations of
+the science of nanotechnology. Surprisingly, most historians agree that
+Feynman's talk was not particularly influential at its time
+(even though Feynman soon became famous as he shared the 1965 Nobel Price in Physics), but in hindsight the relevance of these thoughts becomes clear.
+
+---
+
+# "There is plenty of room at the bottom"
+### (Richard Feynman)
+
+
+&gt; _"Why cannot we write the entire 24 volumes of the Enyclopaedia Brittannica on the head of a pin?"_  [...]
+
+--
+
+Feynman goes on to explain that, in principle, one could do so comfortably if one
+were to have access to a technology to produce dots just about 100 atoms small.
+And one could do more:
+
+&gt; _"...computing machines [...]: Why can't we make them very small, 
+make them of little wires, little elements - and by little I mean **little**:
+For instance, the wires should be 10 or 100 atoms in diameter..."_
+
+&gt; _"...information cannot go any faster than the speed of light. So,
+ultimately, when our computers get faster and faster and more elaborate, we will
+have to make them smaller and smaller. But there is plenty of room to 
+make them smaller."_
+ 
+ 
+ 
+
+---
+# A half century long journey to the bottom
+
+.pull-left[ 
+
+Process  | Year
+---------|-------
+    10 µm | 1971
+    6 µm | 1974
+    3 µm | 1977
+    1.5 µm | 1981
+    1 µm | 1984
+    800 nm | 1987
+    600 nm | 1990
+    350 nm | 1994
+    250 nm | 1996
+    180 nm | 1999
+]
+
+.pull-right[
+  
+Process  | Year
+---------|-------
+   130 nm | 2001
+    90 nm | 2003
+    65 nm | 2005
+    45 nm | 2007
+    32 nm | 2009
+    22 nm | 2012
+    14 nm | 2014
+    10 nm | 2016
+    7 nm | 2018
+    5 nm | ?
+] &lt;br&gt;
+
+In silicon, crystal nearest neighbor distance between atoms is 0.235 nm, and adverse quantum effects become dominant around 1nm.&lt;/br&gt;
+**Conclusion:** we're not at the bottom yet, but not far away from it either.
+
+
+---
+class: center, middle
+
+![Moores Law](img/moores_law_transistor_count.png)
+
+---
+#First long-term trend: Moore's Law
+
+Each round of miniaturization has been giving us as a free "miniaturization dividend", in line with [Moore's Law](https://en.wikipedia.org/wiki/Moore%27s_law) that the number of IC transistors doubles every 2 years:
+  * shorter electric paths for the same money, and therefore
+  * **faster computation**,
+  * and more transistors, therefore more complex chips.
+  
+Faster and more complex microchips in turn... 
+  * **lower the cost of memory and solid state storage**
+  * **enable faster and more efficient signal processing to grow network capacity** 
+
+
+Nothing of this is news. We're so used to it. Just remember, this "miniaturization dividend"
+that we've been receiving for nearly 50 years is no perpetuity. 
+
+---
+# Second long-term trend: Internet adoption
+
+.pull-left[
+![Tim Berners-Lee](img/tim-berners-lee.jpg)
+Tim Berners-Lee, 1994.  © CERN
+]
+
+.pull-right[
+Exponential decline in computing and storage cost, paired with growing network
+capacity, have enabled mass adoption of the internet. 
+
+The majority of today's internet users adopted the internet via smartphones,
+which essentially are low-cost, networked minicomputers.
+
+[48.6% of world 
+population](https://data.worldbank.org/indicator/IT.NET.USER.ZS) was using the internet in 2017, as compared to 20.4% in 2007.
+
+Consequences:
+  * exponential data growth
+  * __mobile first!__
+]
+
+---
+#Digital Disruption: The first wave
+
+
+
+Unsurprisingly, the vast improvements in informationt technololgy
+and the rapid adoption of the internet soon 
+made a number of business models obsolete. Which ones? 
+
+__Easy guess:__ Business models at _instant_ risk of disruption were those that
+entailed at their core value proposition 
+ * the delivery of information on physical media, or
+ * the forwarding or broadcasting of information.
+
+But many businesses had not even the slightest clue that _information_ was the business that they were in...
+---
+class: left, top, inverse
+background-size:cover
+background-image:url("img/record-player-1851576_1920.jpg")
+
+###Records industry thought that they were selling music... 
+
+--
+
+###...when in fact their business model comprised of selling
+#.magenta[information on physical media.]
+---
+class: center, middle
+
+[![RIAA Revenue statistics](img/revenues-by-format.png)](https://www.riaa.com/u-s-sales-database/)
+
+---
+class:top, inverse
+background-size:cover
+background-image:url("img/newspapers-444447_1920.jpg")
+###Publishers were thinking that they were selling quality journalism in paper form... 
+
+--
+
+###...when in fact their business model largely comprised of 
+#.magenta[broadcasting information.]
+
+---
+# U.S. Newspaper circulation
+
+![](Class01_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+
+.footnote[.right[[(Source)](https://www.journalism.org/fact-sheet/newspapers/)]]
+---
+# Print Media and Advertising Crisis
+
+It didn't help the traditional media at all that their advertising was, by nature of one-to-many media, not targeted:
+
+&gt; _"Half the money I spend on advertising is wasted;&lt;br&gt;
+&gt;  the trouble is I don't know which half."_ 
+&gt;  .right[John Wanamaker (1838-1922)]
+
+In contrast, a search engine like [Google](https://www.google.com) can provide targeted matching of advertisers with consumers.
+
+Unsurprisingly, advertising revenue of TV, radio and print media kept falling. 
+The traditional media business model got __disrupted__ by digitalization.
+
+---
+class: left, top, inverse
+background-color:#3b5998
+
+#&lt;i class="fa fa-facebook"&gt; &lt;/i&gt; 
+###Building on the many-to-many architecture of the internet, new social media emerged...
+
+--
+
+###...and soon Facebook could forecast better than anyone else what people really liked. Or whom.
+#&lt;i class="fa fa-thumbs-up"&gt;&lt;/i&gt; | &lt;i class="fa fa-thumbs-down"&gt;&lt;/i&gt;
+
+.footnote[The best part: social media users provided tons of personal data in exchange for &lt;i class="fa fa-thumbs-up"&gt;&lt;/i&gt;.]
+
+---
+# Third trend: Mobile Appification
+
+.left-column[
+
+![Apps](img/twitter-292994_1920.jpg)
+]
+.right-column[
+In 2007, the smartphone came into our life.
+This captivating new friend draws permanent attention because it is built to do that. 
+Three key innovations: 
+  * It dramatically reduces the burden involved in launching "quasi-webpages" in the form of specific internet-enabled mobile apps: it takes a a second to unlock, swipe, tap. Compare that to 3 minutes waiting for Windows Vista to boot.
+  * One can interact via the app from almost everywhere, because of near-complete data network coverage
+  * Its intuitive user interface features and push notifications make it an ideal deployment platform for [persuasive technologies](https://captology.stanford.edu/resources/thoughts-on-persuasive-technology.html). 
+  
+]
+.footnote[*Learn more about captology [here](https://captology.stanford.edu/resources/thoughts-on-persuasive-technology.html) and [here](http://captology.stanford.edu/wp-content/uploads/2014/10/Fogg-HCI2007.pdf).
+Psychologists have studied that stuff  really well. So have Silicon Valley firms. Most successful apps are using carefully orchestrated microsuasion elements: reminders, visualization, and praise.]
+---
+# Digital disruption: The second wave
+
+The prelude for the next round of disruption:
+ 1. Growing internet user base, more scope to exploit growing economies of scale!
+
+ 2. Growing information advantage of tech firms over other players in the economy.
+ 
+ 3. Growing willingness of users to lend their trust to internet technology if packaged as an app.
+
+In consequence, further business models are finding themselves 
+at risk of digital disruption, predominantly:
+
+ * Business models whose value creation depends on __knowing customer characteristics__ or enjoying __customer's trust__. In particular: __information-centric__ business models of __intermediation__.
+ * Business models built around the provision of services  
+   (not necessarily information-based) for which a __new, informed digital
+   intermediary can create substitutes__ of
+   better value proposition. 
+
+ 
+---
+class:inverse, top, left
+background-image:url("img/beach-1236581_1920.jpg")
+background-size:cover
+#Travel Agencies...
+--
+
+###are an excellent example of an information-centric intermediary. 
+
+&lt;br&gt;&lt;/br&gt;
+###They match your preferences with touristic services that are available on the market. With better information and increasing returns to scale, large internet platforms like Expedia disrupted small agencies.
+
+
+
+
+---
+class:inverse, left, top
+background-color: #FF5A5F
+
+###  You would never ring a stranger's door to crash in her (or his) place for the night...
+
+--
+
+#...unless you booked that via AirBnB.
+
+
+### (or a similar platform.)
+
+### AirBnB is a perfect example of an informed digital intermediary that brings two parties (host and guest) together and enables mutual trust. As a result, private homes have become viable substitutes for hotel services.
+
+
+
+
+---
+class:inverse, left, top
+background-color: #000000
+
+## Cab drivers can tell more extreme stories of digital intermediaries disrupting their business. 
+
+
+### Note that traditional cab callcenters were information intermediaries, and that one important innovation of Uber and Lyft was to create an easier-to-use, better informed and more powerful digital intermediary. To understand the actual progress just go abroad, and call a cab without speaking the local language.
+
+### Also recall that official cabs are means of trusted transportation, most countries impose extensive checks and licensing requirements on drivers. One may wonder how this trust came to be substituted by a trusted app that selects drivers with top ratings.
+---
+
+# The Sharing Economy
+
+ A particularly low-hanging fruit for new digital intermediaries 
+ was to address indivisibilities and create value by improving asset/service utilization via sharing them:
+ 
+  * a car has four passenger seats, even if just one is used
+  * business jets typically carry passengers only on one leg
+  
+You get the idea. 
+ 
+ This potentially disrupts older business models. Any situation in which an informed intermediary can help distribute
+some fixed cost on more shoulders enables the intermediary 
+to make a better offer than an incumbent who can't do that.
+
+ This has created what has coined the expression "the sharing economy".
+ Now we have ride sharing, car sharing, bike sharing, business jet sharing etc.
+
+---
+
+## Business models currently at risk of disruption
+
+Let's repeat one more time what I said before, and think again: 
+
+__Business models currently at risk of disruption are information-centric or trust-based business models of intermediation.__
+ 
+ &lt;br&gt;&lt;/br&gt;
+
+This begs the following question:
+---
+class: blackboard-slide, center, middle, inverse
+
+# What business model are banks in,
+# after all?
+
+---
+# Banks as informed intermediaries
+
+Banks are informed intermediaries -- this idea dates back at least to [Leland and Pyle (1977)](https://www2.bc.edu/thomas-chemmanur/phdfincorp/MF891%20papers/Leland%20and%20Pyle%201975.pdf). Read the last section
+of this classic paper, starting from the last paragraph of page 382. 
+
+Their insight: the bridging of informational asymmetries is a 
+key reason for financial intermediaries to exist.
+Pretty much all of the modern banking literature agrees with this
+view, and has adopted it. 
+
+We'll learn a lot more about financial 
+intermediation and asymmetric information next week. But for now,
+it suffices to know that information matters in banking. A lot.
+
+That prompts two interesting questions:
+  * Are banks at risk of disruption by digital intermediaries?
+  * If so, what (if anything) is preventing this from happening already?
+
+---
+# Almost forgotten core business: Payments
+
+ * One key function of bank deposits is: they can be used like money
+   to make payments.
+ * A certified check drawn on your checking account is 
+   practically as good as the green dollar bills themselves.
+ * Banks have become specialists in the payment business. 
+ * Regulation has helped to keep the circle of players in payment business
+   manageable: one needs a banking license to connect to core payment 
+   infrastructure
+   
+**Bold hypothesis:** one reason why banks haven't seen much disruption (yet) is because up to now they held a monopolistic position with respect
+to payments, which are a necessary ingredient to most financial 
+intermediation concepts.
+
+  
+---
+# The rare blessing of tough regulation
+
+ * A banking license is hard to come by. 
+ * It takes years of preparation to build a business from scratch
+   that can handle all the regulatory norms that banks are required
+   to comply with
+ * Next week we will learn more why banks are so tightly regulated, 
+   and why this normally is a good thing, even though banks tend to hate it.
+ * But tough regulation also creates really big
+   barriers to entry for new players. 
+ 
+**Second bold hypothesis:** Since banks are so tightly regulated and barriers to entry into full-fleged financial intermediation markets 
+are particularly high, they have so far enjoyed some protection from 
+disruptive digital innovation.
+
+
+If you think of developing a fully digital bank, be told: you [wouldn't be the first to try.](https://qz.com/1412089/elon-musk-had-a-radical-revolutionary-idea-for-finance-in-1999-its-finally-being-realized/) But the potential for success has never been as big as it is now.
+
+---
+class: center, middle, inverse
+background-image:url("img/lady-justice-2388500_1920.jpg")
+background-size:cover
+background-position:left
+
+
+# The innovation - regulation tradeoff
+
+---
+# Regulation or innovation?
+
+For quite some time, the debate in regulation was all about how to
+limit risk taking by intermediaries. This was clearly necessary. But
+more recently the tone has shifted:
+
+Regulators and legislators understand quite well that regulation offers a comfortable protection against disruptive innovators. They have been pushing banks to create the necessary space for innovations:
+   * In Europe, the European Payment Systems Directive 2 (PSD2) has just come into effect
+     __this month__. It requires banks to offer an API to all account and
+     payment functions that can be used by lightly regulated external
+     electronic intermediaries.
+   * Worldwide, regulators have remained exceptionally lenient as far as the regulation of cryptocurrencies and cryptoassets is concerned. There was substantial concern of choking a potentially promising new technology, even if leniency meant that fraudsters would have an easy life for a while.
+
+
+
+
+
+---
+class: center, middle, inverse
+background-image:url("img/san-francisco-1633202_1920.jpg")
+background-size:cover
+background-position:left
+
+
+
+
+#A glimpse at FinTech 
+
+---
+
+# "Old" FinTech
+
+Banks have not been averse to using technology as it provided huge
+cost saving opportunities.
+
+ * They were among the first industries to adopt computers and use them for account processing
+ * Many banks were quite quick in deploying internet banking, i.e. making their existing business functions accessible via a website. 
+
+In this context, __FinTech__ used to be the word to refer to the technical
+financial market infrastructure that was running the show: SWIFT etc. 
+
+It was (and remains) a tool for the production, not the disruption, of standard banking services.
+
+
+---
+# The Emergence of FinTech
+
+When people today refer to _FinTech_, they tend to think of innovative 
+and potentially disruptive developments by tech firms that are beginning
+to substitute some of the service of classic players in Finance.
+
+Successful early entrants have evaded excessive regulation by choosing narrow subfields:
+
+* for example, [TransferWise](https://transferwise.com/) has focused 
+  exclusively on electronic transfers abroad that are subject to
+  currency exchange. The simple idea is that for nearly every payment
+  going abroad, there's one coming from there. By holding accounts
+  in both currencies, TransferWise can net out a huge portion of
+  the flow that would normally go via foreign exchange. For
+  customers, sending money abroad gets cheaper; banks lose 
+  valuable fee income. 
+  
+
+---
+
+# FinTech today
+
+ * In 2019 alone $55 billion have been invested in FinTech firms worldwide.
+
+ * Firms like [Revolut](https://www.revolut.com) and [N26](https://www.n26.com) are at the verge of having 
+successful banking apps that could disrupt banking.
+ 
+ * Tech comes first at all of these new players. They hire more machine learning engineers than bankers with tie.
+ 
+ * **The big picture:** things have started moving a lot, and they likely will disrupt the existing world of finance.
+ 
+ * **The details:** we'll learn about many of these players, their strategies and problems as this class proceeds.
+
+---
+# Blockchain minus Hype
+
+Closely tied to the "new" FinTech is the rapid evolution of Blockchains
+like [Bitcoin](https://bitcoin.org), [Ethereum](https://www.ethereum.org), [Libra](https://www.libra.org) and digital ledgers like [Hyperledger](https://www.hyperledger.org).
+
+Blockchains have also enabled a new form of fundraising, ICOs -- we'll
+look at them later, but be told that there's a lot of hype.
+
+Despite all the hype, I believe that there is at least
+one fundamental aspect in blockchain that will prove of long-term
+significance. It has the ability to shake the core foundations of our 
+existing financial intermediation industry:
+
+Blockchain is the first technology that can provide a network in
+which __rights__ of any kind can be electronically assigned: 
+property rights, control rights, ownership of financial assets.
+Payments is one important, but maybe not even the most important, application of this principle.
+
+We will hear much more in this course about Blockchain, and we'll get our hands dirty with code such that we can truly understand its potentials and issues. 
+
+
+
+---
+class: center, middle, inverse
+background-image:url("img/giraffes-627031_1920.jpg")
+background-size:cover
+background-position:center
+
+# Discussion 
+ 
+---
+
+
+class: center, middle
+
+# Thanks!
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
