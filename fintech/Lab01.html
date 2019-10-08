@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsbalab.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lab 1: Computing for Financial Applications
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-09-10 (updated: 2019-10-01)
+
+---
+
+class: inverse, left, blackboard-slide
+
+#A Linux computing environment
+###| Linux in a VirtualBox
+###| Bourne Again Shell (bash) essentials 
+###| Working remotely with ssh
+
+---
+#Why we will work in a Linux environment
+
+* In data science, one uses a lot of open source software: Python, R, Apache Spark, etc., which is much more readily installed in a Linux or macOS environment.
+
+* For blockchain, this is even more true.
+
+* UNIX environments like Linux have remained remarkably backwards-compatible over time. Skills that one has learned 30 years ago work almost without modification today. Get that, Windows.
+
+* UNIX environments allow much more fine-grained control over network and web applications.
+
+* The downside is that there's a bit of a learning curve, but nothing too terrible.
+
+* If you are already familiar with a Linux environment, there will be no news for you today. Today we just help everyone to get things set up and become familiar with the system.
+
+---
+#Getting started
+
+__Linux users:__
+
+Relax and grab a coffee. I trust you can handle your system. Not much news for you today.
+
+__Windows users:__
+
+Get [VirtualBox](https://www.virtualbox.org) from www.virtualbox.org. Run the installer.
+
+
+__MacOS users:__
+
+MacOS runs on top of a BSD Unix, not Linux. This means that most, but not all things will work for you as they do for the Linux users. I nevertheless recommend that you additionally set up Linux using [VirtualBox](https://www.virtualbox.org) for Mac. To install it, either use the link above, or install [homebrew](https://brew.sh) and let homebrew install it for you by typing into the terminal:
+
+```terminal
+brew cask install virtualbox
+```
+---
+#VirtualBox
+
+VirtualBox is a virtual machine emulator. It allows you to run a PC inside of your Windows or Mac environment. One advantage of using such virtualization is that you can tinker around with the emulated Linux machine without risking to do any harm to your data. If something goes wrong, you always start over from scratch in a matter of minutes.
+Here is the link for your machine image. The file is 7 GB large!
+
+http://85.214.42.163:/vm/bionic-1804.vmdk (from internet worldwide) 
+
+http://10.1.104.123/vm/bionic-1804.vmdk (on Bocconi-eventi WiFi only)
+
+---
+#Setting up your machine
+
+In VirtualBox, create a new machine with at least 2GB memory and at least 64 MB video memory (or things won't work). As type, select 64 bit Ububuntu Linux. As a hard drive file, add the `vmdk` file that you downloaded. Now you have a Linux machine. You can start it.
+
+
+You username account on the machine is: `fintech` 
+
+Your password* is: `20598`
+
+.pull-left[![VirtualBox screenshot](img/VirtualBox_bionic-1804_11_09_2019_19_13_16.png)]
+.pull-right[.footnote[*The only reason why we can afford using a weak password here is because we are playing on a sandbox machine that's not directly connected to the internet. If you run a real server that is accessible from the outside internet, be prepared that hackers will try several password guesses per second.]]
+
+---
+#Installing the guest additions
+Now we will install software to improve communication between the host operating system (your machine's OS) and the virtual Linux machine in VirtualBox: 
+
+.pull-left[![Image](img/VirtualBox_bionic-1804_11_09_2019_19_29_19.png)]
+.pull-right[In the menu of VirtualBox, select Devices-&gt;Insert guest additions CD image...
+
+Run the program, and insert your password `20598` when prompted. This will install the guest additions. Then reboot.]
+
+
+
+---
+#Troubleshooting
+
+__Common problems:__
+
+* _VirtualBox only offers me 32 bit virtualization options, no 64 bit!_
+
+ Solution: Reboot your computer, and enable the processor's virtualization  capabilities (VT-X or similar) in the BIOS.
+
+
+* _The screen of the VM turns black at times and everything stops reacting._
+
+ Solution: Verify that you have indeed given the virtual machine at least 2GB RAM and 64 MB video memory.
+
+* _The screen of the VM is tiny small. I can't see a thing!_
+
+ Solution: Click on the little screen icon on the bottom of the  virtualization window, and select the "Scale to 200%" option. Then install the guest additions as described to be able to resize your display.
+
+* _The keyboard layout is different from that of my laptop._
+
+ Solution: use Settings-&gt;Region &amp; Language to change the layout.
+ 
+---
+class:inverse, center, middle
+# Exploring your new machine
+---
+Your Linux system comes with a filesystem which has the following directory structure at the very top level:
+
+.small[
+```text
+├── bin   Essential command binaries
+├── boot  Static files of the boot loader
+├── dev   Device files
+├── etc   Host-specific system configuration
+├── home  User home directories
+├── lib   Essential shared libraries and kernel modules
+├── media Mount point for removeable media
+├── mnt   Mount point for mounting a filesystem temporarily
+├── opt   Add-on application software packages
+├── proc  Mapping of Linux kernel internals
+├── root  root user home directory
+├── sbin  Essential system binaries
+├── srv   Data for services provided by this system
+├── sys   Mapping of Linux kernel internals
+├── tmp   Temporary files
+├── usr   Secondary hierarchy
+└── var   Variable data
+```]
+
+You can (for now) ignore most of this structure. Your own files are all going to go to `/home/fintech/` and its subdirectories.
+
+---
+#bash
+
+Open a terminal. You will see an input prompt like this:
+.small[```terminal
+fintech@dsba:/$
+```]
+This means that you are user "fintech" on machine dsba, and the Bourne Again Shell
+(bash) is waiting for instructions.
+
+To see which directory you are in, type `pwd` (print working directory):
+
+.small[```terminal
+fintech@dsba:~$ pwd
+/home/fintech
+```]
+
+---
+#ls
+The command `ls` lists the files in the current working directory. 
+
+Use the option `ls - l` to show extended file information:
+
+.small[```terminal  
+fintech@dsba:~$ ls -l
+total 36
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Desktop
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Documents
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Downloads
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Music
+-rw-r--r-- 1 fintech fintech 641 set 10 00:37 packages.microsoft.gpg drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Pictures
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Public
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Templates
+drwxr-xr-x 2 fintech fintech 4096 set 10 00:08 Videos
+```
+]
+
+---
+#ls (cont.)
+
+For example, this says that the file shown as
+.small[
+```text
+-rw-r--r-- 1 fintech fintech 641 set 10 00:37 packages.microsoft.gpg
+```]
+has a size of 641 bytes, was created Sept 10 at 00:37, is owned by the user "fintech" and belongs to group "fintech".
+
+Its permission code is `-rw-r--r--`
+which means that its
+owner can read and write; group members can read, and all others can read it.
+
+# rm
+Let's now erase the file:
+```terminal
+fintech@dsba:~$ rm packages.microsoft.gpg
+```
+
+---
+#cd
+
+Let's change directory:
+.small[```terminal
+fintech@dsba:~$ cd Documents
+fintech@dsba:~/Documents$ ls
+```]
+It's empty.
+Return to the previous user directory: The link ".." gets you one level up.
+.small[```terminal
+fintech@dsba:~/Documents$ cd .. 
+fintech@dsba:~$
+```]
+
+Try again entering the Documents directory, but type only cd Doc⇥ As you hit the tab key, the shell's tab completion completes the filename. When there are several files starting with the given text, it doesn't work. Hit tab twice to see your choices:
+.small[
+```terminal
+fintech@dsba:~$ cd D
+Desktop/ Documents/ Downloads/
+```]
+---
+#mkdir
+
+Let's create a new directory.
+.small[
+```terminal
+fintech@dsba:~$ mkdir helloworld
+fintech@dsba:~$ ls
+Desktop Downloads Music Pictures Templates Documents helloworld packages.microsoft.gpg Public Videos
+```]
+---
+#cp
+
+Now, let's enter this directory, and copy the file `packages.microsoft.gpg` from the directory above:
+ 
+.small[
+```terminal
+fintech@dsba:~$ cd helloworld
+fintech@dsba:~/helloworld$ cp -av ../packages.microsoft.gpg . '../packages.microsoft.gpg' -&gt; './packages.microsoft.gpg'
+```]
+
+.small[
+```terminal
+fintech@dsba:~/helloworld$ ls -la
+total 12
+drwxr-xr-x 2 fintech fintech 4096 set 12 09:06 .
+drwxr-xr-x 19 fintech fintech 4096 set 12 09:06 ..
+-rw-r--r-- 1 fintech fintech 9 set 12 09:05 packages.microsoft.gpg
+```]
+
+Note how we use '..' to refer to the directory that is one level up, and '.' to the directory that we are currently in. You can see them even listed in the `ls -la` list of files.
+
+Now return to your home directory. It is abbreviated by character `~` .
+
+.small[
+```terminal
+fintech@dsba:~/helloworld$ cd ~
+```]
+
+---
+#rmdir vs. rm
+
+The just created directory can not be erased with 
+```terminal
+fintech@dsba:~$ rmdir helloworld
+rmdir: failed to remove 'helloworld': Directory not empty.
+```
+
+For your safety, `rmdir` works only for empty directories. To erase a non-empty directory, use
+```terminal
+fintech@dsba:~$ rm -r helloworld
+```
+and it will be gone.
+
+__Caution:__ what is erased with `rm` will not come back. There is no Recycle Bin.
+
+---
+#Hidden files
+
+There are more files in your home directory than you can see. Some are hidden, they start with `.`. To see them all, combine `ls` with the option `-a`:
+.small[
+```terminal
+fintech@dsba:~$ ls -la
+total 31816
+drwxr-xr-x 22 fintech fintech     4096 ott  1 15:15 .
+drwxr-xr-x  3 root    root        4096 set 10 00:02 ..
+-rw-------  1 fintech fintech     1909 set 11 23:17 .bash_history
+-rw-r--r--  1 fintech fintech      220 set 10 00:02 .bash_logout
+-rw-r--r--  1 fintech fintech     3771 set 10 00:02 .bashrc
+drwx------ 15 fintech fintech     4096 set 24 09:45 .cache
+drwx------ 15 fintech fintech     4096 set 11 17:57 .config
+drwxr-xr-x  2 fintech fintech     4096 set 10 00:08 Desktop
+drwxr-xr-x  2 fintech fintech     4096 set 26 13:02 Documents
+drwxr-xr-x  2 fintech fintech     4096 set 10 00:08 Downloads
+drwx------  3 fintech fintech     4096 set 11 19:37 .gnupg
+drwxr-xr-x  5 fintech fintech     4096 set 26 11:16 .ipython
+drwx------  3 fintech fintech     4096 set 10 00:08 .local
+drwx------  5 fintech fintech     4096 set 10 00:35 .mozilla
+drwxr-xr-x  2 fintech fintech     4096 set 10 00:08 Music
+
+```]
+
+---
+#cat
+
+To print the content of a file, use `cat`. For example, we can use it to dump the content of `/proc/version` to the screen which allows us to see the version of the currently
+running system kernel:
+
+.small[
+```terminal
+fintech@dsba:~$ cat /proc/version
+Linux version 5.0.0-27-generic (buildd@lgw01-amd64-031) 
+(gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) 
+#28~18.04.1-Ubuntu SMP Thu Aug 22 03:00:32 UTC 2019
+```]
+   
+---
+#tail
+To print just the first lines, one can use `head`, whereas `tail` prints the last lines of a file. Let's print the last three lines of the system log which keeps the system's internal warning and status messages:
+
+.small[```terminal
+fintech@dsba:~$ tail /var/log/syslog -n 3
+Oct  1 15:15:54 dsba gsd-color[1561]: unable to get EDID for xrandr-Virtual1: unable to get EDID for output
+Oct  1 15:15:54 dsba gsd-color[1561]: message repeated 2 times: [ unable to get EDID for xrandr-Virtual1: unable to get EDID for output]
+Oct  1 15:17:01 dsba CRON[2734]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+
+```]
+
+#echo
+To print something on the screen, use `echo`:
+ 
+```terminal
+fintech@dsba:~$ echo Hello, world! 
+Hello, world!
+```
+---
+#Repeating commands
+You can repeat a previous command by using the ! operator and typing the first letters that identify it:
+
+.small[
+```terminal
+fintech@dsba:~$ !tail
+tail -n 3 /var/log/syslog
+Oct  1 15:15:54 dsba gsd-color[1561]: unable to get EDID for xrandr-Virtual1: unable to get EDID for output
+Oct  1 15:15:54 dsba gsd-color[1561]: message repeated 2 times: [ unable to get EDID for xrandr-Virtual1: unable to get EDID for output]
+Oct  1 15:17:01 dsba CRON[2734]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+fintech@dsba:~$ !ta
+tail -n 3 /var/log/syslog
+Oct  1 15:15:54 dsba gsd-color[1561]: unable to get EDID for xrandr-Virtual1: unable to get EDID for output
+Oct  1 15:15:54 dsba gsd-color[1561]: message repeated 2 times: [ unable to get EDID for xrandr-Virtual1: unable to get EDID for output]
+Oct  1 15:17:01 dsba CRON[2734]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+```]
+
+Of course, you can also just the up and down arrow keys to repeat previous commands.
+---
+#History
+By default, the shell keeps a history of recent commands and allows you to e.g. re-run the 6-th command by typing `!6`:
+
+```terminal
+fintech@dsba:~$ history 1 clear
+2 ls
+3 whoami
+4 cd..
+5 du-sh*
+6 gcc
+7 sudo apt install gcc autotools-dev 8 python
+9 python3
+10 sudo apt-get install python3-all
+11 sudo apt-get install python3-flask
+12 sudo apt-get install python3-lxml
+13 sudo apt-get install python3-scipy python3-numpy 14 sudo apt-get search visual
+15 sudo apt search visual
+16 sudo apt-get install npm
+17 ls
+18 clear
+19 ls
+20 sudo apt-get install htop
+21 htop
+```
+
+---
+
+#Combining commands: pipes
+It's likely that you could only see last lines of the previous command output since everything scrolled away so fast. But the real power of UNIX comes from the fact that its commands can be combined with each other in non-trivial ways.
+
+Each command reads from stdin and writes to `stdout`, which will be written to the terminal only if there is nothing else specified. You can, however, use the __pipe
+operator__ '|' to redirect the `stdout` output of one command to become `stdin` input of another.
+
+For example, the `more` command reads from `stdin` and stops after every page, waiting for space key before to show the next page, or enter to show the next line. This makes long output human readable: try
+```terminal
+fintech@dsba:~$ history | more
+```
+
+---
+#Redirecting program output
+You can also redirect all output that is written to `stdout` into a file: for example,
+ 
+.small[```terminal
+fintech@dsba:~$ ls -l &gt; myfiles.list
+fintech@dsba:~$ cat myfiles.list 
+total 31712
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Desktop
+drwxr-xr-x 2 fintech fintech     4096 set 26 13:02 Documents
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Downloads
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Music
+-rw-r--r-- 1 fintech fintech        0 ott  1 15:27 myfiles.list
+-rw-r--r-- 1 fintech fintech        9 set 12 09:05 packages.microsoft.gpg
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Pictures
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Public
+-rw-r--r-- 1 fintech fintech     3831 set 12 12:25 sample.tgz
+drwxr-xr-x 6 fintech fintech     4096 set 12 12:15 somecode
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Templates
+drwxr-xr-x 2 fintech fintech     4096 set 10 00:08 Videos
+
+```
+]
+  The `&gt;` operator overwrites the destination file, `&gt;&gt;` instead appends it.
+
+---
+#Interrupting, to background, resuming
+To interrupt a command while it is running (e.g., `wget` download): Ctrl+C .
+
+You can also stop the execution of a command: Ctrl+Z.
+
+To demonstrate this, let's
+download a big file with `wget` (a great command that can also resume stopped downloads or scrape entire websites):
+.small[```terminal
+fintech@dsba:~$ wget https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi
+--2019-10-01 15:31:36--  https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi
+Resolving download.blender.org (download.blender.org)... 82.94.213.221
+Connecting to download.blender.org (download.blender.org)|82.94.213.221|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 220514438 (210M) [video/x-msvideo]
+Saving to: ‘big_buck_bunny_480p_surround-fix.avi’
+
+buck_bunny_480p_sur  0%[         ] 195,70K  16,1KB/s  eta 3h 42m ^Z
+[1]+  Stopped                 wget https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi
+fintech@dsba:~$ 
+```]
+
+How can we resume it?
+
+---
+#In the background (cont.)
+You can resume it in the foreground (just as before) with `fg`, or you can put it to work in the background with `bg`:
+
+```terminal
+fintech@dsba:~$ bg
+[1]+ wget https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi &amp;
+Redirecting output to ‘wget-log’.
+```
+Its output will be redirected to `wget-log`.
+You can also execute a command directly in the background by executing a command followed by the ampersand (&amp;) operator:
+
+.small[
+```terminal
+fintech@dsba:~$ wget http://85.214.42.163/code/sample.tgz &amp; 
+```]
+
+To list what's running in the background, say
+.small[
+```terminal
+fintech@dsba:~$ jobs
+[1]+  Running                 wget https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi &amp;
+```]
+---
+#Seeing what is running
+Most systems have `top` installed, which is a small program that can show you a real-time screen of what is currently running on your machine. Hit __q__ to exit.
+![screenshot](img/VirtualBox_bionic-1804_12_09_2019_09_34_33.png)
+---
+#Parent and child processes
+Something you need to know is that UNIX allows any process to live at most as long as the process that started it; it will be destroyed automatically once the parent process ends. Every background process started by the shell is therefore a child process of the shell.
+
+Close the terminal window, and they all get killed.
+
+If you want to avoid that, you can decouple a process from its parent using the `nohup`
+command:
+```terminal
+fintech@dsba:~$ nohup wget http://85.214.42.163/code/sample.tgz &amp;
+```
+
+This is especially useful if you're starting a long-running task on a server, because otherwise your task will get killed in the very moment in which you log out (or your connection is interrupted).
+---
+class:center,middle,inverse
+#Installing and running software
+
+---
+#Become root with sudo
+Operations that change the installed system require administrator privileges. The
+command `sudo` ("superuser do") lets you temporarily acquire administrator privileges. Of course, this won't work on just any Linux machine, only on one (like your
+virtualbox machine) where the admin has included you in the `sudoers` user list).
+
+You will need to re-type your password to run in superuser mode whenever `sudo` hasn't been used in the previous minutes. This helps to to ensure that nobody who hijacks an unattended computer of a `sudoer` gets easy access to admin privileges.
+
+Use `sudo` wisely. With great power comes great responsability.
+---
+#Finding a package
+
+Under Ubuntu (and any Debian-derived distribution), the catalog of installable software is built-in and managed by `apt`. Assume you would want to install the
+`xbill` game. You can search for the package as follows:
+
+.small[
+```terminal  
+fintech@dsba:~$ apt search xbill
+Sorting... Done
+Full Text Search... Done
+xbill/bionic 2.1-8ubuntu2 amd64
+  Get rid of those Wingdows Viruses!
+```]
+ We're not going to install the `xbill` game, though. It's tasteless, and we need something else. Note that for querying the software catalog, no admin privilege is needed.
+---
+#Keeping the software catalog up to date
+Before we install any software, it is a good idea to bring the software catalog up to date. This, however, requires admin privileges. If you forget to use sudo , you won't be told
+about it, but you will find many complaints about denied permissions. That's your hint:
+.small[
+```terminal
+fintech@dsba:~$ apt-get update
+Reading package lists... Done
+E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+E: Unable to lock directory /var/lib/apt/lists/
+W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)
+W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)
+```]
+
+Write instead
+.small[
+```terminal
+fintech@dsba:~$ sudo apt-get update 
+```]
+and all will go well.
+---
+#Package installation with apt
+We need version control. Let's use `apt` to install `git`:
+
+.small[```terminal
+fintech@dsba:~$ sudo apt-get install git 
+[sudo] password for fintech:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+git-man liberror-perl Suggested packages:
+git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk
+gitweb git-cvs git-mediawiki git-svn
+The following NEW packages will be installed:
+git git-man liberror-perl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 4.733 kB of archives.
+After this operation, 33,9 MB of additional disk space will be used. Do you want to continue? [Y/n]
+```]
+Type "Y" and the download and installation will complete. This works for _Debian_-based systems like Ubuntu. Fedora, Arch Linux etc have other tools.
+---
+#Un-taring tar archives
+
+Under UNIX, nobody uses `zip`, all use `ta` (__t__ape __ar__chiver). Its name originates from magnetic backup tape that was used long ago. Let's unpack the file that we
+downloaded. It's a `.tgz` file which is short for `tar.gz`, so it is a tar file that was compressed with `gzip`. Either use
+.small[```terminal
+fintech@dsba:~$ gunzip sample.tgz 
+fintech@dsba:~$ tar -xvf sample.tar
+```]
+
+or, even shorter, add the `-z` option to run the input of tar first via `gunzip`: 
+.small[```terminal
+fintech@dsba:~$ tar -xvzf sample.tgz
+```]
+
+---
+#Installing software that's not in the catalog
+
+Installing software that is not in the Ubuntu software catalog ALWAYS presents a security risk. Don't just add a `ppa` (third party software catalog amendment) to your software sources without thinking twice, and DON'T install / compile any code that you don't fully trust. Especially not when it needs superuser rights.
+That said, we often need code that is not in the software catalog of Ubuntu. To install, follow the instructions on the provider page. They may provide pre-built binaries in
+`.deb` packages (convenient, use `dpkg`) or they may let you build everything yourself from source.
+
+In the latter case, you likely need the compilers `gcc`, `g++` and possibly even `gfortran` (especially for numerical codes) installed, plus automake , autoconf and `cmake` are often required as well. Invoke the instructions and pray that it works.
+
+---
+
+#Building from source failed. Why?
+* Did you read carefully the list of dependencies? Are all required libraries installed? Did you also install the header files that belong to them, which are
+contained in the packages ending in `-dev` , e.g. `libssh-dev`? If you don't have this, your errors will be about undefined functions or classes, or missing
+`whatever.h` files.
+* Did you carefully follow the steps in the INSTALL document?
+* If the problem involves `ld` (the linker), it is quite likely that some required libraries were not found. Check your linker path settings.
+Sometimes you need more recent versions of the libraries that the build depends on. Try different versions.
+* Sometimes (but rarely), the compiler version is no good for you. Check that the compiler version (`gcc` , `gfortran` , `g++` , or `clang`) is the right one your code.
+Both too old and too young can be a problem, especially when linking with other libraries that were compiled with a specific compiler version. Mature stable systems like Debian or CentOS run into this issue more often.
+* As a last possibility, the package may just be broken. This usually only happens with pre-production code.
+
+Patience is key. Everyone has spent a day trying to get a package to compile.
+
+---
+#More as we go...
+Getting comfortable on a Linux terminal simply takes time. We will learn more things about it every day as we use it.
+
+Please try to use the terminal as much as possible: graphical tools won't help you at all when you're accessing a machine that is not local (e.g., the DBSA compute server), and
+that will be a situation that you will encounter increasingly often. Make `bash` your friend now. It will stay your friend for life.
+
+A useful cheat sheet of relevant commands can be found [here](https://files.fosswire.com/2007/08/fwunixref.pdf).
+Whichever question you have, feel free to [ask](mailto:silvio.petriconi@unibocconi.it). But don't forget that sites like [stackoverflow.com](https://stackoverflow.com) or forums of the software that you're looking to use may hold the answer already and is just one [Google search](https://www.google.com) away.
+
+---
+class:center,middle,inverse
+
+# Working remotely via ssh
+
+---
+#ssh
+To log into a remote server securely, we use `ssh` (__s__ecure __sh__ell). Let's log into the DSBA server (works only from Bocconi-eventi WiFi or VPN):
+
+.small[```terminal
+fintech@dsba:~$ ssh petriconi@dsba.sm.unibocconi.it
+The authenticity of host 'dsba.sm.unibocconi.it (10.1.1.191)' can't be established.
+ECDSA key fingerprint is SHA256:IsIJ9EY0q6M2/URET4LN86aOcsXuAz/u4EB24c87DgA.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'dsba.sm.unibocconi.it,10.1.1.191' (ECDSA) to the list of known hosts.
+petriconi@dsba.sm.unibocconi.it's password:
+Last login: Tue Sep 10 09:32:19 2019 from 10.6.192.18
+[petriconi@dsba ~]$
+```]
+
+The warning is shown only the first time, but it's important. You never know that the server you're trying to log into (and to which you're sending your password) is the right machine, unless you compare the ECDSA fingerprint.
+
+For all future logins, ssh will compare the fingerprint versus what it has saved in
+`.ssh/known_hosts`. It will not proceed when there's no match because a man-in-the- middle attacker may be attempting to steal your password.
+
+---
+#Passwordless ssh
+
+It is cumbersome to always log into a server by password. Let's automate this. Let's first create a public-private ssh key pair __with__ a passphrase:
+
+.small[```terminal
+fintech@dsba:~$ ssh-keygen -t ed25519
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/fintech/.ssh/id_ed25519): Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/fintech/.ssh/id_ed25519. Your public key has been saved in /home/fintech/.ssh/id_ed25519.pub. The key fingerprint is: SHA256:hwtIOJtzBXZNNRwVmdM4NJhTPWAC3LmzysqYd3W0D20 fintech@dsba
+The key's randomart image is:
++--[ED25519 256]--+
+|    o .+o==OOO   |
+|   o o  o B+*.+  |
+|  o . .    o o . |
+|   = o   .o .    |
+|  + o . S .+ o   |
+|   o   . oo + E  |
+|       ..o . +   |
+|     +. +     .  |
+|    o.oo         |
++----[SHA256]-----+
+```]
+---
+#Copying the public key to the server
+.small[
+```terminal
+fintech@dsba:~$ ssh-copy-id -i ~/.ssh/id_ed25519.pub petriconi@dsba.sm.unibocconi.it
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/fintech /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- 1 key(s) remain to be installed – if you are prompted now it is to install the new keys
+petriconi@dsba.sm.unibocconi.it's password:
+
+Number of key(s) added: 1
+```]
+Now try logging into the machine:
+```terminal
+fintech@dsba:~$ ssh petriconi@dsba.sm.unibocconi.it
+```
+You will be prompted for the password __of your key__ (instead of the password of the machine). You can tell Ubuntu to store that password in the keyring, and you're good forever.
+
+__Note:__ `ssh-keygen` also allows creation of passwordless keys, but whoever copies your key file has access to your machine. That is __unsafe__.
+---
+#Creating an alias
+
+To avoid typing the DSBA server name all the time, we create an alias for it:
+```
+fintech@dsba:~$ nano ~/.ssh/config
+```
+Use the editor `nano` to write the following into the file and save with `Ctrl+O`.
+```text
+Host moe
+  HostName dsba.sm.unibocconi.it
+  User petriconi # REPLACE BY YOUR USERNAME 
+  PreferredAuthentications publickey
+```
+Now you can say `moe` instead of `petriconi@dsba.sm.unibocconi.it`.
+---
+#Copying files to a remote ssh server
+To copy a file onto the DSBA server, use scp (secure copy):
+.small[```terminal
+fintech@dsba:~$ scp sample.tgz moe:~
+sample.tgz                                  100% 3831   343.7KB/s   00:00 
+
+fintech@dsba:~$ ssh moe
+Last login: Tue Oct  1 16:13:57 2019 from 10.6.192.14
+(base) [petriconi@dsba ~]$ ls -l
+total 28
+-rw-r--r-- 1 petriconi users  3831  1 ott 16.27 sample.tgz
+```]
+
+Leave the server again by pressing `Ctrl+D` or typing `exit`.
+
+Recall that when using the option `-r` ("recursive"), `scp -r` allows you to copy entire
+directories including all subdirectories.
+
+&lt;br&gt;&lt;br&gt;
+
+_That's it, now you can go to the beach and do your work from there with your legs (but not the laptop) in the water._
+---
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="enable-console.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "monokai",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"afterInit": "mongo.js"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
