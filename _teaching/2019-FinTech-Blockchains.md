@@ -15,4 +15,4 @@ This is a hands-on introduction to FinTech and Blockchains for future data scien
  * enable students to run their first project of their own and explore creatively.
  * develop the necessary coding skills on the side.
 
-The course is taught as a mix of lectures and lab sessions which teach applied, more technical skills. The results of the midterm student evaluation can be found [here](https://silviopetriconi.github.io/files/20598_DSBA_2019_midterm_eval.pdf).
+The course is taught as a mix of lectures and lab sessions which teach applied, more technical skills. 
