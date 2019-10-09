@@ -21,12 +21,14 @@ The course is taught as a mix of lectures and lab sessions which teach applied, 
 
 Below you can find links to the lecture slides. Any feedback is welcome.
 
-| Lecture                                                      | Description                                     |
-| ------------------------------------------------------------ | ----------------------------------------------- |
-| [Lecture 01](https://silviopetriconi.github.io/fintech/Class01) | Introduction to FinTech                         |
-| [Lecture 02](https://silviopetriconi.github.io/fintech/Class02) | Financial Intermediation                        |
-| [Lecture 03](https://silviopetriconi.github.io/fintech/Class03.html) | Payment Technology // Foundations of Blockchain |
-| [Lecture 04](https://silviopetriconi.github.io/fintech/Class04.html) | Bitcoin                                         |
-|                                                              |                                                 |
-|                                                              |                                                 |
+| Lecture                                                      | Description                                     | LAB                                                       | DESCRIPTION                             |
+| ------------------------------------------------------------ | ----------------------------------------------- | --------------------------------------------------------- | --------------------------------------- |
+| [Lecture 01](https://silviopetriconi.github.io/fintech/Class01) | Syllabus // Introduction to FinTech             | [Lab 01](https://silviopetriconi.github.io/fintech/Lab01) | Computing for Financial Applications    |
+| [Lecture 02](https://silviopetriconi.github.io/fintech/Class02) | Financial Intermediation                        | Lab 02                                                    | Setting up the environment (cont.)      |
+| [Lecture 03](https://silviopetriconi.github.io/fintech/Class03.html) | Payment Technology // Foundations of Blockchain | Lab 03                                                    | Binary Representations and Merkle Trees |
+| [Lecture 04](https://silviopetriconi.github.io/fintech/Class04.html) | Blockchain: Bitcoin                             | [Lab 04](https://silviopetriconi.github.io/fintech/Lab04) | Setting up Bitcoin                      |
+| Lecture 05                                                   | Cryptoeconomics and Blockchain Security         | Lab 05                                                    | Writing our own blockchain (I)          |
+| Lecture 06                                                   | Smart Contracts, Tokens and ICO's               |                                                           |                                         |
+| Lecture 07                                                   | Distributed Ledgers, Facebook Libra             |                                                           |                                         |
+|                                                              | - MIDTERM TEACHING BREAK -                      |                                                           |                                         |
 
