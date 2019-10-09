@@ -13,158 +13,29 @@
 class: center, middle, inverse, title-slide
 
 # DSBA 20598 – FinTech and Blockchains
-## Lab 4: Setting up Bitcoin
+## Lab 5: Writing a custom Blockchain I
 ### Prof. Silvio Petriconi
 ### Department of Finance, Bocconi University
-### 2019-09-10 (updated: 2019-10-09)
+### 2019-10-08 (updated: 2019-10-09)
 
 ---
 
 # Today's lab
 
-Today we'll set up Bitcoin Core in a private blockchain and do our
-first transactions.
+Today we'll start our first code project. We are writing our own 
+Blockchain. This will greatly improve our understanding of Blockchain technology.
 
-What you'll need:
-  * the virtual machine that we created earlier
-  * nothing else
+
+We'll cover:
+  * A brief introduction to [Flask](https://palletsprojects.com/p/flask/).
+  * We develop the part of our own Blockchain's code that manages
+    the chain of blockchain headers and performs proof of work.
+  * Time permitting we'll also write our first unit tests to
+    test the quality of our code. If you have never heard of
+    unit testing, have a look [here](https://realpython.com/python-testing/).
   
+All our code will be shared via our [github repository](https://github.com/silviopetriconi/dsba20598).
   
----
-# Setting up Bitcoin Core
-
-First, download bitcoin core from the [bitcoin core download page](https://bitcoin.org/en/download): the link is https://bitcoin.org/bin/bitcoin-core-0.18.1/bitcoin-0.18.1-x86_64-linux-gnu.tar.gz
-
-.small[
-```terminal
-fintech@dsba:~$ wget https://bitcoin.org/bin/bitcoin-core-0.18.1/bitcoin-0.18.1-x86_64-linux-gnu.tar.gz
-
-```]
-
-Next, check that it is okay and hasn't been tampered with:
-
-.small[
-```terminal
-fintech@dsba:~$ sha256sum bitc*.tgz
-```]
-
-The correct hash is 
-.small[
-```text
-600d1db5e751fa85903e935a01a74f5cc57e1e7473c15fd3e17ed21e202cfe5a
-```]
- 
-Unpack the binaries:
-.small[
-```terminal
-fintech@dsba:~$ tar -xvzf bitcoin-0.18.1-x86_64-linux-gnu.tar.gz 
-```]
----
-# Starting bitcoind
-
-You can now start the bitcoin daemon, which runs in background.
-Change to the directory which holds the binaries, 
-.small[
-```terminal
-~$ cd /bitcoin-0.18.1/bin
-```]
-and run the bitcoin daemon __in regtest mode__ (which means, as a private network). If you forget to put it in regtest mode, it will download the ~300GB blockchain of bitcoin mainnet.
-.small[
-```terminal
-$ ./bitcoind -regtest -daemon
-Bitcoin server starting
-```]
-Now bitcoin has started a local bitcoind daemon. You can check that it is running
-as follows: 
-.small[
-```terminal
-$ ./bitcoin-cli -regtest getnetworkinfo
-```]
-
-This will spit out a bunch of diagnostics.
-
----
-# Shutting down and adding configurations
-
-Before we proceed, let's shut down the `bitcoind` daemon for a moment.
-```terminal
-$ ./bitcoin-cli -regtest stop
-Bitcoin server stopping
-```
-
-At its first launch it has created a hidden subdirectory in your home directory `/home/fintech`:
-
-.small[
-```terminal
-$ cd ~
-~$ ls -la
-total 31820
-drwxr-xr-x 22 fintech fintech     4096 ott  1 07:45 .
-drwxr-xr-x  3 root    root        4096 set 10 00:02 ..
--rw-------  1 fintech fintech     1909 set 11 23:17 .bash_history
--rw-r--r--  1 fintech fintech      220 set 10 00:02 .bash_logout
--rw-r--r--  1 fintech fintech     3771 set 10 00:02 .bashrc
-drwxr-xr-x  4 fintech fintech     4096 ott  1 07:45 .bitcoin
-drwxr-xr-x  6 fintech fintech     4096 ago  2 22:32 bitcoin-0.18.1
-
-```]
-
----
-# The .bitcoin directory
-
-Let's see what's inside.
-.small[
-```terminal
-$ cd .bitcoin
-$ ls -la
-total 16
-drwxr-xr-x  4 fintech fintech 4096 ott  1 07:45 .
-drwxr-xr-x 22 fintech fintech 4096 ott  1 07:45 ..
-drwxr-xr-x  5 fintech fintech 4096 ott  1 07:49 regtest
-drwxr-xr-x  2 fintech fintech 4096 ott  1 07:45 wallets
-```]
-
-This directory will store the blockchain (here: regtest chain), 
-your wallets __(sensitive!!!)__ and also, if you choose so, a config
-file: bitcoind reads upon every start a file called `bitcoin.config`
-_if it exists_. I've already created one for you that will help you
-connect to our private network. Get it by downloading
-.small[
-```terminal
-$ wget http://85.214.42.163:/code/example.conf -O bitcoin.conf
-```]
-Have a look into it. It specifies that you want to run in regtest mode
-always, and that you want to connect to a server
-at a given IP address.
-
----
-# Launching bitcoind in regtest mode, again
-
-Now restart the bitcoind daemon:
-.small[
-```terminal
-$ cd ~/bitcoin-0.18.1/bin/
-$ ./bitcoind -daemon
-```
-]
-This time, `bitcoind` will read the config file and know that it has to
-run in regtest mode.
-
-Now we will use `bitcoin-cli` to issue commands to the blockchain.
-
-We will mostly follow the tutorial on the bitcoin.org site:
-
-https://bitcoin.org/en/developer-examples
-
-A fantastic in-depth introduction to Bitcoin command line tools
-can be found in the [github repo of Christopher Allen](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line). 
-
-We won't dive any deeper into Bitcoin in this course: next week we'll
-start developing our own blockchain code.
-
-
-
-
 ---
 
 class: center, middle
