@@ -21,7 +21,7 @@ The course is taught as a mix of lectures and lab sessions which teach applied, 
 
 Below you can find the lecture slides. Any feedback is welcome.
 
------------------------------------------------------------------------------------------
+--------------------------------------------------------------|---------------------------
  [Class 1](https://silviopetriconi.github.io/fintech/Class01) | Introduction to FinTech
  [Class 2](https://silviopetriconi.github.io/fintech/Class02) | Financial Intermediaton
  [Class 3](https://silviopetriconi.github.io/fintech/Class03) | Payment Technology // Bitcoin
