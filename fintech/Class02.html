@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 2: Financial Intermediation
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-09-12 (updated: 2019-09-18)
+
+---
+
+class: finance-slide, inverse, left
+
+#Financial Intermediation
+
+--
+
+###  | Asymmetric information and adverse selection
+###  | Banks as informed lenders
+###  | Liquidity transformation
+
+---
+.left-column[
+##Our goal today]
+.right-column[Since we're interested in technologies that can have
+disruptive effect on banking, we'll spend today's class learning about
+various facets of financial intermediation. 
+
+
+Most of external funds of non-financial firms come from financial 
+intermediaries, not from markets. That is at first glance surprising:
+what's the economic function of the intermediary? 
+
+I'll put on my economist hat today to give you the details. 
+
+We'll learn about the consequences of asymmetric information, and why
+intermediaries are able to overcome barriers to trade in this setting.
+
+We'll also learn why intermediaries are potentially fragile.
+
+]
+
+---
+class:top, left
+
+# Banks provide most external funding - why?
+![Graph](img/externalfunding.png)
+
+
+---
+class:inverse,center,middle
+background-image:url("img/bubble-gum-438404_1920.jpg")
+background-size:cover
+background-position:center
+#Adverse selection
+
+---
+#Introduction 
+
+__Asymmetric information__ is one of the most important
+concepts in financial economics:
+
+-   it arises whenever in a transaction one side has more (relevant)
+    information than the other side
+
+-   it comes in two “flavors”:
+
+     * __Adverse selection:__ *before* agreeing on some transaction, 
+        one of the two parties
+        has some relevant information that is not known to the other
+        party
+
+     * __Moral hazard:__ *after* agreeing on some transaction, one party can take an
+        action to its own benefit that is not observed by the other
+        party
+
+---
+
+#Adverse selection
+
+-   Imagine there is a transaction to be made: a health insurance is
+    about to win a client; a lender is about to make a loan; somebody is
+    about to buy a used car.
+
+-   In each of these examples, there is one side that is better informed
+    than the other:
+
+    -   the health insurance may not know how bad a risk the customer is
+        (whilst the customer knows)
+
+    -   the lender may not know how reliable the borrower really is
+        (whilst the borrower knows)
+
+    -   the buyer of the car may not know whether it has hidden defects
+        (whilst the seller knows)
+
+-   In such situations, markets don’t function very well:
+
+---
+#The curse of adverse selection
+
+In our examples,
+
+  -   the insurance will ask for a relatively high premium (because
+      the most risky patients will be most keen on getting insurance)
+
+  -   the lender may ask for a relatively high interest rate
+
+  -   the buyer of the car may only be willing to buy at a steep
+      discount in price (reflecting the *average* quality of cars on
+      the market)
+
+But then the best types,
+
+   -   the healthiest clients seeking insurance,
+
+   -   the safest borrowers asking for a loan,
+
+   -   the sellers of excellent used cars
+
+may withdraw from the market because they can no longer attain
+reasonable conditions for the transaction.
+
+---
+#Overcoming adverse selection 
+
+ We call this *adverse selection* (because good types may withdraw
+    whereas poor types are more likely to stay in the market). It makes
+    it very hard or impossible to trade an asset on which one side 
+    has more information than another `\(\Rightarrow\)` _illiquidity_.
+
+__Countermeasures:__ What can be done against adverse
+selection?
+
+Answer: _Reduce / eliminate information asymmetries!_
+
+-   government regulation to increase information
+
+-   private collection of information
+
+    -   example: health examination before taking insurance
+
+    -   but in the context of securities purchases, there can be
+        free-rider problems:
+        if you generate private information and act based on it, others
+        may observe your actions, imitate them and free-ride
+        
+    -   in the context of securities, one can solve the free-rider
+        problem if, after acquiring information, the security is
+        purchased exclusively by an informed intermediary: bank lending!
+
+---
+class:center,inverse,middle
+background-image:url("img/dollar-2891817_1920.jpg")
+background-size:cover
+background-position:center
+#Banks as informed lenders
+
+---
+# Informed lending
+
+There is broad consensus in the banking literature that one key activity
+of banks is __information acquisition__:
+ * They acquire information ex-ante 
+(before the loan is approved) to know more about their borrowers and mitigate adverse selection. 
+ * They keep collecting further information
+ex-post (after the loan has been made) to ensure that the money is
+not used for improper purposes (we call this _monitoring_).
+For example, most banks that lend to construction firms have their
+own construction engineers that regularly visit the construction site
+and evaluate progress before the next tranche of the loan is paid out.
+
+
+
+---
+# Relationship banking
+If banks keep acquiring information over the entire course of a 
+credit agreement, they end up being better informed about the
+borrower than anyone else when the loan has been repaid: banks
+learn by lending. 
+
+It is therefore quite natural that many banks, especially small ones
+with dense branch networks, invest in building long-lasting relationships with their borrowers. 
+
+For borrowers, this is double edged sword:
+better informed relationship lenders offer more reliable 
+access to credit, but can also afford charging higher interest
+because they enjoy an information monopoly over their long-term
+borrower.*
+
+.footnote[*The idea of hold-up in a borrowing relationship
+was first presented by [Sharpe, 1990](https://doi.org/10.1111/j.1540-6261.1990.tb02427.x).]
+
+
+
+
+
+
+---
+# Relationship banking: geographic proximity
+Most relationship lenders are in close geographic proximity to their 
+borrowers and have a dense branch network.
+
+For example, [Degryse and Ongena](https://doi.org/10.1111/j.1540-6261.2005.00729.x) (2005)
+find in a study of Belgian banks that banks are geographically close to customers: The median borrower is located around 4 minutes and 20 seconds from the lender at a travel speed of 20 mph, i.e. 2.25 km distance.
+  
+There's plenty of evidence that the quality of a bank's information
+    for the purposes of lending deteriorates substatially with increasing 
+    distance to its borrowers, see e.g.
+    [Granja, Leuz and Rajan](https://www.ssrn.com/abstract=3271079) (2018).
+    
+In other words, credit-relevant information 
+is to a substantial share of _local_ nature.
+
+    
+---
+# Informed lending in a digital world
+
+These days, Facebook, Google and other techs know much more about us than all banks combined. Banks' information advantage has eroded. This creates
+new opportunities for entry. 
+
+Moreover, we all leave digital data traces every single day.
+
+FinTech lenders have been using people's [digital footprint](http://money.cnn.com/2013/08/26/technology/social/facebook-credit-score/) in facebook and other social media for quite some time
+to evaluate the creditworthiness of applicants who have no
+official credit score.
+
+Are such data any good? It seems so:
+
+[Berg, Burg, Gombovi and Puri](https://www.nber.org/papers/w24551.pdf) (2018) have shown in a dataset of 250,000 registrations at a German
+e-commerce website that the digital traces that we are leaving 
+while shopping online are more precise predictors of our creditworthiness
+than the credit scores of credit bureaus.
+
+We will talk much more about alternative creditworthiness testing in the second half of the course.
+
+---
+class:center,inverse,middle
+background-image:url("img/drop-3065629_1920.jpg")
+background-position:center
+background-size:cover
+#Liquidity transformation
+
+---
+#Illiquid bank assets
+
+In acquiring information, banks reduce the
+information gap between lenders and borrowers. This has
+another side effect: the better the bank knows its borrowers,
+the greater becomes the bank's information advantage over
+anyone else in the economy as far as its loans are concerned.
+
+This is no problem if the bank never has to sell any loans.
+But it also means that the loans will be very illiquid and hard to sell because 
+the bank's information advantage creates asymmetric information
+problems between the bank and the prospective buyers of the loans.
+
+As many loans have long maturities whilst most bank deposits
+can be withdrawn anytime, this is a potential problem.
+
+We'll demonstrate the consequences of this __liquidity transformation__
+in the [Diamond-Dybvig (1983)](https://www.jstor.org/stable/pdf/1837095.pdf) model. 
+
+.footnote[*The notation follows Ch 2.2 of [Freixas and Rochet's "Microeconomics of Banking"](https://mitpress.mit.edu/books/microeconomics-banking-second-edition)]
+---
+# Diamond-Dybvig (1983)
+### An illiquid asset
+
+Let's model an illiquid asset in a stylized way:
+
+* There are three periods `\(t=0, 1, 2\)`. 
+
+* The illiquid "long" asset matures in period `\(t=2\)`. 
+
+* Every unit of the long asset gives `\(t=2\)` a payoff of `\(R&gt;1\)`. 
+  If liquidated early in `\(t=1\)`, however, it can only be sold at a
+  value `\(l &lt; 1\)`. 
+
+### Consumers
+
+There is a continuum of identical consumers. Each has an endowment of 1 at `\(t=0\)`, and can consume at either `\(t=1\)` or `\(t=2\)`. At the beginning of the game in `\(t=0\)`, consumers don't know (yet) when they will want to consume.
+
+---
+
+### Liquidity preferences
+
+At `\(t=0\)`, consumers are not certain as to when they want to consume. They will learn about this only in `\(t=1\)`. There is a probability `\(\pi_1\)` that they need to consume early in `\(t=1\)`. We will call those early consumers the _impatient_ consumer types. With probability `\(\pi_2=1-\pi_1\)` they are _patient_ and consume late in `\(t=2\)`. Assuming a concave utility function `\(u(\cdot)\)` with `\(u^\prime &gt; 0, u^{\prime\prime} &lt; 0\)`, their utility from consuming
+`\(c_1\)` in period 1 and `\(c_2\)` in period 2 is therefore given by
+
+$$
+u(c_1, c_2)  = \left\lbrace \begin{array}{ll}
+      u(c_1) &amp; \text{w. prob.}\pi_1 \newline
+      u(c_2) &amp; \text{w. prob.}\pi_2
+  \end{array}
+  \right.
+$$
+This model assumption captures what one can observe as a pervasive
+pattern in financial markets: 
+investors
+are hesitant to purchase illiquid financial assets because they don't
+know when they will need the money due to an unforeseen
+liquidity shock.
+
+---
+## Solving the model
+### Benchmark 1: Autarky. 
+
+If consumers are unable to trade with anyone, what would their allocation 
+be? How much welfare would they enjoy?
+
+If they invest in `\(t=0\)` an amount of `\(I\)` in the long asset and `\(1-I\)` 
+in the short asset, then:
+
+ * If they end up being impatient, they get to consume `\(c_1=lI+(1-I)\)` by liquidating the long asset early in `\(t=1\)` plus consuming all short asset payoffs.
+ * If consumers end up being patient, they obtain `\(c_2 = RI + (1-I)\)` in 
+ period `\(t=2\)`.
+
+How much can they consume if they choose `\(I\)` optimally? Without solving
+this question, we can see that because of `\(l&lt;1\)`, any choice of `\(I\)` 
+implies that `\(c_1 \leq 1\)` and `\(c_2 \leq R\)`, with __one of these 
+two inequalities holding strictly.__ It is not possible to
+attain a consumption of `\(c_1=1, c_2=R\)` in autarky.
+---
+### Allowing for trade
+If we allow consumers to trade between each other, we can improve
+upon autarky. This would work by allowing impatient consumers to
+sell in `\(t=1\)` a bond to patient consumers: instead of liquidating
+the long asset at a loss, they would keep holding it, sell a bond
+in `\(t=1\)` to patient consumers that offers one unit of consumption
+in `\(t=2\)` for price `\(p\)` in `\(t=1\)`, use the proceeds from selling the
+bond to consume early, and repay the bond with the payoff of the 
+long asset in `\(t=2\)`. 
+
+Patient consumers would use all their short asset holdings to
+purchase `\((1-I)/p\)` bonds in `\(t=1\)` from impatient consumers.
+
+$$
+c_1 = pRI + (1-I)
+$$
+$$
+c_2 = RI + \frac{1-I}{p}
+$$
+As you can see, the two equations imply that `\(c_1 = p c_2\)`.
+
+Note that the utility of agents increases in `\(I\)` if `\(pR &gt; 1\)`, and decreases in `\(I\)` if `\(pR &lt; 1\)`. This means that the only price at which an
+interior optimum `\(I\in(0,1)\)` can exist must satisfy `\(pR=1\)`, hence `\(p=1/R\)`.
+---
+###Allowing for trade (cont.)
+
+What are the allocations that are attained? Plug `\(p=1/R\)`, and for any `\(I\)`
+we get `\(c_1 = 1\)`, and `\(c_2 = R\)`
+which is strictly better than autarky.
+
+###Benchmark 2: Can one do even better?
+Let's ask a benevolent social planner to allocate 
+resources at will as to maximize expected utility of all agents in
+the economy. It will surely be optimal to pay for all `\(t=1\)` 
+consumption with the short asset, and for `\(t=2\)` consumption with
+the long asset. The optimization problem becomes
+
+`$$\max_{c_1, c_2, I} \pi_1 u(c_1) + \pi_2 u(c_2)$$`
+subject to
+`$$\pi_1 c_1 = 1-I \text{, and}\\
+\pi_2 c_2 = RI$$`
+
+---
+Substituting the constraints into the objective function, we have
+$$
+U(I) = \pi_1 u\left(\frac{1-I}{\pi_1}\right) + \pi_2 u\left(\frac{RI}{\pi_2}\right)
+$$
+which we can maximize by differentiating with respect to `\(I\)`. 
+This yields the first-order condition
+
+$$
+-u^\prime(c_1^\ast) - Ru^\prime(c_2^\ast) =  0
+$$
+
+Our solution with trade, `\(c_1 = 1, c_2=R\)` will satisfy this condition
+at best by coincidence: __The market solution is not efficient here.__
+
+In particular, if `\(u^\prime(1) &gt; Ru^\prime(R)\)`, there is more
+marginal benefit to first period consumption than what the (incomplete)
+market solution attains: `\(c_1^\ast &gt; 1\)`.
+
+### Banks
+
+A financial intermediary could receive deposits of `\(1\)` at `\(t=0\)` and
+promise withdrawal of `\((c_1^\ast, c_2^\ast)\)` in `\(t=1\)` and `\(t=2\)`, 
+respectively. By law of large numbers, the aggregate impatient  and patient consumers withdrawals are deterministic, and by choosing 
+`\(I\)` accordingly, the planner's optimum can be reproduced including
+`\(c_1^\ast&gt;1\)` which benefits impatient consumers.
+
+---
+### Liquidity intermediation and financial panics
+
+What banks essentially are in the Diamond-Dybvig model
+is __liquidity intermediaries__: they hold illiquid assets, yet they
+allow withdrawal of liquid deposits at any point in time, 
+providing liquidity insurance for depositors.
+
+This is a great benefit. We think it's one of the core functions of banks.
+
+But the same liquidity transformation is also the root of inherent
+__instability__: the bank can only meet the withdrawals of the impatient depositors from short asset liquidations.
+
+Imagine that some patient depositors come to believe
+that other patient depositors are withdrawing `\(c_1 &gt; 1\)` in `\(t=1\)`.
+Then they must conclude that the bank must liquidate the long asset
+at a loss to meet those withdrawals, and not enough is left to pay 
+them `\(c_2^\ast\)`; if they believe that enough other patient depositors are
+withdrawing early to make their payoff fall below `\(c_1^\ast\)`, they 
+will want to withdraw immediately. 
+
+The result is a __bank run__: both patient and impatient depositors 
+attempt to withdraw at `\(t=1\)`. Beliefs about others withdrawing early 
+suffice to sustain a financial panic.
+
+---
+#Deposit insurance and moral hazard
+
+This key insight of Diamond and Dybvig (which was refined later by
+[Goldstein and Pauzner, 2005](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.2005.00762.x)) is that liquidity transformation makes banking inherently 
+unstable and runs can occur because of depositors' beliefs about
+other depositors' actions.
+
+The problem of depositor runs is not limited to traditional financial
+intermediaries. Every liquidity transformation opens up the
+potential for runs. 
+
+One way of resolving depositor runs is government-provided
+_deposit insurance_: if an
+insurance guarantees that all depositors will always receive their
+promised payment, patient consumers will no longer run.
+This can create stability, but it's a double-edged sword:
+deposit insurance also induces banks to take 
+greater risks into their books because deposits rates will
+becomes less sensitive to the actual risk that the bank is exposed to.
+After all, due to insurance, depositors are always paid!
+
+For this reason, depository institutions are subject
+to heavy oversight by regulators to discourage such 
+_risk shifting_.  
+
+
+
+---
+
+class: center, middle, inverse
+
+#Discussion
+
+---
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

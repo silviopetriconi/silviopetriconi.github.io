@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 3: Payment Technology // <br> Foundations of Blockchain
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-09-19 (updated: 2019-09-29)
+
+---
+
+class: inverse, left
+background-image:url("img/cash-register-78741_1920.jpg")
+background-position: left
+background-size: cover
+
+#Payment Technology Evolving
+
+--
+
+###  | Origins
+###  | Infrastructure
+###  | Retail instruments
+###  | Blockchain: foundations
+
+---
+
+# Payment Technology
+
+Until very recently, payment technology has been playing a
+stepkind-like role in the world of finance. It was considered 
+the bureaucratic part of financial business, comprising of the purely mechanical settling of payments, with little upside potential. 
+Relatively few finance professionals were interested in it.
+
+This has changed dramatically.
+
+First, digital payment technology is having
+unmatched success in emerging markets because it allows
+buyers and mechants to ameliorate severe frictions and risks
+involved with the use of actual cash, for example theft or
+geographical distance to the next bank.
+
+Second, data scientists have woken up
+to the idea of tapping payment data.
+There is only one kind of data that records virtually 
+every real transaction in this economy: payment data. With recent
+progress in data science, the potential to tap these data seems
+unlimited. 
+
+Finally, blockchain has put the idea of payment processing 
+upside down, even though the most fruitful application
+of blockchain might not even be payments.
+
+
+---
+class:inverse, middle, center
+background-image:url("img/creditlyonnaise_vault.jpg")
+background-size:cover
+
+# Origins of Payment Technology
+
+
+.left[.footnote[.tiny[Image by &lt;a href="//commons.wikimedia.org/wiki/User:Rdavout" title="User:Rdavout"&gt;Renaud d'Avout&lt;/a&gt; - &lt;span class="int-own-work" lang="en"&gt;His hown work&lt;/span&gt;,&lt;br&gt; &lt;a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0"&gt;CC BY-SA 3.0&lt;/a&gt;, &lt;a href="https://commons.wikimedia.org/w/index.php?curid=16817905"&gt;Link&lt;/a&gt;]]]
+---
+#Cash
+
+.left-column[
+![Marcus Aurelius Coin](img/Marcus_Aurelius_Denarius2.jpg)
+Denarius coin of Marcus Aurelius.
+.small[Credit: [Rasiel](https://en.wikipedia.org/wiki/User:Rasiel) at English Wikipedia. 
+
+CC-BY-SA 3.0]
+]
+.right-column[
+
+Cash is the most immediate way to pay for goods or services.
+Across cultures, the type of objects that could play a money-like
+role has been quite different, ranging from commodities like 
+metals or [seashells](https://en.wikipedia.org/wiki/Shell_money)
+to [fiat money](https://en.wikipedia.org/wiki/Fiat_money).
+
+Common properties of physical objects that have played the role of
+money are:
+  * limited supply
+  * durable, not easily damaged
+  * difficult to forge 
+  * easy to transport
+  
+A particular problem that was common among all precious metal coins
+was that metal bits were often scraped off the coin before using it
+to pay. Payees often consulted experts for cash, bankers and goldsmiths, before accepting a coin. 
+
+]
+
+
+---
+# Settling distant payments
+
+Cash is fine for settling payments right in the moment.
+It was and remains terrible for settling payments at a geographically 
+distant place: the risks of loss grew with distance, 
+the probability of acceptance decline with it.
+
+You can find amazing castles and fortresses along all the big historical trade routes in Europe (e.g. Rhine valley, Brenner route through Alto Adige). Imagine
+you had travelled along such route carrying cash to pay someone. How much of your cash would 
+have been taken from you on the road by the castles' inhabitants?
+
+We can suspect that the mere problems of cash management and
+payment over distance led to the emergence of "warehouse-like" 
+intermediaries that were predecessors of modern banks:
+  * accepting deposits of coins for storage
+  * issuing deposit receipts that were payable in "good money", i.e. intact coins
+  * netting of claims versus other banks, thus enabling 
+    payments to payees in other cities without the transport of 
+    physical cash.
+
+---
+# Bank deposits as money
+
+The words "I pay you" and "I send the money to your bank account" seem
+synonyms for most people. They are clearly not the same. If I pay you,
+you receive __currency__. If I wire money to your account, you receive
+a __private liability__ of a bank: a deposit.
+
+We can see that bank deposits have acquired equivalent function of 
+money, and that deposits are transferred easily between many banks and 
+depositors.
+
+For this to work, banks 
+need reliable channels of __settling__ claims against each 
+other in definitive curency. We will now look at what these 
+channels are today.
+
+
+---
+class: inverse, center, middle
+background-size:cover
+background-image:url("img/nyfed-vault.jpg")
+# Payments Infrastructure:
+
+## Large Value Payment Systems
+
+---
+
+# Large value payment systems
+
+Most central banks as well as several private clearinghouses
+operate dedicated large value payment systems
+(LVPS) through which banks make and settle payments to each other.
+Settlement refers to the actual payment of an obligation in
+central bank money. 
+
+Large value payment systems settle extremely
+large volumes of transactions. For example, the European payment system [TARGET2](https://www.ecb.europa.eu/paym/target/target2/html/index.en.html) settles every week values in excess of _annual_ Eurozone GDP.
+A similar system in the United States is [Fedwire](https://www.frbservices.org/financial-services/wires/index.html). 
+
+Depending on their mode of operation, one can distinguish between
+two different "flavors" of LVPS systems, even though in practice 
+most systems today combine hybrid elements from both types:
+
+  * __deferred net settlement__ systems settle payments
+    by accumulating payments for a certain period of time and 
+    subsequently netting all positions.
+  * __real time gross settlement__ (RTGS) systems instantly transfer
+    the gross amount of funds for every transaction to the payee.
+    
+Today most central bank operated payment systems, e.g. [Fedwire](https://www.frbservices.org/financial-services/wires/index.html) (USA), [TARGET2](https://www.ecb.europa.eu/paym/target/target2/html/index.en.html) (Eurozone), and [CHAPS](https://www.bankofengland.co.uk/-/media/boe/files/payments/rtgs-and-chaps-service-description-december-2018) (United Kingdom), are RTGS systems.
+  
+
+
+
+---
+# Deferred net settlement systems
+
+Deferred net settlement has unique advantages in terms of liquidity
+sparing operations: consider the following graph of transactions that
+need to be settled between banks A, B, C and D:
+
+.pull-left[
+![Payment graph](img/payments-graph1.svg)
+]
+.pull-right[
+
+As we can see, the payments are larger in gross terms than in net, 
+i.e. after offsetting payments in opposite direction have been 
+taken into consideration.
+
+As deferred net settlement systems settle only at several points 
+during the day, it's quite likely that a lot of offsetting payments
+accumulate and can be netted out by the time settlement takes place.
+In this way, deferred net settlement systems have much lower liquidity
+requirements than RTGS systems (to settle the same claims).
+]
+???
+
+```graphviz
+digraph L0 {
+	size = "8,8";
+	ordering=out;
+	node [shape = box];
+
+	nA [label="Bank A"];
+	nB [label="Bank B"];
+	nC [label="Bank C"];
+	nD [label="Bank D"];
+	
+	nA -&gt;  {nC} [label="100"]
+	nA -&gt;  {nB} [label="85"]
+	nB -&gt;  {nA} [label="140"]
+ 	nB -&gt;nD  [label = "10"]
+	nC -&gt;  {nD} [label="43"]
+	nC -&gt;  {nB} [label="55"]
+	
+	nD -&gt;  {nA} [label="58"]
+}
+
+```
+
+---
+
+# Deferred net settlement systems
+
+Technically, most deferred net settlement systems perform the
+multilateral netting by introducing a central counterparty against
+which all the claims are held. Taking the previous example of
+the payment graph to a deferred net settlement system would result
+in the following net obligation structure:
+
+.pull-left[
+![Deferred net](img/defnet1.svg)
+]
+.pull-right[
+As you can see, the net payments are little compared to the gross amounts. 
+
+The downside of deferred net settlement systems is that they create
+credit risk: what if in the evening at netting,
+it is found that bank B doesn't have 10 (and disappears in a 
+bankruptcy cloud)? Who gets what? Which payments are considered
+settled?
+
+
+
+]
+
+
+???
+
+Code to generate graph:
+```graphviz
+digraph L0 {
+	size = "8,8";
+	ordering=out;
+	node [shape = box];
+
+	nA [label="Bank A"];
+	nB [label="Bank B"];
+	nC [label="Bank C"];
+	nD [label="Bank D"];
+	
+	ccp [label="System" 
+	shape=circle style = "filled" fillcolor="green"]
+
+    ccp-&gt; nA [label="13"]
+    
+    nB-&gt;ccp [label="10"]
+
+    
+    ccp-&gt;nC [label="2"]
+    
+    nD-&gt;ccp [label= "5"]
+
+}
+
+```
+
+
+---
+# RTGS Systems
+
+RTGS systems settle in real time, so they don't create any credit risk.
+This enables RTGS to deliver instant _payment finality_: once 
+inserted, payments are irrevocably executed, and the payee can
+can immediately use the proceeds for any purpose.
+
+However, RTGS systems have much higher liquidity needs than
+deferred net settlement systems. Even worse, they 
+can suffer from _liquidity starvation_ and freeze up.
+This would happen if several of the participants don't have
+sufficient liquidity for gross payments, and offsetting payments
+are delayed for some reason. 
+
+This has been a major concern in the crisis. 
+
+To see the problem, in our previous
+example check what would happen if bank A's payments got delayed for
+some reason, and no other bank had more than 50 units of funds to
+start with (which is already more than four times the net obligation)!
+
+---
+# Resources on payment systems
+.pull-left[[
+![ECB Bluebook](img/kokkola_bluebook.png)](https://www.ecb.europa.eu/pub/pdf/other/paymentsystem201009en.pdf)
+
+]
+.pull-right[If you ever find yourself in need of understanding more about the
+payment system, an excellent resource is the 
+[ECB Bluebook](https://www.ecb.europa.eu/pub/pdf/other/paymentsystem201009en.pdf) on the payment system. 
+It's somewhat dated but still explains the fundamentals  
+extremely well (and the payments world hasn't changed that much since it was
+written). 
+
+With over 250 pages, it's not a quick read though.]
+
+---
+# Innovation front 1: Instant payments
+
+One problem of traditional LVPS systems is that payments are only
+accepted during certain hours of the day, making 24x7 instant payments
+practically impossible. This stands in sharp contrast with growing 
+customer demand for instant payments. 
+
+A very recent development are dedicated extensions of existing 
+payment systems which allow 24x7 real time settlement of payments.
+In Europe, 
+[RT1](https://www.ebaclearing.eu/services/instant-payments/introduction/)  by EBA Clearing (since Nov 2017),
+and [TIPS](https://www.ecb.europa.eu/paym/target/tips/html/index.en.html) which runs since Nov 2018 as an extension of TARGET2 
+are two new exciting possibilities for banks to settle payments in 
+real time around the clock. 
+
+Despite the possibilities offered by these new infrastructures, very few banks are currently offering instant payment services.
+It is not trivial to integrate 24x7 payment operations 
+with existing risk and IT frameworks, especially given that
+many of them are built around
+the assumption of fixed daily cutoff times.
+
+---
+#Innovation front 2: Cross-border payments
+
+Cross border retail payments are just a nightmare, as the different currencies,
+jurisdictions and time zones add many more complications.
+Traditionally, cross-border retail payments are made through 
+_corresponding banks_ 
+in the destination country.
+
+This means that, for example, an Italian bank deposits a large amount
+of foreign currency at a foreign (e.g. U.S.) institution under an agreement that
+allows it to use this account for the foreign currency leg of 
+foreign exchange transactions. The details are quite messy, 
+see e.g. this
+excellent 
+[report by the BIS](https://www.bis.org/cpmi/publ/d173.pdf), which
+also notes that
+&gt;Users’ experiences often fail to meet their expectations, particularly for certain use cases.
+
+Transparency, speed and costs are the key dimensions of shortfall.
+
+---
+#Innovation front 2: Cross-border payments
+
+It would be unfair to blame the poor customer experience 
+with cross-border payments just on banks Much of 
+the problem lies in the complexity
+of the numerous risk mitigation measures that are in place 
+due to the international nature of the transaction, and 
+regulation makes it hard for banks to innovate in 
+this respect.
+
+Example: [Herstatt risk](https://en.wikipedia.org/wiki/Settlement_risk)
+is mitigated by using [CLS Bank's](https://www.cls-group.com/products/settlement/clssettlement/how-it-works/) 
+payment-versus-payment mechanism, but this may add further delay or cost.
+
+In summary, there clearly is a lot of scope for simplification of 
+cross border payment 
+procedures, which has high relevance in an
+increasingly globalized world. Banks rarely find themselves
+in a good position to drive forward such innovation.
+
+We will certainly see a lot
+of innovation in this area over the coming years as FinTech firms like 
+[Revolut](https://www.revolut.com) and [TransferWise](https://www.transferwise.com) 
+are heavily investing in this field.
+
+---
+#Innovation front 3: Blockchain for RTGS?
+
+RTGS systems are notoriously expensive to operate: 
+redundancy and extensive failover scenarios, dedicated hardware and
+software, and expensive required specialist skills all drive up their cost.
+
+Catastrophic outages must be avoided to the maximum extent possible (the Bank of
+England can [tell a story](https://www.bankofengland.co.uk/-/media/boe/files/report/2015/independent-review-of-rtgs-outage-on-20-october-2014-boes-response) about this. They were unable to settle GBP 290 billion of payments
+some day in 2014 when their system [went down](https://www.theguardian.com/business/2015/mar/25/bank-of-england-payment-system-collapsed-due-to-design-fault).) 
+
+Blockchain by design allows for a more decentralized handling of
+transactions than traditional settlement systems and thus potentially 
+have better failover behavior, plus they require cheaper hardware 
+and less complex software.
+For this reason,
+financial market infrastructure operators are increasingly looking
+into the use of (permissioned) blockchains to eventually replace 
+existing RTGS settlement systems.
+
+
+
+---
+class: inverse, middle, center
+background-image:url("img/money-256281_1920.jpg")
+background-size: cover
+
+# Retail Payment Instruments:
+## Everywhere you want to be?
+---
+
+# Credit Cards  
+
+Credit cards allow you to make purchases on credit by merely
+communicating your credit card number to a merchant. This can
+even be done by phone. The merchant the bills your credit card
+company, which has provided you with a credit line from which it
+pays for your purchases.
+
+Whilst very common in the U.S., credit cards have had a very
+low market share in Europe and Asia for very long, but growing
+internet adoption has tilted the numbers dramatically in their favor. 
+
+One aspect that makes credit cards particularly useful as payment
+instruments in online transactions is that every credit card 
+transaction is protected by a dispute process: if you're not receiving
+what you paid for, or if you were charged without authorization,
+you can raise a dispute with your credit card company. The company
+will settle the dispute after hearing the merchant (and seeing evidence,
+if needed). This dispute element is a core element in almost all payment instruments that ever became relevant for online payments, e.g. PayPal. 
+
+
+
+
+
+---
+# How credit card transactions work
+
+Credit card transactions are relatively complicated. First,
+the credit card transaction is __authorized__ by submitting the
+transaction request to the (merchant's) _acquiring bank_, which forwards the
+request to the card issuer's bank. The response arrives in
+real time. Roughly speaking, there is a distinction between
+ * _card present transactions_, where the card was physically presented
+ * _card not present transactions_, e.g. internet orders, subscription billing etc.
+ 
+Merchants are charged higher fees for the latter because the risks of fraud are higher. Even off-line authorization modes exist for special
+purposes (e.g. airplane on-board shopping) which just collect
+transactions and seek authorization retroactively.
+
+Successful authorization yields an authorization code which
+the merchant keeps as proof of payment. 
+
+At end of day, the merchant submits the batch of authorized transactions
+to his/her bank which settles the claims with the card issuer via the
+credit card network. Unsubmitted authorizations remain valid for a certain
+number of days (_"hold"_) before the funds are returned to the cardholder.
+
+---
+# Debit cards
+
+Debit cards are relatively simple (when compared to credit cards). 
+The merchant uses a POS device to read your debit card, which
+contains your banking coordinates. Your card in combination with
+your secret key generates an electronic signal for your bank
+indicating that you are authorizing a transfer of funds. 
+Your bank checks the availability of funds in real time,
+confirms the transaction and withholds the funds. The
+transaction is settled via one of the LVPS systems.
+
+Debit cards provide substantially less protection from fraud / non-delivery, even though more recent incarnations carry credit
+card company logos and are endowed with at least some basic protection
+in order to make them more useful for online transactions.
+
+
+
+
+
+
+---
+
+
+class:inverse, middle, center
+background-image:url("img/giraffe-2233366_1920.jpg")
+background-size:cover
+
+# Looking farther:
+## Emerging market retail payment instruments
+
+---
+# Africa: mobile payments by SMS
+
+.left-column[ 
+&lt;br&gt;
+
+![m-pesa](img/mpesa.jpg)
+.tiny[Image: [Ivan Small](ihttps://commons.wikimedia.org/wiki/File:M-Pesa_service_screen_on_a_feature_phone.jpg )
+]
+
+]
+
+
+.right-column[
+Since 2007, mobile payments and banking via SMS has been booming in
+Afrika. Payment providers like [m-pesa](https://www.safaricom.co.ke/personal/m-pesa) have managed to offer financial services to many unbanked customers who were
+out of reach for traditional banks. 
+
+There is controversy about high transaction fees that
+extract large benefit from mostly poor users.
+
+]
+
+---
+# China: mobile payments by QR code
+
+In the PRC (and now most of Asia), payment by apps that simply scan merchants' QR codes has
+become extremely popular. The payment app provides
+a virtual wallet which can be funded by bank funds or credit cards.
+Execution of payments happens at the provider. The
+most relevant providers are:
+ * [AliPay](https://intl.alipay.com), and
+ * [WeChat Pay](https://pay.weixin.qq.com/index.php/public/wechatpay). 
+ 
+Unlike credit or debit cards, QR payments have little risk of
+theft of the payer's identity because only the merchant's
+identity is encoded in the QR code and is transmitted. 
+Reports of criminals replacing
+a merchant's QR code with a code of their own are now becoming more
+frequent, though.
+ 
+WeChat is a perfect example how how digital payment services can quickly
+reach dominant market share if they are unrolled
+on a pre-existing network with huge user base (the main app has functionality comparable to WhatsApp). I am sure Mark Zuckerberg has
+been scratching his head about this a lot.
+
+
+
+---
+class:inverse,middle,center
+
+#Blockchain: Foundations
+
+---
+#The peer-to-peer origins of Bitcoin
+
+From a technological point of view, blockchains like Bitcoin 
+draw heavily on techniques that already have a long history as
+cornerstones of 
+peer-to-peer network software. 
+
+We'll talk about P2P networks today and learn more about
+the technologies under the hood such that we'll have an easier
+time next week when it comes to understanding Bitcoin.
+
+---
+#Internet, under the hood
+
+To this day, the most important internet application remains
+HTTP: your browser connecting to a web page.
+
+Under the hood, when you load a page (e.g. http://www.google.com), what happens roughly the following:
+  
+ * Your computer queries DNS for the IP address of the page that y
+   you're loading: `www.google.com-&gt;216.58.198.46`
+ * Your computer opens a TCP connection to port 80 (HTTP) or 443 (HTTPS)
+   of the computer at the given IP address, which in the case of HTTP(s)
+   typically is a server.
+ * The server sends data: the requested HTML page is served.
+ * Your computer keeps acknowledging the packages received, and closes
+   the connection.
+   
+If you want to see this live in action, open your web browser's 
+developer mode, and watch the network tab while a page is loading. 
+
+---
+# The data monopoly of "servers"
+
+In the early days of internet (and more again today), internet content was almost exclusively provided by dedicated central computers, typically 
+denoted as "servers":
+ * company webpages
+ * hacker pages
+ * hobbyist pages
+ 
+In other words, if you wanted to distribute any content, you needed
+to find a way for it to make its way on a server (e.g. rent webspace,
+or run your own server).
+
+The fact that many server-hosted pages (e.g. facebook) now accept the
+upload of huge amounts of user-generated data doesn't change a bit
+about this: only the people running servers have the ability
+to control the distribution of data to recepients.
+
+---
+
+# Every computer can be a server!
+
+Technologically there is no reason that would dictate 
+this strong asymmetry between internet (client) users and
+servers:
+
+In fact, every computer can run in server mode and respond to
+internet requests! So can yours:
+
+```python
+import socket
+server_address = ('localhost', 10000)
+sock.bind(server_address)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.listen(1)
+while True:
+    # Wait for a connection
+    connection, client_address = sock.accept()
+    # then do whatever you want to do with the connection
+    #....
+    connection.close()
+```
+
+With code as simple as this, one can serve incoming requests from other machines (in this example, the server listens on port 10000).
+
+---
+
+#Peer to peer networking
+
+Peer-to-peer networking is a distributed alternative to the predominant 
+heavily centralized content provision model.
+
+For a peer-to-peer network, it suffices to run peer-to-peer software which connects to computers of other users
+that are running the same software. 
+
+Technologically, this happens in three steps:
+ * **Bootstrap.** The machine attempts to locate "peers", i.e. other machines
+    running the same service, e.g. by querying a known IP address for a
+    list of some known network participants or by attempting at random
+    to "talk" to any address that it can reach. Once a first peer has successfully been reached, the software asks it for a list of further
+ peers. The software connects to a subset of those other peers as well. 
+    
+ * **Directory services and request forwarding:** the peer to peer software
+ receives and forwards requests that it receives from other peers.
+ For example, a file sharing software may listen to incoming searches 
+ for files, and if it doesn't find those files locally, forward
+ the query to other peers. 
+
+---
+#Peer-to-peer networking (cont.)
+
+ * **Direct connection:** Having located users who would benefit from
+  a direct connection between each other (e.g. file owner vs. user
+  searching for the file) via the P2P directory, the software 
+  creates a direct channel of communication between those users
+  for the transfer of files, telephony voice data or whatever the
+  software's key service may be.
+  
+Of course, one prominent application of peer-to-peer software has 
+been the illegal distribution of copyrighted information
+that nobody would want to load on a web server for the fear
+of legal consequences. This has earned P2P a "dark" reputation
+even though the technology itself is perfectly clean and legal.
+The download of copyrighted material is not, of course.
+
+---
+# Verifying data integrity
+
+In peer-to-peer systems, _anything goes_: users have no control
+over which other computer they connect with, and there is no
+reason to believe that the other side is trustworthy in any sense.
+
+Assume one has received data, how can one verify the integrity 
+of these data?
+
+A very costly way would be to download the same data from several
+other sources as well and compare what was received.
+
+A much better way is to use a __cryptographic hash function__:
+take a function which can be fed arbitrary data as input, 
+and spits out some "fingerprint" of the data: 
+  - the same data must give always the same hash, i.e. 
+    the function must be fully _deterministic_
+  - the set of potential input data should be mapped as uniformly
+    as possible to the set of possible hashes
+  - the hashes should be easy to compute and much shorter than
+    the data.
+
+---
+# Cryptographic hash functions
+
+**Properties of a good cryptographic hash function:**
+
+ - _collision resistance:_ it must be computationally unfeasible to
+   find a pair of data (A, B) such that 
+   `\(h(A) = h(B)\)`.
+   
+ - _preimage resistance:_ it must be computationally unfeasible,
+   given hash `\(a\)`, to find a message such that 
+   `\(h(m) = a\)`.
+ - _second preimage resistance:_ it must be computationally 
+   unfeasible to, given a message `\(m_1\)`, find another message `\(m_2\)`
+   such that 
+   `\(h(m_1) = h(m_2)\)`.
+   
+**Cryptographic hash functions**:
+ 
+ How do we know that some complicated function is a good cryptographic
+ hash function? Answer: we never know! Many hashing algorithms that 
+ were believed to be good have been broken, e.g. MD4, MD5.
+ 
+ At the moment, SHA256 still seems good for all we know. 
+   
+---
+# Cryptographic hash functions: examples
+
+Cryptographic hash functions are better than the police when it
+comes to finding small (or big) integrity problems with your
+data:
+
+.small[
+```python
+import hashlib
+
+# prints an MD5 hash
+def print_with_hash(data):
+  print (data, " | MD5 hash: ", hashlib.md5(data).hexdigest())
+  
+print_with_hash(b'The world is big.')
+print_with_hash(b'The word is big. ')
+```]
+Output:
+.small[
+```text
+b'The world is big.'  | MD5 hash:  fe3c1c076552b3e6c61a2d3d4b288340
+b'The word is big. '  | MD5 hash:  f78c604d621c6b11436c95c5152b2a3d
+```
+]
+ 
+.footnote[*We use the MD5 hash function 
+in all our examples just because
+it generates nice short hashes. But it's known to be broken,
+so don't use it in production!]
+---
+# Hash lists
+
+In peer-to-peer networks, it's quite typical that some blocks of
+the same file are provided to you by one peer, other blocks by another.
+Hence, it's ideal to know a list of the correct hashes of all the 
+data blocks upfront:
+
+![Hash tables](img/hashlist.svg)
+
+
+
+That's for example how Bittorrent works. A `.torrent` file
+contains a list of block hashes, and your torrent software validates
+incoming data against these hashes. 
+
+Note that the number of hashes will increase linearly with the 
+number of blocks. The complexity of verifying
+that a given block belongs to the file is therefore `\(\mathcal O(n)\)`.
+
+???
+
+```graphviz
+digraph G {
+    rankdir="BT"
+	node [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+shape = "box"
+color = "black"
+width = "0.5"
+];
+edge [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+
+
+"h01" [
+label = "h(01)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h02" [
+label = "h(02)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h03" [
+label = "h(03)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h04" [
+label = "h(04)"
+shape = "ellipse"
+kind = "file"
+];
+"h05" [
+label = "h(05)"
+shape = "ellipse"
+kind = "file"
+];
+"h06" [
+label = "h(06)"
+shape = "ellipse"
+kind = "file"
+];
+
+"01" [
+label = "Block\n01"
+pname = "?"
+kind = "proc"
+];
+"02" [
+label = "Block\n02"
+pname = "dotty"
+kind = "proc"
+];
+"03" [
+label = "Block\n03"
+pname = "dotty"
+kind = "proc"
+];
+"04" [
+label = "Block\n04"
+pname = "dotty"
+kind = "proc"
+];
+"05" [
+label = "Block\n05"
+pname = "dotty"
+kind = "proc"
+];
+
+"06" [
+label = "Block\n06"
+pname = "dotty"
+kind = "proc"
+];
+
+01-&gt;h01
+02-&gt;h02
+03-&gt;h03
+04-&gt;h04
+05-&gt;h05
+06-&gt;h06
+}
+```
+---
+# Merkle trees
+
+One can do better than
+linear complexity (and in addition enjoy other important improvements):
+let's build trees of hashes! 
+
+The first to describe hash trees was Ralph Merkle (see the original patent [here](https://worldwide.espacenet.com/textdoc?DB=EPODOC&amp;IDX=US4309569)), so they bear his name. The idea is simple: For any pair of hashes,
+join their hashes together and hash over these hash data again. Do so until you reach one single top node, which is called the Merkle root (see
+the illustration on the next page).
+
+Of course, this works only if there's an even number of nodes at
+every level below the top one. If there isn't, the convention is 
+to simply duplicate the last node, which occurs in our example
+to the hash _h(H05, H06)_.
+
+If the tree is binary (i.e., every node has two leafs), then a tree
+of height `\(h\)` has `\(2^h\)` final nodes. Reversing this logic, the
+tree that belongs to a file of `\(n\)` blocks will have a height 
+of `\(\mathcal O(\log(n))\)`. This will prove a key advantage of 
+Merkle trees when it comes to validation, more about this later.
+
+
+---
+#Merkle trees
+![Merkle tree](img/merkletree.svg)
+???
+
+```graphviz
+digraph G {
+    rankdir="BT"
+	node [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+shape = "box"
+color = "black"
+width = "0.5"
+];
+edge [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+
+"root"
+[
+label = "h(H1234,H5656)\nMerkle Root"
+shape = "ellipse"
+];
+
+"h14" [
+label = "h(H12,H34)"
+shape = "ellipse"
+kind = "file"
+    
+];
+
+"h58" [
+label = "h(H56,H56)"
+shape = "ellipse"
+kind = "file"  
+];
+
+"h12" [ 
+label = "h(H01, H02)"
+shape = "ellipse"
+kind = "file"
+];  
+
+"h12" [ 
+label = "h(H01, H02)"
+shape = "ellipse"
+kind = "file"
+];  
+
+"h34" [ 
+label = "h(H03,H04)"
+shape = "ellipse"
+kind = "file"
+];  
+
+"h56" [ 
+label = "h(H05, H06)"
+shape = "ellipse"
+kind = "file"
+];  
+
+
+"h01" [
+label = "h(01)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h02" [
+label = "h(02)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h03" [
+label = "h(03)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h04" [
+label = "h(04)"
+shape = "ellipse"
+kind = "file"
+];
+"h05" [
+label = "h(05)"
+shape = "ellipse"
+kind = "file"
+];
+"h06" [
+label = "h(06)"
+shape = "ellipse"
+kind = "file"
+];
+
+"01" [
+label = "Block\n01"
+pname = "?"
+kind = "proc"
+];
+"02" [
+label = "Block\n02"
+pname = "dotty"
+kind = "proc"
+];
+"03" [
+label = "Block\n03"
+pname = "dotty"
+kind = "proc"
+];
+"04" [
+label = "Block\n04"
+pname = "dotty"
+kind = "proc"
+];
+"05" [
+label = "Block\n05"
+pname = "dotty"
+kind = "proc"
+];
+
+"06" [
+label = "Block\n06"
+pname = "dotty"
+kind = "proc"
+];
+
+01-&gt;h01
+02-&gt;h02
+03-&gt;h03
+04-&gt;h04
+05-&gt;h05
+06-&gt;h06
+h01-&gt;h12
+h02-&gt;h12
+h03-&gt;h34
+h04-&gt;h34
+h05-&gt;h56
+h06-&gt;h56
+h12-&gt;h14
+h34-&gt;h14
+h56-&gt;h58
+h56-&gt;h58
+h14-&gt;root
+h58-&gt;root
+}
+```
+---
+# Merkle trees and Merkle proof
+
+Merkle trees have some really nice properties:
+ * Change even a bit in the file, and the Merkle root will change! 
+   In that sense it works just as good as a regular hash over the 
+   entire file.
+ * Given the Merkle root of a file, it is very inexpensive to verify 
+   (_"Merkle proof"_) whether a given piece of data is a valid data 
+   block in the file:
+      - In the example on the previous page, assume that 
+        you know the file's Merkle root from a trusted
+        source. You've just received block 03 but don't know any
+        of the other blocks. How much data do you need, and does it have
+        to come from a trusted source, to have __proof__ that
+        the block which you received is genuine and an element of the file?
+     - You only need three more hashes, and _don't_ need to 
+       trust the one who is providing them to you (fakes won't 
+       yield the right root)!
+     - I illustrate this on the next page. The orange hashes are
+       those you need. You can then calculate
+       the green hashes and compare the resulting root against 
+       the true one.
+ * This is a more general principle: knowing the Merkle root, 
+   it takes just `\(\mathcal O(\log(n))\)` steps (proportional to the 
+   height of the tree rather than to the size of the file) to
+   verify that a specific block indeed belongs to any file. This is
+   way superior to `\(\mathcal O(n)\)`!
+
+---
+# Merkle proof
+
+![Merkle proof](img/merkleproof.svg)
+
+???
+
+```graphviz
+digraph G {
+    rankdir="BT"
+	node [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+shape = "box"
+color = "black"
+width = "0.5"
+];
+edge [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+
+"root"
+[
+label = "h(H1234,H5656)\nMerkle Root"
+shape = "ellipse"
+style = "filled"
+fillcolor = "green"
+kind = "file"
+
+];
+
+"h14" [
+label = "h(H12,H34)"
+shape = "ellipse"
+style = "filled"
+fillcolor = "green"
+kind = "file"
+    
+];
+
+"h58" [
+label = "h(H56,H56)"
+shape = "ellipse"
+style = "filled"
+fillcolor = "orange"
+kind = "file"  
+];
+
+"h12" [ 
+label = "h(H01, H02)"
+shape = "ellipse"
+style = "filled"
+fillcolor = "orange"
+kind = "file"
+];  
+
+"h12" [ 
+label = "h(H01, H02)"
+shape = "ellipse"
+kind = "file"
+];  
+
+"h34" [ 
+label = "h(H03,H04)"
+shape = "ellipse"
+style = "filled"
+fillcolor = "green"
+kind = "file"
+];  
+
+"h56" [ 
+label = "h(H05, H06)"
+shape = "ellipse"
+kind = "file"
+];  
+
+
+"h01" [
+label = "h(01)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h02" [
+label = "h(02)"
+shape = "ellipse"
+kind = "file"
+];
+
+"h03" [
+label = "h(03)"
+shape = "ellipse"
+style = "filled"
+fillcolor = "green"
+kind = "file"
+];
+
+"h04" [
+label = "h(04)"
+shape = "ellipse"
+style = "filled"
+fillcolor = "orange"
+kind = "file"
+];
+"h05" [
+label = "h(05)"
+shape = "ellipse"
+kind = "file"
+];
+"h06" [
+label = "h(06)"
+shape = "ellipse"
+kind = "file"
+];
+
+"01" [
+label = "Block\n01"
+pname = "?"
+kind = "proc"
+];
+"02" [
+label = "Block\n02"
+pname = "dotty"
+kind = "proc"
+];
+"03" [
+label = "Block\n03"
+pname = "dotty"
+style = "filled"
+fillcolor = "red"
+kind = "proc"
+];
+"04" [
+label = "Block\n04"
+pname = "dotty"
+kind = "proc"
+];
+"05" [
+label = "Block\n05"
+pname = "dotty"
+kind = "proc"
+];
+
+"06" [
+label = "Block\n06"
+pname = "dotty"
+kind = "proc"
+];
+
+01-&gt;h01
+02-&gt;h02
+03-&gt;h03
+04-&gt;h04
+05-&gt;h05
+06-&gt;h06
+h01-&gt;h12
+h02-&gt;h12
+h03-&gt;h34
+h04-&gt;h34
+h05-&gt;h56
+h06-&gt;h56
+h12-&gt;h14
+h34-&gt;h14
+h56-&gt;h58
+h56-&gt;h58
+h14-&gt;root
+h58-&gt;root
+
+}
+```
+
+---
+# Merkle roots in the Blockchains
+
+Next week we'll read the original Satoshi Nakamoto Bitcoin white paper.
+Among other things, we'll learn how Merkle trees are used 
+exactly in Bitcoin. They're of crucial importance because they enable
+the efficient verification
+of a single payment record in a sea of data without having 
+to download all the other payments. 
+
+To prove that a payment has actually happened, it suffices to have 
+the transaction in question and obtain from the network 
+the (few) hashes for completing the Merkle
+proof all the way up to the trusted Merkle root.
+
+In next week's lab we also calculate a simple Merkle tree.
+
+Stay tuned!
+
+---
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
