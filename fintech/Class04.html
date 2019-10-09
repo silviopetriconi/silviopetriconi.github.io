@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 4: Bitcoin
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-09-26 (updated: 2019-09-27)
+
+---
+
+class: inverse, left
+background-image:url("img/bitcoin-1813503.jpg")
+background-position: left
+background-size: cover
+
+#Bitcoin: An Introduction
+
+--
+
+###  | Cryptography 101
+###  | The double spending problem
+###  | Satoshi's whitepaper
+###  | Bitcoin
+
+---
+class:inverse,center,middle
+
+#Cryptography 101
+
+
+
+---
+# Cryptography (symmetric key)
+
+For many things in life and business, it is essential that others can't read your data. This is a __very__ old problem of humanity...
+
+Already 2000 years ago people were having ways of transmitting
+military information while reducing the risk of such sensitive data
+falling into wrong hands!
+
+The idea of a __symmetric encryption cipher__ is simple: have a family of invertible (and hopefully sufficiently complicated and diverse) encryption functions `\((f)^{key}\)` indexed by the encryption `\(key\)` such that:
+
+`\(X = f^{key}(plaintext)\)`
+
+where `\(X\)` is an encrypted version of the plain text data that no longer 
+resembles them in any way. If the encryption function is well chosen,
+only a person knowing the key should be able to retrieve the plain text
+without unreasonable effort:
+
+`\(plaintext = (f^{key})^{-1}(X)\)`
+
+
+
+
+---
+# The Caesar Cipher
+
+A simple (and totally insecure) example of symmetric key cryptography 
+is the
+encryption cipher that was used by 
+Gaius Julius Caesar: he shifted all letters of the alphabet by a certain 
+offset, writing c instead of a, d instead of b, etc.
+
+Can you break the code?
+
+&gt;Qksec Tevsec Mkockb kvgkic econ oxmbizdsyx dy zbydomd rsc zbsfkdo mywwexsmkdsyx.
+&gt;
+&gt;Dro Mkockb mszrob coowc k qyyn snok kd psbcd. Led sd bokvvi sc xyd. 
+&gt;
+&gt;Dro uoi czkmo sc vswsdon dy (x-1) grobo x sc dro xewlob yp voddobc sx dro kvzrklod. 
+&gt;
+&gt;Drsc voddob, pyb ohkwzvo,
+gkc oxmbizdon wkzzsxq k dy u, cy mryycsxq k dbkxcvkdsyx yppcod yp dox.
+&gt;
+&gt;S qeocc iye pyexn yed li dbisxq kvv zyccslvo uoic, nsn iye?
+
+How did you do it? What weakness did you exploit? Hint: there are many!
+
+---
+# The key exchange problem
+
+Modern symmetric key ciphers like [Twofish](https://en.wikipedia.org/wiki/Twofish) or [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) are infinitely more powerful
+in protecting against the many weaknesses of simple ciphers like 
+the Caesar cipher. However, they all share one ultimate problem: 
+for the receiver to be able to read the message, its encryption key
+must already have been communicated via some secure channel to the receiver.
+
+This is not much of a problem when we're storing a message for 
+our own purpose. But it seems an unsurmountable issue when we try to 
+send encrypted communication to a party with whom we have
+never been able to establish a secure channel to exchange keys. 
+
+
+[Whitfield Diffie and Martin Hellman (1976)](https://ee.stanford.edu/%7Ehellman/publications/24.pdf) were the first to describe a method to get around
+this problem: 
+
+__Asymmetric encryption__ with public and private keys:
+
+&gt;_In a public key cryptosystem enciphering and deciphering are governed by distinct keys, E and D, such that computing D from E is computationally infeasible (e.g., requiring `\(10^{100}\)` instructions). _
+
+---
+#Asymmetric-key cryptography
+
+This is how asymmetric key cryptography is used:
+
+ * Obtain (typically by choosing a passphrase augmented with further sources of randomness) a key pair _(sk, pk)_ comprising of the secret key _sk_ (also
+ often referred to as private key), and the public key _pk_. [Try this.](https://anders.com/blockchain/public-private-keys/keys)
+
+ * Distribute the public key _pk_ to the general public, and make sure
+   everyone knows your public key. Keep the secret key private.
+   
+ * Anyone wanting to send an encrypted message _msg_ to you
+   can encrypt it using your public key:
+   
+   `\(X = encrypt(msg, pk)\)`
+   
+ * The message can now only be decrypted by the secret key _sk_.
+   
+
+
+.footnote[*A wonderfully simple explanation of the technology behind public-private key 
+cryptography can be found [here](https://bitfalls.com/2017/11/16/cryptography-mortals-lets-explain-public-private-keys/). If you're interested in the source code 
+of a simple pure Python implementation of RSA, see this [link](https://gist.github.com/ErbaAitbayev/8f491c04af5fc1874e2b0744965a732b). For purposes of this course it suffices if you know how to use asymmetric key cryptography, not why it works.]
+---
+#Digital signatures
+Digital signatures are a close cousin of asymmetric key encryption: many 
+asymmetric key encryption methods (e.g. RSA) provide a canonical way to 
+sigitally sign unencrypted data by add a digital signature
+at the end of an unencrypted message. Try this on your own
+[here](https://anders.com/blockchain/public-private-keys/signatures).
+
+Steps:
+
+ * Invent a secret password, which will become your secret key _sk_. 
+   The software will calculate from that your publikc key _pk_ that
+   you can publish anywhere.
+   
+ * Write an unencrypted message _m_. To prove to everyone who knows
+   your public key that you were the one who wrote this message, 
+   "sign" it by computing its digital signature _sign(m, sk)_ with
+   your secret key. Append this signature to the message.
+   
+ * Everyone can then use a verification function _verify(m, pk, sg)_ that
+   should return `True` only if the signature _sg_ is equal to 
+   _sign(m, sk)_ to ascertain the validity of the message.
+
+Why does this matter? Digital signatures are used to authorize transactions! 
+
+
+
+
+
+
+
+---
+
+
+class:inverse,center,middle
+# The double spending problem
+---
+# Digital coins and double spending
+
+Naively, we might think that digital signatures provide a natural way
+for creating digital coins that can be passed on from one to another:
+
+A coin would be a file which carries the digital signature of the 
+payer agreeing to give the coin to the payee (identified by a
+public key). 
+
+The digital signature indeed proves that the payee rightfully received
+the coin from the payer. The payee could spend the coin by amending his/her own signature and the public key of the next receiver:
+
+However, this "native" currency doesn't work: the initial owner
+of the coin can always retain a copy of the
+coin before digitally signing it over to the payee. After that, the former owner of the coin could use the backup copy to make further 
+payments to other parties. 
+
+We refer to this as __double spending__. It is obvious that a digital coin 
+must be scarce to have value, yet this system would allow its users
+to spend the same money more than once. 
+
+---
+class:inverse,center,middle
+
+# Satoshi's idea
+
+---
+# Satoshi's white paper
+
+On 31st of October 2008, an anonymous developer posted unter the pseudonym Satoshi Nakamoto a [paper](https://bitcoin.org/bitcoin.pdf)
+on a cryptographic mailing list. 
+
+It describes a decentralized currency, Bitcoin.
+
+__We will now jointly read it. __
+
+It remains the single best source to
+understand the idea behind Bitcoin, and it's not very technical
+at all. We've already learned about Merkle trees, Merkle proofs and
+digital signatures, so
+we can understand _everything_ that Satoshi is talking about.
+
+
+---
+class:inverse,center,middle
+
+# Bitcoin
+---
+# Bitcoin addresses
+
+In the actual implementation of Bitcoin, coins are held at addresses
+that are derived from public keys that anyone can create on a computer.
+For the purpose of increased security, these public keys are hashed with SHA256 and RIPEMD160:
+
+```
+ADDR=RIPEMD160(SHA256(publickey))
+```
+
+We will refer to this as 
+
+```
+hash160(publickey)
+```
+
+The final address is written down in [BASE58 encoding](https://en.wikipedia.org/wiki/Base58), which essentially 
+is a reduced alphanumerical set that excludes some letters and numbers
+which are otherwise easily confused, e.g. (0, O), (I, l, 1).
+
+An example of a valid Bitcoin address is
+
+```text
+1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+```
+(The first-ever block reward was sent to this address)
+
+---
+# Bitcoin addresses (cont.)
+
+One reason why Bitcoin uses double-hashed public keys as addresses
+rather than public keys directly is to increase cryptographic 
+security: to uniquely identify the receiver of a payment, the hash of a 
+public key is just as good as a public key. The public key of an
+address is only disclosed once the holder of the address authenticates
+a payment (for which the owner of the address must provide the 
+actual public key to the network as to enable miners to validate
+the signature of the payment instruction.). 
+
+Imagine now that, for example due to a weakness in the cryptography
+algorithm or the use of quantum computing, some day it becomes 
+feasible to compute a private key from a public key. 
+
+Then at least all funds of addresses from which no bitcoins were
+ever spent are still safe: nobody other than their owner knows
+even the public key! 
+
+Since creating new addresses is costless, it is better 
+in terms of security aspects to always spend everything in one address
+and discard it afterwards. This can be done, for example, by transferring
+the residual credit to a newly created address. There are also
+[many other](https://en.bitcoin.it/wiki/Address_reuse) privacy-related 
+arguments against
+address reuse.
+
+
+---
+#Bitcoin: Unit of account
+
+The atomic unit of account in Bitcoin is 1 Satoshi `\(\equiv 10^{-8}\)` BTC. 
+Addresses themselves do not preserve information about the amount that
+the addresses are holding; how many Satoshis reside at an address 
+at any given point in time is
+rather computed by counting all unspent transaction outputs (UXTO) 
+that list this address as their destination.
+
+
+
+
+---
+# Genesis block: the first block ever
+
+The first block in a blockchain is referred to as the Genesis block. 
+[This](https://www.blockchain.com/en/btc/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f) is the genesis block of Bitcoin...
+
+We can see that there is only one transaction. The _"coinbase transaction"_, i.e. the block reward for
+finding a nonce that enables the hash of the genesis block 
+to start with the required number of zeros goes to Satoshi's first
+address.
+
+In the beginning, the required level of difficulty was low (as not to
+delay the frequency of blocks beyond the target time). At the same 
+time, the reward paid out to the miners was particularly high:
+
+According to the Bitcoin protocol, block rewards decline as follows:
+
+
+
+
+
+
+
+
+---
+#Bitcoin proof of work
+
+We explore Bitcoin proof of work in the Blockchain simulator.
+If you're non-attending, run your own copy (or watch the video)
+from [this link](https://anders.com/blockchain/).
+
+Bitcoin's proof of work comprises in finding a nonce that results
+in a block hash smaller than some target number. By increasing the 
+_difficulty_, the target number is reduced and are therefore harder to mine. 
+
+
+Bitcoin algorithmically resets its difficulty of mining every 2016 blocks,
+targeting a difficulty level that allows for one mined block every 10 minutes (in expectation).
+The odd number 2016 for the difficulty reset
+simply reflects the fact that with a targeted time of 
+10 minutes per block, difficulty readjusts every two weeks, which should
+mean every `\(14*24*60/10=2016\)` blocks. 
+
+
+
+---
+
+
+#Bitcoin monetary policy
+
+Monetary policy in Bitcoin is defined by a fixed rule.
+
+The initial block reward for finding a block is 50 BTC. Every 210,000 blocks (which at the targeted speed of block creation is reached
+after every 3.5 years), this block reward is cut into half. It's a _geometric series!_
+
+Reward level 1 (which was exhausted in Dec 2011 upon reaching block 210,000) did create 210,000 * 50 BTC = 10500000 BTC.
+
+Reward level 2 (which was exhausted in July 2015) created 210,000 * 25 BTC
+
+(and so on).
+
+The geometric series converges to a fixed amount. Moreover,
+after finite time the block reward will fall below 1 Satoshi
+and thus become zero.
+As a consequence, in total only 21,000,000 BTC will ever be mined.
+
+Of those, as of today 17,960,600 (85.5%) have [already been mined](https://www.buybitcoinworldwide.com/how-many-bitcoins-are-there/).
+
+---
+# Outlook
+
+Next week we'll look more at the details of Bitcoin, understand the
+security level of distributed consensus, and the economics that keeps
+distributed consensus working. 
+
+We'll also look at mining, centralization and blockchain forks.
+
+---
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
