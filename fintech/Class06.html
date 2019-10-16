@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 6: Smart Contracts, Tokens and ICOs
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-10-10 (updated: 2019-10-16)
+
+---
+
+class: inverse, left
+background-image:url("img/ether.jpg")
+background-position: left
+background-size: cover
+
+#Smart Contracts, Tokens and ICOs
+
+--
+
+.right[
+###  | From Bitcoin script to Ethereum
+###  | Stale blocks and Uncles 
+###  | Smart contracts
+###  | The fate of the DAO
+###  | Tokens and ERC-20 coins
+###  | ICOs and new forms of finance
+]
+---
+class:inverse,center,middle
+
+#From Bitcoin script to Ethereum
+
+
+---
+# Bitcoin Script?
+
+There's one part of _Bitcoin_ that we haven't talked about yet, because for most users it is completely transparent, so they have no contact with it, ever:
+__Bitcoin Script__. It's a minimalistic, [stack-based](https://en.wikipedia.org/wiki/Stack-oriented_programming) programming language that handles the details of a transaction such as
+signature verification. Every transaction is in reality not sent
+as a tuple of (sender, receiver, signature), but as a little sequence 
+of instructions that instruct the miner what exactly to do.
+
+Why was an entire mini-language included in Bitcoin? 
+ * to support multisig transactions: transactions which require m out of n people to sign the transaction to become valid
+ * to support slightly more advanced payment logic, such as i inputs, j outputs.
+
+The details of the Bitcoin script specification can be found [here](https://en.bitcoin.it/wiki/Script#Opcodes).
+
+&gt; _The script is actually a predicate. It's just an equation that evaluates to true or false. Predicate is a long and unfamiliar word so I called it script._ - Satoshi Nakamoto
+
+Bitcoin script must be validated and executed by the miners. The problem: 
+
+---
+# The Halting Problem
+
+Compare the following lines of code. This code will run and halt:
+
+.small[
+```python
+sleep(1)
+```]
+
+This code will run forever:
+
+.small[
+```python
+while True:
+    continue
+```]
+
+But what will this code do:
+
+.small[
+```python
+  while j &lt; i:
+    j = exp(i)-sin(i)*i**2
+    i = tanh(j)
+```
+]
+
+**General question:** Is there a general algorithm which can determine whether this (or any other)
+code will come to a final stop, looking just at the code and the initial values of its variables (e.g. i and j in the last example)?
+
+---
+#Turing's famous answer
+
+.pull-left[
+![Alan Turing](https://upload.wikimedia.org/wikipedia/commons/7/79/Alan_Turing_az_1930-as_%C3%A9vekben.jpg)
+]
+.pull-right[
+In 1936, [Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing) wrote the paper ["On Computable Numbers, with an Application to the Entscheidungsproblem."](https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf) in which he proves that the problem is _undecidable_ over Turing machines (a mathematical idealization of
+our day's computers): there exists no general algorithm that can 
+decide whether a program will or will no come to a stop.
+
+The finding bears close connections with Kurt 
+Gödel's famous [incompleteness theorem](https://en.wikipedia.org/wiki/Gödel%27s_incompleteness_theorems).
+]
+---
+
+##Blockchain scripts: Turing-incomplete or unstoppable
+
+
+The undecidability of the halting problem has direct consequences for the design of Blockchain scripting 
+languages like Bitcoin script: either they are by purpose made
+Turing-incomplete (e.g. by taking away the possibility to have loops), 
+or they can potentially run forever (__on the miners' machines!__).  By Turing's proof of the 
+undecidability of the 
+Halting problem, we can't hope to build some sort of filter that
+prevent scripts that won't halt from running.
+
+Since the scripts must be executed by the network's validator nodes
+(not on the computer which submitted them), this is a big security problem.
+
+* Satoshi Nakamoto implemented Bitcoin script as 
+a Turing-incomplete language.
+It lacks the instructions for loops such that it will always be
+executed sequentially and come to
+a halt. The price for this is that only the most simple algorithms 
+can be implemented in Bitcoin script.
+
+* Vitalik Buterin wondered how much more interesting things 
+could be done if one just had a Turing-complete language on a
+blockchain. If its execution could just be stopped...!
+Maybe a simple pragmatic solution, like budget constraints for resource use, could work?
+
+---
+# Stopping the unstoppable: (Out of) Gas
+
+With a car, you can't go any further if you've run out of gas.
+Why not apply this principle to scripts for the Blockchain? That's exactly  Ethereum's approach:
+ * Every instruction costs a certain amount of gas.
+ * The distrinction between _gas_ and _Ether_ as units of account is made
+   to decouple measures of computational complexity from valuation of
+   a cryptocurrency.
+ * You're required to endow every contract with a certain amount of gas
+ (_gasLimit_ parameter) that gets depleted when processed by miners, and miners get paid.
+ * When your contract is out of gas, it stops running, fees remain
+   paid. No matter what you did or didn't get to do.
+ * The gas price is indirectly determined by miners: miners pick
+   transactions according to the _gasPrice_ that the transaction is
+   bidding for and
+   decline to process contracts that bid too low a gas price.
+   High _gasPrice_ buys you priority processing.
+   Check the current market prices of your fuel grade at the [gas station](https://ethgasstation.info).
+  
+
+---
+# Ethereum
+
+Vitalik Buterin and other co-founders developed Ethereum as a 
+blockchain that includes a Turing complete virtual machine from scratch. 
+
+ * two kind of accounts: 
+     - _external accounts_ which are controlled by public keys (as in Bitcoin)
+     - _contract accounts_ which are governed by a _smart contract_, i.e. a piece of software being executed on the Ethereum Virtual Machine (EVM).
+
+ * to create a contract, one sends a transaction with receiver
+   `null` and binary payload code; the payload is executed and its
+   result (not the payload!) is saved as a new smart contract at a 
+   new address.
+ * contracts can also send messages between each other. More [here](https://solidity.readthedocs.io/en/v0.5.3/introduction-to-smart-contracts.html).
+
+
+.footnote[__Homework__: Read the full [white paper](https://github.com/ethereum/wiki/wiki/White-Paper) of Ethereum. Unlike the pile of meaningless garbage that has been blogged about Ethereum by people who don't even understand its fundamental
+mechanics, the white paper 
+explains in human-understandable terms what it is, how it works, and 
+what its economics is. I don't expect you to understand Ethereum at the level of its [yellow paper](https://ethereum.github.io/yellowpaper/paper.pdf).]
+
+---
+# Ethereum cryptocurrency units
+
+In Ethereum, the built-in cryptocurrency unit is the _Ether_. The smallest atomistic unit of account (like one Satoshi in Bitcoin) is 1 _wei_. 
+   
+   Unit    | Name
+----------|-----
+`\(1\)`       | wei
+`\(10^{12}\)`   | szabo
+`\(10^{15}\)`   | finney
+`\(10^{18}\)`   | ether
+
+Initially, Ether also was sold by the cryptocurrency developers
+in a currency sale at prices around 1000-2000 Ether per BTC. 
+
+---
+# Ethereum Monetary Policy
+
+__Some core differences with respect to Bitcoin:__
+ 
+* initial endowment pool: by selling of ETC in exchange for BTC, 
+  less control and wealth concentration in hands of original developers. 
+* block mining reward incentive similar to BTC, plus rewards for uncle blocks (more about uncle blocks later), 
+* permanent linear issuance of new currency, so no upper ceiling (unlike BTC), not planning for built-in deflation and allowing for coin loss over 
+time.
+* subject to potential future changes. 
+
+---
+
+# Ethereum Governance Model
+
+__Unlike Bitcoin, Ethereum has a strong governance model:__
+
+* entirely off-chain via Ethereum Improvement Proposals (EIP) and
+  Ethereum Requests for Comment (ERC)
+* EIP's are [discussed](https://gitter.im/ethereum/governance), discussed more [among core developers](https://github.com/ethereum/pm) and eventually implemented or dropped. The core developers, of course,
+can't just dictate because it may cause a fork in the community. 
+They will try to persuade.
+* [EIP 1](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1.md) 
+describes the official way how governance is handled on
+Ethereum.
+* Many miners and users have criticized the governance model of
+Ethereum as close to a "social planner" and are not comfortable with
+the focal role of its founder, Vitalik Buterin, in the governance
+of the chain. Compare this to the total absence of Satoshi 
+Nakamoto in Bitcoin.
+
+
+.footnote[A good article outlining the governance model of Ethereum
+can be found [here](https://unblock.net/what-is-ethereum-governance/).]
+
+---
+#Ethereum Decentralization
+
+In Bitcoin, several forces created bias towards centralization:
+ * pooled mining
+ * highly specific assets for mining: ASICs
+ * network latency creates risk of mining stale blocks that don't
+   end up on final chain
+   
+If blocks are to be mined at a rate faster than every 10 minutes,
+forces that favor centralization will get worse! 
+At the same time, decentralization is essential for security of the
+network.
+
+Attempts to
+address this in Ethereum:
+ * proof of work algorithm that is ASIC-hard, i.e. unlikely to be more 
+   efficient on ASIC than on normal GPU.
+ * GHOST protocol that also rewards stale blocks.
+   More about this now.
+ 
+---
+class:center,inverse,middle
+# Stale Blocks and Uncles
+
+
+---
+# Reminder: the problem of stale blocks
+
+.pull-left[![Stale block](img/staleblocks.svg)]
+
+.pull-right[When mining Bitcoin, there's a chance that a new block is found by two miners almost simultaneously. Both will propagate "their" block to their peers.
+
+Eventually more miners will mine on one block than on the other and
+its chain will become longer than the other. At this point,
+remaining miners switch to mine on the longer chain. 
+Block #0816.v2 becomes _stale_, its mining reward is lost and can't be spent.
+
+The faster you learn about new blocks and the faster you announce your own new blocks, the lower your risk of stale block production.
+
+
+]
+
+???
+```
+# http://www.graphviz.org/content/cluster
+
+digraph G {
+     
+	subgraph cluster_0 {
+		style=filled;
+		color=lightgrey;
+		node [style=filled,shape=rectangle,color=white];
+		A0816 -&gt; A0817 -&gt; A0818;
+		label = "main";
+		A0816 [shape=rectangle,label="Block #0816.v1"]
+		A0817 [shape=rectangle,label="Block #0817"]
+		A0818 [shape=rectangle,label="Block #0818"]
+		
+	}
+
+	subgraph cluster_1 {
+		node [style=filled,shape=rectangle];
+		style=filled;
+		B0816 -&gt; ".....";
+		B0816 [shape=rectangle,label="Block #0816.v2"]
+		label = "stale";
+		color=white
+	}
+	
+	start -&gt; A0816;
+	start -&gt; B0816;
+	0814 [shape=rectangle,label="Block #0814"]
+	0814-&gt;start;
+
+
+	start [shape=rectangle, label="Block #0815"];
+
+}
+
+```
+
+---
+# Stale blocks and centralization
+
+Stale blocks lead to mining centralization / agglomeration: 
+* If I know that the 
+majority of miners are mining in location X, and the network needs 
+time to report any block that I find to location X
+(_"latency"_), I should move close to location X as well to minimize 
+wasted time in stale block production.
+
+* This is detrimental to network security.
+
+* A network with faster block times (e.g. one block every 10 seconds) produces stale blocks at _much_ higher rate than a network with slow
+block times (e.g. one block
+every 10 minutes) because the network's nodes are "out of sync" for
+higher percentage of overall time.
+
+* Therefore, without changes to mining incentives, a faster network's security would be compromised due to strong incentive for centralization.
+
+For smart contracts, consensus (and thus a new block) must be reached for 
+every state transition of the Ethereum VM. Impractical to wait 10
+minutes in order to update one value in EVM memory, faster
+block times are needed, e.g. one block every 12 seconds. **How can then centralization be averted?**
+
+---
+# GHOST and Uncle Mining
+
+
+.pull-left[![Uncle blocks](img/uncles.svg)]
+
+.pull-right[
+To avoid centralization by miners' fear of stale block mining and yet
+have short block times, Ethereum uses incentives inspired by the [GHOST](https://eprint.iacr.org/2013/881.pdf) (Greedy Heaviest Observed Subtree) protocol.
+
+In essence, it gives some mining (but no transaction) rewards also 
+to those who mine stale blocks (_"uncles"_); the surviving chain is 
+chosen not as the longest chain, but as the chain with the 
+heaviest observed subtree including uncle blocks (see example
+on the left side: the weight of the red uncle blocks makes the 
+shorter tree the winner).
+
+This reduces centralization trends, but [is not without problems.](https://bitslog.com/2016/04/28/uncle-mining-an-ethereum-consensus-protocol-flaw/)
+]
+
+???
+
+```
+# http://www.graphviz.org/content/cluster
+
+digraph G {
+     
+	subgraph cluster_0 {
+		style=filled;
+		color=lightgrey;
+		node [style=filled,shape=rectangle,color=white];
+		A0816v1 -&gt; A0817v1 -&gt; A0818v1;
+		label = "main";
+		A0816v1 [shape=rectangle,label="Block #0816.v1"]
+		A0816v2 [shape=rectangle,label="Block #0816.v2"]
+     	A0816v3 [shape=rectangle,label="Block #0816.v3"]
+		A0817v1 [shape=rectangle,label="Block #0817"]
+		A0818v1 [shape=rectangle,label="Block #0818"]
+		
+	}
+
+	subgraph cluster_1 {
+		node [style=filled,shape=rectangle];
+		style=filled;
+		B0816 [shape=rectangle,label="Block #0816.v4"]
+		B0817 [shape=rectangle,label="Block #0817.v2"]
+		B0818 [shape=rectangle,label="Block #0818.v2"]
+		B0819 [shape=rectangle,label="Block #0819"]
+		B0816 -&gt; B0817-&gt; B0818 -&gt;B0819;
+		label = "stale";
+		color=white
+	}
+	
+	A0816v2 [style=dashed, color=red];
+	A0816v3 [style=dashed, color=red];
+	
+	#A0818v1-&gt;A0816v3;
+	
+	start -&gt; A0816v1;
+	start -&gt; A0816v2 [style=dashed];
+	start -&gt; A0816v3 [style=dashed];
+	start -&gt; B0816;
+	0814 [shape=rectangle,label="Block #0814"]
+	0814-&gt;start;
+
+
+	start [shape=rectangle, label="Block #0815"];
+
+}
+```
+
+---
+class:center,inverse,middle
+
+# Smart Contracts
+
+---
+# Solidity
+
+The most popular language to program the Ethereum Virtual Machine is Solidity:
+ * somewhat similar to JavaScript / ECMAScript, but statically typed
+ * contracts can implement any logic, send messages to other contracts,
+ etc.
+ 
+Examples of functions that can be codified as Solidity smart contracts:
+ * __financial derivatives:__ code can make payments at a given point
+   in the future which will be contingent on the value of other inputs
+   like weather, 
+   
+ * __cryptotokens:__ code that issues and manages a set of unique 
+   tokens which may give their owners rights to receive cash flows 
+   from an investment, or derive utility from a service
+   
+ * __distributed organizations:__ One view of the firm is that it
+   comprises of
+   a web of contracts that regulate state-contingent payments. 
+   In principle one could think to implement distributed organizations, firms, venture capitalists, financial intermediaries via smart contracts... 
+
+Conditional on time, we'll develop a smart contract of our own later.
+ 
+ 
+
+---
+# Code is Law
+
+The big advantage of smart contracts is that they execute automatically:
+  * In a normal contractual agreement, the counterparty can default on its obligations
+  * Then, a lengthy legal process will try to force that the contract is enforced.
+  * In smart contracts, instead the enforcement is automatic. In a place
+    with a bad legal system, this can be a blessing.
+    
+But code is just code. It will do what you told it to do, which is sometimes very different from what you wanted it to do.
+
+ * Bugs are going to be executed!
+ * There's no chance to update a buggy contract ex-post.
+ * **Code is law!** Bad real-world contracts get renegotiated. Bad
+   smart contracts just execute nevertheless.
+ * Testing is crucial. Understanding well __ALL__
+   possible channels by which the contract can run out of gas
+   or behave differently from what you
+   expect is
+   fundamental. 
+
+
+
+---
+class:center,inverse,middle
+# The fate of the DAO
+
+---
+
+# The DAO
+
+The first attempt to set up a distributed firm was the [DAO](https://en.wikipedia.org/wiki/The_DAO_(organization%29) (decentralized autonomous organization) which was launched in 
+May 2016 as a set of smart contracts on the Ethereum blockchain:
+
+ * _Crowdfunded:_ Raised over $100 million by selling its ownership tokens on the Ethereum network. 
+ * _Stateless and autonomous:_ no physical address, no management roles. 
+   In principle not located under in any particular state of 
+   the world, unclear which legislation would apply.
+ * _Open source and blockchain-operated:_ everything fully transparent in principle,
+   but the organization's [code](https://github.com/slockit/DAO) is complicated nevertheless.
+  
+Idea: organization would run autonomously, controlled by code. Would act similar to a venture capitalist that will fund other projects
+   with Ether, acquire share of ownership in those. DAO tokens give
+   their owners the right
+   to vote on potential projects to be financed.
+  
+  
+---
+# The heist
+.left-column[
+![Emin](http://www.cs.cornell.edu/People/egs/pics/egs-headshot-small.jpg)
+
+Emin Gün Sirer 
+.tiny[Foto: Cornell University]
+
+.tiny[Emin is widely considered one of the most important researchers on cryptocurrency. You may want to follow his  [Tweets](https://twitter.com/el33th4xor?lang=en).]
+]
+.right-column[In June 2016, [Emin Gün Sirer](http://www.cs.cornell.edu/people/egs/) (Cornell) found a security issue with the code of the DAO: 
+ * some of the code was not reentrant, i.e. by entering the same contract
+   function twice in a recursive call, things could go in unexpected ways
+ * in fact, there was a possibility for money to be stolen. He 
+   [wrote about it](http://hackingdistributed.com/2016/05/27/dao-call-for-moratorium/) in late May, 2016.
+ * indeed, in June 2016 the DAO got hacked, and 3.6 million Ether (at the
+   time around USD 70 million) [were stolen.](
+http://hackingdistributed.com/2016/06/17/thoughts-on-the-dao-hack/)
+
+In an unheard-of movement, the Ethereum community reacted to this spectacular hack by forcing a software-enforced hard-fork of
+Ethereum on 20 July 2016 01:20:40 PM +UTC at Block 1920000 that would
+restore the funds to the DAO. 
+
+This was very controversial. Not everyone joined the hard-fork, _Ethereum classic_ is the second surviving chain.
+
+]
+
+
+---
+# A lesson learned
+
+The DAO hack illustrates extremely well how risky smart contracts can be
+when their behavior is not fully understood. 
+
+This points at two important open issues:
+ * Tools for smart contract development should provide __better 
+   safeguards__ against certain subtile errors
+   than what Solidity is currently offering.
+    -  just look at what [Rust](https://www.rust-lang.org) has achieved in terms of code quality guarantees in the area of systems programming relative to C++
+    - there's lots of smart magic going on to prevent the worst kind of
+      errors from ever even compiling into code
+    - we clearly need more security-centric dedicated tools for smart contract development
+    - Facebook's [Move](https://developers.libra.org/docs/move-paper) language is a substantial step in this direction (not for Ethereum but for its
+    own [Libra](https://libra.org/en-US/) blockchain).
+ 
+ * Trust in __code quality__ and __data source integrity__ will 
+ always remain a first-order problem when working with smart contracts.
+ 
+---
+class:center,inverse,middle
+# Tokens and ERC-20 coins
+
+---
+# Tokens and ERC-20 coins
+
+One of the most frequently used contract on Ethereum is an [ERC-20 compliant](https://eips.ethereum.org/EIPS/eip-20) token contract. 
+It's a contract allowing you to issue a finite number of __tokens__
+whose ownership can be traced by the blockchain. By using always
+the same contract features (compliant with ERC-20), many programs
+can interact with tokens of all kinds.
+
+What can tokens be good for?
+
+ - __utility tokens__: think for example about bus tickets or
+   train tickets. In essence, they are proofs that you paid the
+   relevant fare for a service that you're receiving. Utility tokens
+   are a generalization of this concept: access to computing resources,
+   data, other services can be paid for with utility tokens which
+   developers simply issue.
+   
+ - __financial security token__: ownership rights etc. Do the [Howey test](https://en.wikipedia.org/wiki/SEC_v._W._J._Howey_Co.) to see if a
+   token is considered a digital financial security like 
+   a share of stock:
+     - It is an investment of money?
+     - The investment is in a common enterprise?
+     - There is an expectation of profit from the work of the promoters or the third party?
+
+
+
+
+---
+# Skeletron of a Crypto-Token contract
+```solidity
+pragma solidity ^0.4.4;
+
+contract Token {
+    /// Total amount of tokens in circulation
+    function totalSupply() constant returns (uint256 supply) {}
+    /// Get the token balance
+    function balanceOf(address _owner) constant returns (uint256 balance) {}
+    // Transfer token to another address
+    function transfer(address _to, uint256 _value) returns (bool success) {}
+    // Transfer from another address
+    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {}
+    // Approve transfer
+    function approve(address _spender, uint256 _value) returns (bool success) {}
+    // Get Amount of remaining tokens allowed to spent
+    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {}
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+}
+
+```
+
+
+
+---
+class:center,inverse,middle
+#ICOs and new forms of finance
+---
+#Initial Coin Offerings
+
+Like stock, which is sold in an initial public offering (IPO), tokens
+are sold in initial coin offerings (ICO). Unlike IPOs, many successful
+ICO's have been made without any help from investment banks and an 
+army of lawyers.
+
+Legality, however, has been a big problem.
+Crypto tokens (except those utility tokens which fail the Howey 
+test) 
+fall under the same regulations as __stock issuance__. Failure to
+follow the regulations for stock issuance (registration with SEC,
+prospectus, etc) is against the law.
+Example: 
+ * EOS sold [over $4bn](https://www.cnbc.com/2018/05/31/a-blockchain-start-up-just-raised-4-billion-without-a-live-product.html) in cryptotokens in 2018 without a live product to 
+   show
+ * got into trouble with the SEC, [settled](https://www.coindesk.com/eos-maker-block-one-settles-with-sec-over-unregistered-securities-sale) for a "peanuts" fine of $24M.
+ 
+
+To evade regulation and oversight, many ICO's were held by firms 
+located on the 
+Cayman Islands or elsewhere outside U.S. jurisdiction. Naive investor demand for cryptoassets 
+was stable irrespective of the legality of the transaction.
+
+Read [here](https://www.sec.gov/ICO) the SEC's position about ICOs.
+
+---
+# ICOs: a new way of finance?
+
+The technical ease of holding an ICO highlights that
+cryptoassets, when regulated and overseen properly, hold the promise of __greatly improving access to (crowd-)funding__ for small and medium size firms that are too small
+to ever even consider an IPO.
+
+ * global scope and tradeability of tokens makes it easier to attract investors in highly specific assets
+ * cost of issuance are much lower
+ * boundary between financial investors and clients of the company
+   becomes more blurry when utility tokens are used to crowdfund
+   the production of goods/services.
+   
+Economists' view on ICOs: Potentially useful to overcome financing frictions!
+* [Li and Mann](https://www.jbs.cam.ac.uk/fileadmin/user_upload/research/centres/alternative-finance/downloads/2018-af-conference/paper-li.pdf)  point out that ICOs can help overcome coordination problems 
+ between investors and better source the "wisdom of the crowd"
+
+* Consider a 
+   good that requires irreversible investment in order to be
+   produced, but consumers lack ability to commit ahead of time to eventually buying the 
+   good. [Lee and Parlour](https://www.conftool.com/efa2019/index.php/efa2019-FIIT-5-1247-Crowdfunding%2C_Initial_Coin_Offerings%2C_and_Consumer_Surplus.pdf?page=downloadPaper&amp;filename=efa2019-FIIT-5-1247-Crowdfunding%2C_Initial_Coin_Offerings%2C_and_Consumer_Surplus.pdf&amp;form_id=1247&amp;form_version=final) show that crowdfunding can alleviate this problem. ICOs are 
+   ideal to support crowdfunding.
+
+   
+   
+
+---
+# The 2017 token sale explosion: video
+
+&lt;iframe width="784" height="441" src="https://www.youtube-nocookie.com/embed/rIMKNkF6d28" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+---
+# The 2017 token sale explosion, aftermath
+
+.pull-left[
+    ![ICO gone to the beach](img/savedroid_gone.png)] 
+    
+.pull-right[Many tokens just gave ownership without control (an economically 
+terrible idea), or were even 
+outright fraud...
+
+ * in 2018, $100 million of funds stolen in exit scams.
+ * many investors were sort seeing things similar 
+   to the picture on the left:
+   following a successful ICO, company accounts went all dead and 
+   founders escaped to an unknown location.
+   
+  ]
+ 
+    
+.footnote[*Yassin here in the picture actually didn't run with the money in the end, it was a PR stunt. But many others did.]
+
+
+
+---
+# ICO listing fees and the role of exchanges
+
+Fees to list tokens on exchanges have become outrageous, exceeding the cost of
+listing stock at a major stock exchange.
+ * clear sign that exchanges exploit the certification effect of a
+   listing to the utmost
+ * read more about it in [this article](https://www.businessinsider.com/cryptocurrency-exchanges-listing-tokens-cost-fees-ico-2018-3?IR=T)
+ * another hint on how much hype and how little sustainable economics
+   is behind most ICOs. Exchanges are knowingly participating in 
+   making money by selling useless cryptoassets to native investors.
+
+
+---
+class:center,inverse,middle
+#One more thing
+
+---
+# The Internet and Cats
+
+There's a close relation between human beings and cats. 
+
+But on the internet, this has turned extreme.
+ 
+ * over 2 million cat videos on YouTube in 2015
+ * over 6 billion estimated cat pictures
+ * are you a fan of [Lolcats](http://www.lolcats.com)[?](https://icanhas.cheezburger.com/lolcats/tag/free) 
+     - No? Some people may wonder what's wrong with you, but I'm on your side.
+     - Yes? Well... that's fine too.
+    
+But what could possibly happen when one pairs __cats__ with __cryptotokens?__
+
+---
+
+# CryptoKitties!
+
+Soon after its launch in November 2017, [CryptoKitties](https://www.cryptokitties.co) became one of the most successful distributed applications _ever_
+on the Ethereum blockchain. 
+ * cats are collectibles
+ * they can breed new cats
+ * no cats is like another
+ * every cat is represented in a cryptotoken
+ * and people sell their rare cats to each other. Values up to __$200,000__ (!!!).
+ 
+The consequences:
+--
+
+ * cryptokittie = single most frequently traded contract on the Ethereum network in 2018
+ * 25% of network traffic on Ethereum
+ * __causing substantial scalability problems and slowdown on the Ethereum network, resulting also in massive Ether devaluation.__
+
+On the long run, one starts to wonder how much capacity for applications of this
+kind there is on a distributed system that must keep nodes globally in sync. 
+
+---
+# Viewer's Discretion is Advised
+
+If you ever need an introduction to cryptokitties... 
+
+This is seriously weird stuff. 
+
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/S--arvRycMQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+---
+# Getting an Ethereum full node to sync
+
+With a highly loaded chain in times of cryptokitties, it has become __extremely__ hard to sync 
+a full node to the Ethereum blockchain. It takes days to download 98%
+and __months__ to get the remaining 2% in sync, if ever. You need
+ * have super fast storage, e.g. a RAID of SSDs
+ * or better, NVMe
+ * and a super low latency internet connection! DSL is not a good option.
+ 
+[This](https://blog.slock.it/how-to-not-run-an-ethereum-archive-node-a-journey-d038b4da398b) article describes quite well 
+the current pain of running a
+full node. As a result, the Ethereum 
+network currently has less and less nodes that are running as full nodes,
+which is a major security concern. Whilst there are attempts by the
+Ethereum developer community to address these problems, there
+clearly remains a lot to be done in order to keep the chain running
+under the exploding load of cryptographic cats.
+
+The picture that emerges more and more is that there's possibly a [scalability trilemma](https://medium.com/@aakash_13214/the-scalability-trilemma-in-blockchain-75fb57f646df), that one can attain at most two out of following three properties:
+ - decentralization
+ - security
+ - scalability
+
+---
+# My recommendation: cryptozombies
+
+A much more effective use of your time than CryptoKitties is to visit [cryptozombies.io](https://cryptozombies.io). 
+
+This is a parody of cryptokitties, yes, but it's way more than that. Instead of congesting the Ethereum blockchain
+it's actually a programming course that can teach you how to code smart contracts. 
+It's one of the most entertaining and well-developed
+resources on learning Solidity that I am aware of.
+
+So feel free to dive in, write your own zombies and have fun!
+
+&lt;br&gt;
+
+.footnote[*Time permitting, we'll develop some smart contract code later on in our lab sessions.]
+
+---
+
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
