@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 7: Distributed Ledgers // Facebook Libra
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-10-17 (updated: 2019-10-17)
+
+---
+
+class: inverse, left
+background-image:url("img/network-3539325.jpg")
+background-position: left
+background-size: cover
+
+#Distributed Ledgers // Facebook Libra
+
+--
+
+###  | Database vs. Blockchain
+###  | Commercial Applications
+###  | Hyperledger
+###  | JPM Coin
+###  | Facebook Libra
+###  | Central Bank Digital Currency
+
+---
+class:inverse,center,middle
+
+#Database vs. Blockchain
+
+---
+# Private blockchains
+
+With blockchain technology maturing, many firms have started wondering
+whether to adopt Blockchain for real-time documentation of inter- and intra-firm processes.
+
+For many of those processes, blockchain's immutability and 
+shared writability is
+much more important, payment functionality is irrelevant, 
+and the parties that should have write access to the chain (typically,
+business partners) are
+known upfront. 
+
+This has led to the emergence of __private blockchains__, i.e. blockchains
+that are using a permissioned access system and are only shared between
+a closed number of business partners, each of which can identify by
+some cryptographic authentication.
+
+In a private blockchain with identity management,
+consensus can be attained e.g. by voting. No
+proof of work is needed to prevent Sybil attacks.
+
+
+
+---
+#Private blockchains: some economic reasons
+Economists have long been emphasizing
+the impact of the __costly state verification problem__ 
+on the contractual relations between firms ([Townsend, 1979](https://doi.org/10.1016/0022-0531(79%2990031-0)): it can be very
+costly to verify the actually realized 
+state of nature which limits state-contingent
+contracting. An unforgeable record of actions and state history 
+can help reduce the costly state verification problem and 
+increase efficiency.
+
+Of course, another economic friction that can be alleviated by private
+blockchains is __moral hazard__, i.e. the existence of
+asymmetric information about hidden actions of a 
+contract partner; essentially, blockchain can serve as a monitoring
+device to generate information about such actions.
+
+An excellent reference for anyone who wants to think about the 
+impact of blockchain on corporate governance is the 2017 paper by
+David Yermack, you can find it [here](https://doi.org/10.1093/rof/rfw074).
+Read it!
+
+---
+# Do you even need a Blockchain?
+
+Like with any new technology, blockchain is
+ * poorly understood by managers,
+ * fueling unrealistically high expectations on some ends, whilst
+ * having greatly underestimated potential along other dimensions.
+ 
+Some people who didn't even understand blockchain bought a private
+blockchain solution for their business for lots of money
+just to discover that a distributed database would have served
+their purpose much better. 
+
+We're now going to read and discuss [this](https://medium.com/block-chain/why-blockchain-must-die-in-2016-e992774c03b4) article by Bart Suichies
+which has been actually quite influential for
+practitioners nowadays in how they think about reasons for (and against!) blockchain
+adoption.
+
+We also look at [this](https://eprint.iacr.org/2017/375.pdf) research paper on the same topic.
+
+---
+class:inverse,center,middle
+
+#Commercial applications
+---
+#Example: Walmart, IBM and the food chain
+
+&lt;iframe width="640" height="480" src="https://www.youtube.com/embed/SV0KXBxSoio" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+---
+#Blockchain totally does(n't) make sense
+
+Sometimes you can literally see from looking at a document that
+some boss has asked top $ consultants to write up "something" about
+the blockchain future. The report always comes on glossy paper and may
+not be as informative as it should.
+
+For example, IATA (the association of airline industry)
+has published
+[this](https://www.iata.org/publications/Documents/blockchain-in-aviation-white-paper.pdf) study about the use of Blockchain in aviation. It is in my view representative of many other
+documents that I've seen about commercial blockchain applications (and many business debates about blockchain). 
+Without wanting to offend the authors, I'd 
+claim that the study isn't really very deep and is missing important points.
+Let's dig deeper, let's now have a critical discussion whether
+blockchain is really a good approach for the kind of problems that are mentioned here, such as
+ * frequent flyer programs
+ * passenger identity/preference management
+ * certification of crew
+ * certification of airframe airworthiness
+
+
+---
+# Blockchain and DRM
+
+Digital rights management  (DRM) is often used for ebooks, music, games etc.
+
+The idea basically is that in order to use the digital good, its "owner"
+must prove that the good is genuine by connecting to a central database
+in which the ownership is recorded. 
+
+The problem is that sellers of digital goods have been unable to commit
+to keep the database running forever (at cost). Even Microsoft recently
+[shut down its ebook DRM server](https://www.wired.com/story/microsoft-ebook-apocalypse-drm/), 
+essentially expropriating their ebook buyers.
+
+The ex-ante anticipation of the lack of ability to commit to 
+operate costly DRM infrastructure makes buyers hesitant to buy DRM 
+protected digital goods in first place.
+
+[This](https://medium.com/smartz-blog/can-blockchain-and-smart-contracts-protect-copyright-267e105a9ee) article argues that blockchain has a good
+chance of becoming the cornerstone of solutions that 
+effectively address the copyright licensing problem. I strongly agree. It also fits with the setting that led to
+the initial invention of 
+Blockchain by [Haber and Stornetta (1991)](https://doi.org/10.1007/BF00196791).
+
+---
+# Blockchain and B2B sales
+
+One area of application of blockchain which I personally believe to
+be very promising in the future is business to business transactions.
+
+Relative to retail sales, B2B sales are greatly complicated by
+ * the lack of instant price quotes because suppliers use first degree 
+   price discrimination, charging one customer a multiple of what
+   they charge another for the same good or service
+ * the importance of due diligence (limiting the risks from the counterparty)
+ * the absence of buyer protection regulations that protect final
+   good consumers (e.g. reversal of burden of proof for warranty claims)
+ * customization of purchase contract conditions
+ * frequent involvement of several jurisdictions and international law
+ 
+All of this is a costly burden for firms, but they can't delegate it 
+to intermediaries. Why? Because intermediaries' access to firm core
+data would give it dangerous power over the firm. 
+
+Blockchain, when combined with privacy technologies like zero knowledge proofs
+(more later), can offer a way to facilitate B2B trade without creating
+an omnipotent intermediary. We will now discuss how.
+
+
+
+---
+class:inverse,center,middle
+
+#Hyperledger
+
+---
+# Blockchain technology for everyone
+
+How do IBM and all the others go about implementing blockchain solutions 
+for their customers?
+
+They could write a blockchain from scratch. Better business model:
+develop a good 
+blockchain solution once, publish it as open source, 
+let others find more bugs, and deploy the
+open source solution everywhere, charging for expertise and certification
+rather than software itself!
+
+In this way, [several](https://www.hyperledger.org/projects) commercially developed __permissioned blockchain implementations__
+have found their home in the [Hyperledger umbrella project](https://www.hyperledger.org), which itself lives under the
+roof of the [Linux Foundation](https://www.linuxfoundation.org)*. Some important blockchain implementations in the Hyperledger project are:
+  * Hyperledger Fabric
+  * Hyperledger Sawtooth
+  * Hyperledger Iroha
+  * Hyperledger Besu 
+
+
+.footnote[*The Linux foundation is the same non-profit 
+entity that also supports development activities around the Linux kernel.]
+
+---
+# Hyperledger Fabric
+
+With the variety of available solutions it's not always easy to
+have a clear overview of what's best for which purpose. If you're 
+new to hyperledger, [this](https://www.hyperledger.org/wp-content/uploads/2018/05/Hyperledger-Overview_May-2018.pdf) slide set will give you the first orientation,
+but there's quite some learning involved before you can deploy 
+one of the ledgers.
+
+The most popular permissioned distributed ledger so far remains __Hyperledger Fabric__. IBM is using Fabric in most of its consulting
+projects (like the Walmart food certification that we saw earlier).
+Unlike Ethereum, smart contract logic ("chaincode") runs not in a
+distributed VM, but in isolated Docker containers; supported 
+chaincode languages are node.js, Java or Golang. Chaincode is 
+installed and maintained by ledger sysadmins.
+
+I'll discuss now on the whiteboard the functioning of a basic Hyperledger Fabric 
+system. If you're not attending class, you can get up to date by skimming over [this](https://medium.com/swlh/hyperledger-chapter-1-foundation-7ad5bd94d452) ten-piece series of articles, focusing only on the points
+how Fabric works, and skipping the actual setup instructions*. 
+
+.footnote[*unless you
+want to set up your own Hyperledger Fabric system, which would of 
+course be great. But be aware that Docker and VirtualBox don't
+coexist peacefully on the same computer, which is why I'm refraining
+from bringing Hyperledger Fabric live in the lab.]
+
+---
+class:inverse,center,middle
+
+#JPM Coin
+
+---
+# Banks as issuers of private money
+
+.pull-left[
+![Free banking note](https://upload.wikimedia.org/wikipedia/commons/9/96/1_Dollar_-_Salem_%26_Philadelphia_Manufacturing_Co.%2C_Salem%2C_New_Jersey%2C_USA_%281820%27s-1830%27s%29_Anything_Anywhere.jpg)
+
+One Dollar note of Salem &amp; Philadelphia Bank, 1829.
+
+.tiny[Source: [wikimedia](https://commons.wikimedia.org/wiki/File:1_Dollar_-_Salem_%26_Philadelphia_Manufacturing_Co.,_Salem,_New_Jersey,_USA_(1820%27s-1830%27s%29_Anything_Anywhere.jpg)]
+]
+
+
+.pull-right[In the U.S. [Free Banking](https://en.wikipedia.org/wiki/Free_banking) era,
+private banks regularly issued notes as claims against 
+bank deposits. These bank notes played a currency-like role, but
+in sharp contrast to currency they were privately issued money.
+
+
+Usually a note would circulate at a discount that was greater at
+larger geographical distance to the bank where it could be redeemed.
+
+]
+
+In hindsight it is not very surprising that a large U.S. bank with long-standing tradition became the first bank to issue in 2019
+claims on its deposits in the form of a blockchain-operated
+digital currency!
+
+---
+
+# JPM Coin
+
+Technologically, JPM Coin runs on a private blockchain called
+[__Quorum__](https://www.goquorum.com) which is basically a fork of Ethereum that includes important modifications:
+ * private, __permissioned__ distributed ledger, controlled by the bank itself
+ * support for __private transactions__ that are not visible to anyone
+   except the parties involved in the transaction. Crucial e.g. for
+   financial market trading applications where you can get fried if
+   others know or infer the market position that you've been taking.
+ * __backed 1:1__ by the bank's fiat reserves
+ 
+In early 2019, JPM Coin was rolled out for use by other banks and firms.
+So far, it 
+is not (yet) open for use by the general public:
+
+&gt;_"JPM Coin is currently designed for business-to-business money movement flows, and because we are still in a testing phase, we don’t have plans to make this available to individuals at this stage. That said, the cost-savings and efficiency benefits would extend to the end customers of our institutional clients."_
+ 
+Personally, I believe that JPM will have less difficulty than [Ripple](https://www.ripple.com) to
+convince business to join. They have decades of history and reputation.
+
+
+
+
+---
+class:inverse,center,middle
+
+#Facebook Libra
+---
+# Understanding Libra's technological base
+For Bitcoin and Ethereum, the White Paper was a good starting place to go to
+learn what's going on. Not so with Libra. Their [White Paper](https://libra.org/en-US/white-paper/)
+leaves more things more vague than we would like at our stage of understanding, but it's simply meant not to scare
+blockchain newcomers.
+
+A more useful paper is the technical paper of Libra which can be found 
+[here](https://developers.libra.org/docs/assets/papers/the-libra-blockchain.pdf).
+
+We'll go over some of its main insights. If you're not attending class, please
+read the paper carefully.
+
+---
+class:inverse,center,middle
+#Central Bank Digital Currency
+
+
+---
+# The worries
+
+A currency like Libra bring central banks into a difficult situation:
+ * it's a currency that might soon become more attractive than
+   many of the smaller world currencies.
+ * yet it's issued by a private entity with no cental bank having any
+   control
+ * widespread adoption of Libra will lead to large accumulation
+   of safe assets in hands of its operators, scarcity of safe
+   assets outside. 
+ * it may interfere with transmission of monetary 
+   policy, central banks may lose control of 
+   stabilizing national currency value.
+   
+Why not issue a central bank backed digital currency? As [this](
+https://www.bis.org/cpmi/publ/d174.pdf) report of the BIS points
+out, there are major concerns as well, including that
+ * programmable currency could greatly increase risks to financial
+ stability: bank depositors could quickly flee to ultimate currency, greatly __exacerbating bank run risk!__ 
+ * international competition of digital
+ national currencies
+
+Events will force central banks to move soon. In August 2019, [news breaks](https://www.bloomberg.com/news/articles/2019-09-10/why-china-s-rushing-to-mint-its-own-digital-currency-quicktake) that China will soon issue digital Yuan, putting its currency on a path to take a leading position in the digital world of tomorrow...
+
+---
+class:center,middle,inverse
+#Outlook
+
+---
+#Outlook
+.left-column[
+![Hayek](https://upload.wikimedia.org/wikipedia/commons/7/7f/Friedrich_Hayek_portrait.jpg)
+Friedrich von Hayek
+
+.tiny[Image: Wikimedia, license [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+The original uploader was DickClarkMises at English Wikipedia. ]
+]
+
+.right-column[
+Sometimes, new technologies bring old ideas back to new relevance and glory.
+
+The issuance of private currency by players like JPM or Facebook makes
+one wonder what a world in which several flavors of private currency, with
+different properties, coexist. 
+
+The Nobel price winning economist [Friedrich von Hayek](https://en.wikipedia.org/wiki/Friedrich_Hayek) had been
+wondering nearly half a century ago what a world with several competing
+private currencies might look like. The outcome of his thinking
+is a small but very insightful little book entitled "Denationalization of Money: The Argument Refined" that you can download
+freely [here](https://mises.org/library/denationalisation-money-argument-refined). Highly recommended!
+
+
+]
+
+---
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

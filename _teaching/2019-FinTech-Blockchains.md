@@ -29,6 +29,6 @@ Below you can find links to the lecture slides. Any feedback is welcome.
 | [Lecture 04](https://silviopetriconi.github.io/fintech/Class04.html) | Blockchain: Bitcoin                             | [Lab 04](https://silviopetriconi.github.io/fintech/Lab04) | Setting up Bitcoin                      |
 | Lecture 05                                                   | Cryptoeconomics and Blockchain Security         | [Lab 05](https://silviopetriconi.github.io/fintech/Lab05) | Writing our own blockchain (I)          |
 | [Lecture 06](https://silviopetriconi.github.io/fintech/Class06.html)                                                   | Smart Contracts, Tokens and ICOs               |                                                           |                                         |
-| Lecture 07                                                   | Distributed Ledgers, Facebook Libra             |                                                           |                                         |
+| [Lecture 07](https://silviopetriconi.github.io/fintech/Class07.html)                                                   | Distributed Ledgers, Facebook Libra             |                                                           |                                         |
 |                                                              | - MIDTERM TEACHING BREAK -                      |                                                           |                                         |
 
