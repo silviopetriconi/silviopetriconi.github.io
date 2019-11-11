@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsbalab2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lab 9: Writing Smart Contracts I
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-11-11 (updated: 2019-11-11)
+
+---
+
+# Today's lab
+
+Today we'll start with practical smart contract development
+using the Solidity language. 
+
+Tomorrow we'll learn about the deployment of smart contracts:
+ * on an Ethereum public testnet 
+ * on a private Ethereum testnet 
+
+What you'll need:
+  * just the browser for today
+
+  
+  
+---
+# Why you (still) have to learn Solidity
+
+[Solidity](https://solidity.readthedocs.io/en/) is the __by far__ most frequently used language for Ethereum 
+smart contracts. 
+ * if you know Java / C++ / Golang, it will feel rather familiar.
+ * upside: powerful; downside: complexity can be high
+   (inheritance, operator overloading, modifiers etc). Contracts are 
+   hard to audit.
+ * prone to security holes due to design imperfections.
+
+[Vyper](https://vyper.readthedocs.io/en/) is a 
+very promising new language for the EVM:
+ * it is extremely close to Python 3 syntax
+ * things are nice, readable, and better safeguards against the
+   worst kind of errors are in place. Some things like infinite loops
+   simply aren't implementable in Vyper.
+   
+Rumors have it that Vyper is __the__ EVM language of the future. Unfortunately, Vyper is at its current stage still 
+not mature enough for production use, and there's not much of a community around it (yet) that can help you if you get stuck.
+---
+# The Remix IDE
+
+There's an excellent in-browser integrated editor 
+for Solidity: [Remix](https://remix.ethereum.org) 
+
+[![Remix screenshot](img/remix_screenshot.png)](https://remix.ethereum.org)
+---
+# The Remix IDE (cont.)
+
+With the Remix IDE, you get not just an in-browser editor to write your code: 
+ * You also get a Solidity compiler plus an in-browser Javascript emulation of the Ethereum VM such that you can test and debug
+your contracts! 
+
+ * Beware though that the in-browser Ethereum VM emulation deviates from
+Ethereum VM in important aspects, e.g. no delay for writing to the chain.
+
+ * Contracts should
+eventually always be tested on a public or private Ethereum testnet
+before being deployed to production use.
+
+---
+class:center,middle,inverse
+# Solidity: The type system
+
+ 
+---
+# Basic types 
+
+| Built-In Type         | Description                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| `int8` ... `int256`   | signed integer, n bits (256 bit if width not specified)      |
+| `uint8` ... `uint256` | unsigned integer, n bits (256 bit if with not specified)     |
+| `bool`                | boolean (only true or false)                                 |
+| `string`              | UTF-8 encoded string, internally represented as array of uint8 |
+| `fixed`/`ufixed`     | Fixed point type (e.g. 3.141592), implementation  incomplete, try not using it
+| `address`             | an Ethereum address; from 0.5.0 onwards any address that gets paid to should be declared an `address payable` |
+---
+# Basic Types: Initialization
+
+
+```c
+// variable declarations with initialization
+uint counter = 2;
+
+// constant declarations
+uint constant MAX_VALUES = 4;      // declare as constant, immutable
+bool constant canExecute = false; 
+
+
+// ... some code ...  then,
+counter += 5;             // no problem, increment counter by 5
+*MAX_VALUES = 42;         // WON'T WORK, ASSIGNING TO CONST
+
+```
+---
+# The World of Typed Programming
+
+When you're used to Python, some things in the typed programming world need more attention than what you're used to:
+ * _every_ variable that you work with must be declared (and thereby its type defined) before you work with it
+ * Solidity initializes each variable to an initial value of zero, unless you assign a different initial value 
+ * Once the type has been declared, any assignment of a different type will produce a compilation error, e.g.
+
+```c
+ int A = 42;          // declare as int
+* A = "Hello, world!"; // COMPILE ERROR!!!!  
+```
+ * Discipline with types is good, in principle. Whenever you are missing
+   flexibility with types (e.g. have 
+   a mix of types in one and the same array), it's in 99% of cases 
+   caused by poor code design choices rather than a genuine need for
+   such flexibility.
+
+
+---
+# Arrays
+
+
+
+```c
+int[5] quizPoints;    // this declares an array
+                      // of fixed size 5, type int
+uint[] dynArray;      // declaring an array of dynamic size,
+                      // mind it must still be allocated,
+                      // and its size should always be 
+                      // controlled by contract, not by 
+                      // unvalidated contract parameters!
+// here's how to create a constant array:          
+int[3] constant constantArray = [4,3,2];
+
+
+// Using arrays:
+int y = constantArray[1]; // this will set y = 3
+dynArray = new uint[](y); // reserve space for 3 elements
+dynArray.push(42);
+dynArray.push(0);         // dynArray contains now [42, 0].
+int z = dynArray.length;  // z=2
+
+```
+
+---
+# Mappings
+If you're looking for something similar to
+Python's `dict()`, mappings are for you,
+though their syntax is more clumsy:
+
+```c
+
+```
+
+---
+#Memory vs. Storage
+
+In Solidity, variables reside either in storage (i.e. written to blockchain, expensive and slow), in memory (fast and low cost but not persistent), or on the stack (almost free, but limited capacity).
+
+Item    | Default location
+--------|----------------------
+state variables | always in storage
+function arguments | always in memory
+local variables of struct, array or mapping type reference | storage by default
+local variables of value type (not array, struct, mapping) | stored on the stack
+Location can be modified with modifiers `memory` and `storage` e.g. like this:
+
+.small[
+
+```c
+struct coordinate{
+  uint x;
+  uint y;
+}
+coordinate memory cursor = coordinate({x : 10, y : 5});
+```]
+
+
+---
+class:inverse,middle,center
+#Contracts
+
+---
+
+  
+# Contract declarations
+
+Contracts in Solidity are somewhat like objects in Python. Each contract
+provides a constructor, and there are additional functions that can
+be called. 
+
+```
+
+```c
+contract temperatureReading {
+  string public location;
+  int public time;
+  int public tempCelsius;
+  
+  constructor(string location) {
+    itsLocation = location;
+    setTemperature(24);
+  }
+  
+  function setTemperature(int degrees) public {
+     tempCelsius = degrees;
+     time = now;
+  }
+  
+  function getTemperature() public constant {
+    return tempCelsius;
+  }
+  
+}
+```
+
+---
+# Contract declarations, cont.
+
+Unlike Python, Solidity has access modifiers for each contract function:
+  
+```
+function (&lt;parameter types&gt;) 
+{internal|external|public|private}
+[pure|view|payable] [(modifiers)] [returns (&lt;return types&gt;)]
+```
+
+---
+# The global msg object
+
+| Parameter    | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `msg.data`   | Data field from the call or transaction data linked to the current transaction |
+| `msg.gas`    | Amount of gas that the function has available                |
+| `msg.sender` | Address of the party invoking the contract / transaction     |
+| `msg.value`  | Amount of wei sent along with the invocation of the function |
+---
+
+class: center, middle
+
+# Thanks!
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="enable-console.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "monokai",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"afterInit": "mongo.js"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
