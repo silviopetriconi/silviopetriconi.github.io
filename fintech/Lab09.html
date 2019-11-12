@@ -4,8 +4,8 @@
     <title>DSBA 20598 – FinTech and Blockchains</title>
     <meta charset="utf-8" />
     <meta name="author" content="Prof. Silvio Petriconi" />
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="dsbalab2.css" type="text/css" />
   </head>
   <body>
@@ -13,10 +13,10 @@
 class: center, middle, inverse, title-slide
 
 # DSBA 20598 – FinTech and Blockchains
-## Lab 9: Writing Smart Contracts I
+## Lab 8 &amp; Lab 9: Writing Smart Contracts
 ### Prof. Silvio Petriconi
 ### Department of Finance, Bocconi University
-### 2019-11-11 (updated: 2019-11-11)
+### 2019-11-11 (updated: 2019-11-12)
 
 ---
 
@@ -157,12 +157,39 @@ int z = dynArray.length;  // z=2
 ---
 # Mappings
 If you're looking for something similar to
-Python's `dict()`, mappings are for you,
+Python's dict(), mappings are for you,
 though their syntax is more clumsy:
 
 ```c
+// declare a mapping
+mapping(address =&gt; int) balance;
+
+// use it
+balance[msg.sender] = 10;
 
 ```
+
+---
+# Structs 
+
+
+```c
+
+struct point {
+  int x;
+  int y;
+}
+
+A = point({x:1, y:1});
+
+point[] curve;
+curve.push(A);
+
+```
+ 
+Structs "bundle together" several variables
+(a bit like namedtuple in Python, 
+but unlike namedtuple they're mutable).
 
 ---
 #Memory vs. Storage
@@ -175,17 +202,18 @@ state variables | always in storage
 function arguments | always in memory
 local variables of struct, array or mapping type reference | storage by default
 local variables of value type (not array, struct, mapping) | stored on the stack
-Location can be modified with modifiers `memory` and `storage` e.g. like this:
-
+Location can be modified with modifiers memory and storage e.g. like this:
 .small[
 
-```c
+```solidity
 struct coordinate{
   uint x;
   uint y;
 }
 coordinate memory cursor = coordinate({x : 10, y : 5});
-```]
+```
+]
+
 
 
 ---
@@ -193,7 +221,6 @@ class:inverse,middle,center
 #Contracts
 
 ---
-
   
 # Contract declarations
 
@@ -201,9 +228,9 @@ Contracts in Solidity are somewhat like objects in Python. Each contract
 provides a constructor, and there are additional functions that can
 be called. 
 
-```
+.small[
 
-```c
+```solidity
 contract temperatureReading {
   string public location;
   int public time;
@@ -224,21 +251,37 @@ contract temperatureReading {
   }
   
 }
+
 ```
+]
 
 ---
 # Contract declarations, cont.
 
-Unlike Python, Solidity has access modifiers for each contract function:
+Unlike Python, Solidity enforces access modes for each contract function:
   
-```
+
+```solidity
 function (&lt;parameter types&gt;) 
 {internal|external|public|private}
 [pure|view|payable] [(modifiers)] [returns (&lt;return types&gt;)]
 ```
+ * __internal__ functions can only be called by the contract itself internally, or from contracts that derive from this contract
+ * __private__ functions can only be called by the contract's functions internally (but not by derived contracts' functions)
+ * __external__ functions can only be called from outside Solidity in
+   a transaction
+
+
+ * __pure__ functions can't access any of the data of the contract
+ * __view__ functions can only read-access its data
+ * __payable__ functions require ether payment along the function call
 
 ---
+
+
 # The global msg object
+
+Each function can access the global msg object which contains the parameters of the blockchain transaction in whose context it was called:
 
 | Parameter    | Description                                                  |
 | ------------ | ------------------------------------------------------------ |
@@ -246,6 +289,85 @@ function (&lt;parameter types&gt;)
 | `msg.gas`    | Amount of gas that the function has available                |
 | `msg.sender` | Address of the party invoking the contract / transaction     |
 | `msg.value`  | Amount of wei sent along with the invocation of the function |
+---
+# Control flow: if
+
+
+```c
+// For all that follows, we will assume the following are defined:
+int a;   
+int input1 = 1;    // assume input1 is set to some value
+
+```
+
+The if statement lets you do conditional execution. Mind the round braces.
+
+
+```c
+if(input1 == 2) {
+     a = 1;
+} else {
+     a = 0;
+}
+
+```
+
+---
+# Control flow: for
+
+
+```c
+for(uint i=0; i&lt;=50; i++) {
+  a++;
+  if(a == 4) break;
+}  
+
+```
+
+Note that `for(exp1;exp2;exp3)` comes with three arguments: the first
+is code that is executed at loop initialization. The second is a function
+that will, as long as it is true, lead to continuation of the loop.
+The third is a function that will be executed to prepare the next step.
+
+Here, `i++` is just a short notation for `i = i + 1`.
+
+
+
+---
+# Control flow: while
+
+
+```c
+while(input1 &gt;= 0){
+            if(input1 == 5)
+                continue;
+            input1 = input1 - 1;   
+            a++;
+        } 
+```
+
+Loops (for, while etc) can be resumed immediately in the next iteration with the continue keyword.
+
+---
+#Events
+
+Contract logic can also emit special events that leave traces in the
+chain to trigger further code to be executed outside the blockchain. 
+
+Example:
+
+.small[
+
+```solidity
+contract Test {
+   event Deposit(address indexed _from, bytes32 indexed _id, 
+                 uint _value);
+   function deposit(bytes32 _id) public payable {      
+      emit Deposit(msg.sender, _id, msg.value);
+   }
+}
+```
+]
 ---
 
 class: center, middle
