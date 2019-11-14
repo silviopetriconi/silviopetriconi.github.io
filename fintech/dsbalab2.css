@@ -1,0 +1,17 @@
+.title-slide {
+  background-image: url("img/hacker-4031973_1920.jpg");
+  background-size: cover;
+}
+
+.blackboard-slide {
+  background-image:url("img/black-1072366_1920.jpg");
+  background-size:cover;
+}
+
+
+
+.red { color: #fa0000; }
+.magenta { color: rgb(249, 38, 114); }
+.large { font-size: 2em; }
+.medium { font-size: 1.2em; }
+
