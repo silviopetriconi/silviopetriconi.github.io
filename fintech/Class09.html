@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 9: PSD2 and the Value of Payment Data
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-11-19 (updated: 2019-11-19)
+
+---
+
+class: inverse, left
+background-image:url("img/black-1072366_1920.jpg")
+background-position: left
+background-size: cover
+
+#PSD2 and the value of payment data
+
+--
+
+###  1| Payment Systems Directive 2 and Bank APIs
+###  2| The value of payment data
+###  3| A network view on payment data
+###  4| Example: Furfine and the interbank market
+
+---
+class:center,middle,inverse
+
+# PSD2 and Bank APIs
+
+---
+#Second European Payment Services Directive 
+
+The [**PSD2 (Directive EU 2015/2366)**](https://eur-lex.europa.eu/eli/dir/2015/2366/oj) was passed by the EU Council on 16 November 2015. It harmonizes payment services
+across the European Union. One of its key innovations is that it also
+regulates the provision of payment services by nonbank intermediaries
+like money remittance services and payment initiation providers
+(e.g. [Sofort](https://www.klarna.com/sofort/)).
+
+With a certain minimum capital and specific risk management measures in place, anyone (without banking license) can become 
+   * an __account information service provider__ (AISP): 
+     a provider who retrieves and aggregates information from various
+     accounts of the customer, e.g. a banking app that shows your global
+     wealth status by aggregating over all your accounts at different 
+     banks.
+   * a __payment initiation service provider__ (PISP):
+     a provider of payment initiation services, i.e. a nonbank that 
+     can delegate payment instructions to a bank. Example: 
+     a universal banking app that works with more than one bank and
+     across accounts.
+     
+Commercial banks are required to enable API-level access to their
+account and payment functions with consent of the account holder.
+
+More on PSD2 [here](https://www.pwc.com/it/en/industries/banking/assets/docs/psd2-nutshell-n03.pdf).
+ 
+---
+#Legal limits to API data use
+
+Contrary what is reported in some media, the PSD2 establishes narrow boundaries for the use of API data: See e.g. 
+Article 67,
+
+&gt; _The account information service provider shall:_
+&gt;
+&gt;* (...)
+&gt;* _not request sensitive payment data linked to the payment accounts;_
+&gt;* _not use, access or store any data for purposes other than for performing the account information service explicitly requested by the payment service user, in accordance with data protection rules._
+
+The General Data Protection Regulation (EU) 2016/679
+obviously also applies to API account data. 
+
+---
+#APIs and the (lack of) standardization
+
+Whilst the legislation mandates that banks must publish APIs, it does not
+specify __which__ kind of API. There is no standardization mandated by PSD2!
+ * however, the UK national implementation of PSD2 mandates a standardized
+   API format for the UK's nine largest banks (see [Open Banking](https://www.openbanking.org.uk)) that exposes all transaction
+   data of customers to third parties.
+ * banks that are signed up for Open Banking include RBS, Santander, Barclays, Lloyds, HSBC, Nationwide, Danske Bank, Bank of Ireland, Allied Irish Banks
+ * it's not a straightforward question what's better for which kind
+   of bank in terms
+  of compatibility: provide widely a compatible API 
+  (and make access to customer
+   data by third parties even easier, increasing customer satisfaction but also inviting competition) or develop an incompatible
+   API as a shield against competitors at the risk of annoying customers.
+ * wild growth of incompatible APIs has created scope for firms  
+   like [Tink](https://tink.com) or [banksapi](https://banksapi.de/produkte-sicherheit/?gclid=Cj0KCQiAn8nuBRCzARIsAJcdIfOdTqWRr_1JqttfCrj905qydv8Griu32w4xT6W9PO4TkPtn3WWtXWsaAvf-EALw_wcB) that specialize in providing a general purpose API for end developers, and implement a mapping of general purpose API calls into bank-specific API calls.
+   
+---
+#APIs and banks' sluggish response
+
+Banks had time until 14 September 2019 to create and publish
+APIs for access to their account and payment services. 
+[According to an late-August 2019 analysis of Tink](https://tink.com/blog/2019/08/21/psd2-status-update), this was the situation 3 weeks before the deadline:
+
+&gt; [![Image](img/tink.png)](https://tink.com/blog/2019/08/21/psd2-status-update)
+
+---
+# Lots of things to clarify...
+
+Even now, [not everything](https://www.finextra.com/blogposting/17919/psd2---10-questions-i-would-like-to-see-a-clear-answer-on) is clear regarding the enforcement of PSD2, there are lots of open questions such as:
+ * will corporate accounts be within the scope of the directive?
+   If so, how are the complex multi-eyes signature mechanisms for
+   corporate customers to be implemented?
+ * for a one-time usage of a financial app, will retail customers accept the large burden of signing into their online banking with two-factor
+ authentication and approve the app?
+ * is it allowed to store with customer consent historical data that will otherwise become
+   unavailable via the API? Which data can FinTech's use for ML purposes?
+ * can anonymized data be used for further value creation? The legal answer here is a clear __NO__. But we have witnessed that large tech players have been going against the law, were not prosecuted to the same extent as small offenders, and finally got the law changed in their 
+ favor to legalize their business ex-post (with plenty
+ of lobbying). Considering the business models currently being 
+ proposed I do get the sense that some 
+ entrants to PSD2 data markets are betting on this.
+   
+---
+class:center,middle,inverse
+# The value of payment data
+
+---
+# The (direct) value of account data
+
+Bank account data tell a life's story: from bank account data, one can
+   * validate __employer, income, taxes__ paid including residential
+     property taxes (proxy for property value!)
+   * follow geographic trajectory of a person:
+     specific __geolocation__ of some spendings (tolls, restaurants, ATMs)
+   * infer which kind of __insurances__ someone currently has and which 
+     rates those insurance are charging
+   * see which __mortgage installments__ are being paid (and, when combined
+   with credit registry data on mortgage size, determine 
+     whether the rate on the mortgage is competitive relative to the current
+     market situation)
+   * infer the degree of __financial sophistication__ of the account holder
+   * learn about the account holder's network of __socioeconomic ties__, e.g.
+     from payments supporting children, parents
+   * suspect an account holder's involvement in __criminal 
+     activity / money laundering__
+   * ... probably do much more - the limiting factor is your imagination.
+   
+---
+# The (direct) value of payment data
+
+Payment data that are not linked to a checking account (e.g. Apple Pay data, credit card transaction data) still tell a lot about a customer:
+  * spending behavior
+  * preferences, to some extent (payment data don't disclose shopping basket)
+  * willingness to shop at local competitors or internet stores
+  
+When combined with other data sources (cashier scanner data of shopping baskets, loyalty programs, Bluetooth mobile phone beacons), payment data make it possible to observe from which competitors customers end up buying, which has high monetary value:
+  * Pricing strategies: extract more surplus from more captive
+    customer groups
+  * Marketing strategies: target better the most valuable
+    customer group 
+  
+__Note:__ nearly all payment methods (except cash) de-anonymize the shopping basket of the customer. The seller can then run a detailed 
+market analysis.
+     
+---
+class:center,middle,inverse
+
+#A network view of payment data
+
+
+---
+
+
+
+---
+class:center,middle,inverse
+
+# Example: Furfine and the interbank market
+---
+#Recovering the interbank market from LVPS payment data
+
+The recovery of interbank loans from LVPS pyment data is a great example of a typical payment data workflow:
+ 1. Feature engineering guided by domain knowledge of what you're looking for
+ 2. Machine learning (or even hard classification rules)
+ 3. Verification
+ 
+We'll read in class the following papers:
+
+ * the [Furfine algorithm](https://www.bis.org/publ/work70.pdf)
+ * [assessing the quality of Furfine](https://www.ijcb.org/journal/ijcb16q1a8.pdf)
+
+
+---
+class: center, middle
+
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
