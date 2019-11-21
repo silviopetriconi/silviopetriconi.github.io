@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>DSBA 20598 – FinTech and Blockchains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Silvio Petriconi" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="dsba.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# DSBA 20598 – FinTech and Blockchains
+## Lecture 10: InsurTech // Financial Inclusion
+### Prof. Silvio Petriconi
+### Department of Finance, Bocconi University
+### 2019-11-21 (updated: 2019-11-21)
+
+---
+
+
+
+class: inverse, left 
+
+# InsurTech
+
+### | Insurance: At threat of disruption?
+### | InsurTech: Which tech will give you data?
+### | The challenge of having to trust your data
+### | Risk is endogenous, and for the first time that can be a good thing
+### | Overview of the InsurTech sector
+
+---
+# Insurance: At threat of disruption?
+
+**Remember?** _"Trust- and information-based intermediaries are at risk of disruption!"_
+
+Of course this includes insurance. Insurance is the little cousin of
+banking: insurers act as intermediaries in an adverse selection market, 
+since their customers know more about their risk than the insurers do.
+In many senses insurance industry is similar to banking (all about
+screening, monitoring and verification) except for lower emphasis
+on payments.
+
+Whereas FinTech companies are aiming to disrupt banking, InsurTech 
+companies like [Lemonade](https://www.lemonade.com/) are trying to do the same with insurance:
+
+ * Investment in InsurTech businesses has been growing at rapid pace:
+    * $2.8 bn in 2018, compare this v.s.
+    * $2.2 bn in __first half__ of 2019 (Source: [Financial Times](https://on.ft.com/2Wd3p1i))
+ * New players have moved into insurance: 
+    * Tesla [recently announced](https://on.ft.com/2ZxBMEf) that they 
+      will be selling insurance for their cars at very competitive prices. _Did 
+      the data collected by their cars enable them to become a competitor?_
+
+---
+#Insurance: The giant incumbents
+
+Just property &amp; casualty insurance alone is a giant market [(Source)](https://www.iii.org/fact-statistic/facts-statistics-industry-overview):
+ * in 2017, net premiums for the sector $558.2 bn (U.S. only)
+ * 5,954 insurance companies in 2017 in the U.S.
+ * around 650,000 employees in the sector, plus 1.1 million agents and brokers
+ * total cash and invested assets: $1.69 trillion in 2017
+
+Size makes change harder. Insurance has long been considered a stable and change-resilient sector (in a positive sense)! __Problems__ ([Galbraith, 2018](https://www.amazon.com/End-Insurance-Know-Millennials-Insurtech/dp/1795400552)):
+ * _Too expensive_ (60-70% of premia spent on damages, ~20 % for sales)
+ * _Too confusing_ (no obvious ongoing tangible value / experience)
+ * _Too easy to game the system_ (adverse selection; contracts often written in favor of insurers)
+ * _Cash drain_ (only 5% of people ever get paid out by an insurance)
+ * _Doesn't cover all causes of loss_ (hard to understand what's covered, often learned only once adjusters handle a claim)
+ * _Doesn't cover everything_ (exclusions, deductibles)
+ * _Doesn't cover everyone_ (large population groups uninsured, &gt; 50%)
+
+---
+# Insurance: Transparency vs. enforcability
+
+One core problem of insurance is that it's hard to understand the product.
+ * A human readable insurance contract is not lawyer-proof in court
+ * A lawyer-proof insurance contract is (almost) not readable by a human
+
+Some people would argue that code can be written to be easier to
+understand and its outcomes to be more predictable. 
+
+ 
+---
+# Insurance: At threat of disruption!
+
+The shortcomings of traditional insurance, including the long time that it
+takes to purchase insurance and to have claims adjusted, combined with the technological possibilities to innovate along all of these dimensions, has exposed the sector to substantial risk of disruption.
+
+The disruption threats are very similar as in banking, in particular
+from the side of players who may have more precise information:
+
+In an [October 2019 interview](https://on.ft.com/2Vayl1w) with the Financial Times, the chief 
+executive of France's Axa, Thomas Buberl, stated very clearly whom
+he sees as his future competitors:
+
+&gt;_"If your endgame is to be an orchestrator of a community of the insured, with the aim of helping each other and leveraging the collective wisdom, which is the business model that you see in today’s market that is closest to that? [...] The answer is Facebook, Google, or Apple... I believe those are our competitors of tomorrow, and not Lemonade or other small insurance companies." _
+&gt;
+&gt; Source: [Financial Times](https://www.ft.com/content/f7f6d884-e484-11e9-9743-db5a370481bc)
+
+---
+class:center,inverse,middle
+
+#Principles of insurance
+
+---
+
+#Indemnification
+
+Imagine there's a risk, similar to what we had in class 8 in credit screening:
+ * asset of initial value `\(1\)` yields in `\(t+1\)` a payoff of 
+   $$x = \left\lbrace\begin{array}{ll} 
+    R &amp; \text{w. prob. `\(p(\theta_i, a_i)\)`}\newline
+    r &amp; \text{w. prob. `\(1-p(\theta_i, a_i)\)`}  \end{array} \right. $$
+   where `\(R &gt; 1 &gt; r\)`. We think of `\(R\)` as normal times, `\(r\)` as the 
+   residual value of the damaged asset. 
+   Unlike before, we'll assume here that the probability of the 
+   asset remaining unharmed depends positively both on the
+   _type_ `\(\theta_i\)` and the hidden effort `\(a_i\)` of agent `\(i\)` to 
+   avoid damages. Neither of these is directly observable, and
+   effort `\(a_i\)` is costly at increasing convex cost `\(c_a(|a_i|)=\gamma a_i^2\)`.
+   We'll allow for negative effort `\(a_i &lt; 0\)` (that increases damage risk).
+   
+ * _indemnification_ insurance contract that offers insurance payment of exactly `\(I = (R-r)\)` _only_ in case of damage, `\(x=r\)`, can generate value
+ for a risk-averse holder: asset becomes risk-free, and insured party
+ pays part of risk premium to insurance. 
+   
+---
+#Indemnification (cont.)
+
+__Why Indemnification?__
+  * A damage compensation `\(I &lt; (R-r)\)` would induce customer to spend more 
+    effort `\(a_i\)` to avoid damage, but would also reduce protection 
+    from risk that the customer is seeking (deductible).
+  * A damage compensation `\(I &gt; (R-r)\)` would be a __betterment__, customer
+    would be better off after suffering damage. Easy to verify that
+    customer would choose negative effort `\(a_i^\ast &lt; 0\)` in this case as      to receive the damage compensation (which now is preferred over the 
+    non-damage outcome) with greater likelihood. __Welfare-destroying!__
+    
+Insurance adjusters manually adjust insurance claims to implement 
+indemnification upon damage: they adjust payments as to avoid betterment, 
+yet to cover all covered damages. __This is a very expensive 
+and slow process.__
+
+__Parametric insurance__ (e.g. pay automatically fixed amount for
+car repair if hail &gt; 5cm diameter falls in your city) is much cheaper 
+to adjust, but can yield betterment and is therefore _not a great solution for all events whose probabilities can be influenced by man,_
+unless attempts to actively increase damage risk can be detected / avoided.
+
+---
+#Fraud
+
+Indemnification is one principle that helps to keep fraud low. Yet
+insurance fraud still has exorbitant dimensions: 
+  * manufactured claims (accidents that were made to happen)
+  * false claims 
+  * inflated damages 
+  * misrepresentation of what actually happened
+  
+According to the [FBI](https://www.fbi.gov/stats-services/publications/insurance-fraud), the total damages of insurance fraud exceed $40 bn/year.
+
+This means that a core requirement of successful insurance business is to
+detect and deter fraud.
+
+---
+class:inverse
+background-image:url("img/aerial-view-1082087_1920.jpg")
+background-size:cover
+# InsurTech: Which tech will give you data?
+
+--
+###- Aerial and satellite images
+###- Built-in sensors, IoT
+###- Other providers
+
+---
+# Satellite images for insurance: Cape
+
+.left-column[
+[![Cape Analytics logo](https://capeanalytics.com/wp-content/themes/capeanalytics/images/logo-new.png)](https://www.capeanalytics.com)]
+.right-column[With satellite and aerial imaging coverage expanding in key
+dimensions (time, resolution), __remote sensing__
+for insurance purposes has lots of potential.
+
+For example, [Cape Analytics](https://www.capeanalytics.com) uses satellite data to scan for risk factors in houses for which home insurance is being sought. 
+
+Data originate from satellite images (purchased from third party 
+providers). Correct real estate parcels are identified, and CNN 
+model trained to identify proxies of poor maintenance/high risk 
+(missing tiles on roofs?) is applied. 
+
+This can be useful for
+ * wildfire risk estimation
+ * flood risk (especially if combined with LIDAR)
+ * identification of changes of neighborhood risk 
+ * real estate valuation
+
+]
+
+---
+# Built-in sensors, IoT
+
+.right-column[
+[Tesla](https://www.tesla.com/) has less problems finding out about their drivers' risk.
+
+Their cars have gyros (acceleration sensors) and other sensors right built in, and they regularly talk back to the factory. The car is almost like
+__built for the information purposes of an insurer__!
+
+Telematics data from embedded sensors 
+especially help a lot when it comes to verifying the occurrence of an accident and understanding the
+extent of damages; there are firms that specialize in this process, 
+e.g. [Octo Telematics](https://www.octotelematics.com).
+
+Ability to communicate from IoT to insurer via mobile network is key!
+
+]
+
+---
+#Other providers
+
+.right-column[
+
+Data can also originate from other third party providers, e.g. 
+precipitation, irrigation, fire data.
+
+Key to usability of such data is their dependability and quality, which
+needs to be assessed v.s. an objective benchmark
+before using them in production. 
+
+But there are also intrinsic limits to data quality:
+]
+
+
+---
+# The challenge of having to trust your data I
+
+.right-column[
+Many InsurTech contracts may be parametric insurances whose payoffs are highly data dependent.
+
+If these contracts are settled based on IoT sensor data, there is incentive for agents to
+manipulate the sensor:
+ * put an umbrella over the rain sensor to fake drought
+ * put the temperature sensor near dry ice until the contract pays out
+ * reverse engineer the sensor and its protocol, and substitute it
+ * you can imagine many more.
+ 
+Having a __web of plausibility conditions__ is probably a necessary
+(but certainly not sufficient) countermeasure against such kinds of attack.
+
+Even including plausibility conditions, there will be problems:
+]
+
+ 
+---
+# The challenge of having to trust your data II
+
+.right-column[
+Imagine you're running an excellent risk forecasting for
+home insurance using satellite
+images of the roofs of houses.
+
+ * say that the missing tiles on the roof are a good proxy
+   for general maintenance state and thus fire risk of the 
+   house.
+ * for some time, all will go as expected, your underwriting 
+   results will thrive from the new data...
+ * however, one day people will learn that a visible missing tile on
+   the roof raises insurance cost. They will seek to
+   destroy the informative signal by
+     * patching up their roofs, or
+     * putting fake tile imitations over the holes
+   __without changing their actual risk__.
+
+Incentives of customers 
+   will create __deteriorating signal quality over time__ 
+   even for data sources that can't be directly 
+   tampered with (satellites).]
+
+---
+## Risk is endogenous, and that can be a good thing
+
+So far we've only looked at the downside of endogenous risk, i.e. that
+agents can influence risk to the worse of insurers. But 
+digitalization also enables insurers to promote endogenous changes
+of risk in the other direction:
+  * digital microsuasion ([captology](https://captology.stanford.edu/go/welcome)!) on
+  mobile devices makes it easier to persuade people 
+    to reconsider risky habits: smoking, prolonged sitting, etc.
+  * in this view, insurers could become more like catalysts for risk-reducing
+    changes in society. They would use digital technologies to deliver
+    persuasive experiences that actively promote reductions in risk,
+    or to coordinate other real activities that reduce risks.
+    
+Will the wildfires of the future be extinguished by firefighters or
+    insurers?
+    
+
+---
+class:center,inverse,middle
+
+# In-class discussion: 
+
+###Blockchain settlement and the role of insurers
+
+With automatic settlement of smart contracts on blockchains, 
+what (if any) will the future role of insurers in parametric 
+insurance contracts be?
+
+How might insurance industry generate value?
+
+---
+# No data: What's your backup plan?
+ 
+Imagine that you're in the business of settling insurance claims
+   automatically according to some data criteria, maybe via a smart contract...
+ * the data provider (e.g., IoT device, satellite, etc) may fail!
+ * even worse, someone may __sabotage__ the data provider to make it fail!
+ * what's your backup plan? 
+ * for example if you're relying on satellite data and think your world is free
+   of these problems because satellites are so far up there that they can't be sabotaged and you have launched a backup satellite to have redundancy, it's time to 
+   think again. [Solar flares](https://en.wikipedia.org/wiki/Solar_flare) and [cascading chains of failures](https://en.wikipedia.org/wiki/Kessler_syndrome) of satellites
+   due to [space debris](https://en.wikipedia.org/wiki/Space_debris)
+   might become your new nightmares...
+   
+---
+class:center,middle,inverse
+
+#Outlook
+
+---
+# Not every great idea will make it
+
+Mainstream insurance poses high demands on capitalization and ability to attract both customers and investors alike. This is hard. Take for
+example the UK P2P InsurTech Guevara (founded 2013) that was attempting
+to offer car insurance:
+  * idea was genius: we all know __about each other__ how good/bad drivers
+    we are, so why not offer contracts that will implicitly reveal this
+    information?
+  * specifically, you would be assigned a base tariff according to the normal 
+    risk parameters: age, car model, experience.
+  * the great thing: you'd choose a group of people to jointly take out
+    insurance with. If the group's damage claims remain below the claims
+    of the baseline of their tariff, group insurance premia become lower.
+  * the motive behind this: _Grouping reveals hidden information to insurer!_
+  * people would only group with drivers they consider at least as safe as themselves.
+  * yet Guevara had to [shut down](https://www.verdict.co.uk/life-insurance-international/comment/guevaras-collapse-industry-ready-p2p-insurance/) its operations!
+      * was it really problems of capitalization as an underwriter?
+      * or was maybe part of the problem a cultural barrier? Many people refrain from joint financial business outside their closest circle...
+      * if inside your closest circle there's not enough risk variation to form
+      groups, Guevara has no business model!
+
+
+
+---
+# Outlook (cont.)
+
+After a period of hype the InsurTech 
+industry is [showing first signs](https://www.ft.com/content/78363a0a-e384-11e9-b112-9624ec9edc59) 
+of maturing. The number of new start-ups has been falling substantially,
+from ~200 in 2015-16 to 12 this year ([source](https://www2.deloitte.com/us/en/pages/financial-services/articles/fintech-insurtech-investment-trends.html?id=us:2em:3na:dcfsInsurTech:awa:fsi:092419&amp;ctr=banner&amp;sfid=0031O00003Gh9tSQAR)), and money largely
+goes now to more mature companies.
+
+At the same time, incumbent insurance firms are still struggling to 
+embrace new innovations and increase the pace at which they innovate
+(see e.g. [this report by Deloitte](https://www2.deloitte.com/us/en/pages/financial-services/articles/fintech-insurtech-investment-trends.html?id=us:2em:3na:dcfsInsurTech:awa:fsi:092419&amp;ctr=banner&amp;sfid=0031O00003Gh9tSQAR)).
+
+In my opinion, the future of FinTech will be shaped substantially by
+the question whether/when BigTech (Google, Facebook, Apple etc.)
+decide to enter the insurance market. Their wealth
+of data opens up forms of competition that are unavailable to new entrants.
+
+
+
+
+---
+class: left,inverse
+
+# Financial Inclusion
+### | The problem
+### | A puzzle, and our search for its causes
+### | The macroeconomic dimension
+### | FinTech and financial inclusion
+### | Outlook
+---
+#Financial Inclusion
+
+We'll read in class the survey by [Guiso and Sodini (2013)](http://www.eief.it/files/2014/01/guiso_sodini-household-finance-an-emerging-field.pdf).
+
+We'll talk about the macro effects of finance
+from the perspective of [Rajan and Zingales (1998)](https://faculty.chicagobooth.edu/raghuram.rajan/research/papers/growth.pdf).
+
+Our basis for discussion of how financial inclusion problems can be
+addressed by FinTech is then going to be [this paper of CGAP](https://www.cgap.org/sites/default/files/publications/2019_05_Focus_Note_Fintech_and_Financial_Inclusion_1_0.pdf).
+
+
+
+
+
+---
+
+class: center, middle
+
+# Thanks!
+
+More material on [https://silviopetriconi.github.io](https://silviopetriconi.github.io).
+
+For questions, comments and suggestions regarding these slides please contact the author, [`silvio.petriconi@unibocconi.it`](mailto:silvio.petriconi@unibocconi.it).
+
+&lt;br&gt;&lt;/br&gt;
+
+ [![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+ &lt;br&gt;&lt;/br&gt;
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
