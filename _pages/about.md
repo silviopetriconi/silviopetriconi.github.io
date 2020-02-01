@@ -15,6 +15,7 @@ redirect_from:
  * I am an Assistant Professor at the [Department of Finance at Bocconi University](https://www.unibocconi.eu/wps/wcm/connect/Bocconi/SitoPubblico_EN/Navigation+Tree/Home/Faculty+and+Research/Departments/Finance/)
  * I am also affiliated with [BIDSA](http://www.bidsa.unibocconi.eu) and [IGIER](http://www.igier.unibocconi.it).
  * My research interests are in the fields of banking theory and corporate finance, as well as topics related to digital payments and economic networks.
+My research has been presented at conferences such as AFA, EFA and FIRS, and has been published in the Journal of Financial Economics and other peer-reviewed journals.
  * I teach [FinTech and Blockchains](https://silviopetriconi.github.io/teaching/2019-FinTech-Blockchains) for Data Science MSc students at Bocconi.
  * I have been visiting the [Department of Economics at Cornell University](https://economics.cornell.edu) for the 2017/18 academic year.
 
