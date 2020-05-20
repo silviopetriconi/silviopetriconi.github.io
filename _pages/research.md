@@ -9,8 +9,8 @@ My research interests are banking theory, fintech, networks and blockchain.
 
 ## Publications
 
-__[The redistributive effects of bank capital regulation](https://silviopetriconi.github.io/files/CMP_redistributive_regulation.pdf)__ 
-_(with E. Carletti & R. Marquez)_  _Accepted, Journal of Financial Economics_
+__[The redistributive effects of bank capital regulation (2020)](https://silviopetriconi.github.io/files/CMP_redistributive_regulation.pdf)__ 
+_(with E. Carletti & R. Marquez)_  _Journal of Financial Economics_ [[link]](https://doi.org/10.1016/j.jfineco.2019.12.002)
 :  In a general equilibrium model of bank capital, we show that
    depositors are likely to bear most of the cost of stricter regulatory
    capital standards, whereas shareholders may benefit from regulation.
