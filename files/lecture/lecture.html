@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Theory and evidence on  moral hazard in banking</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Silvio Petriconi, Bocconi" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+    <link rel="stylesheet" href="mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Theory and evidence on <br>moral hazard in banking
+## The roles of deposit insurance,<br> bail-out and bail-in
+### Dr. Silvio Petriconi, Bocconi
+### Probevorlesung IWH Halle &amp; FSU Jena<br> 29. Mai 2020 (updated: 2020-05-26)
+
+---
+
+class: inverse, mline, center, middle
+&lt;style type="text/css"&gt;
+.remark-slide-content {
+    font-size: 25px;
+    padding: 1em 4em 1em 4em;
+}
+.thankyou {
+    font-size: 50px;
+}
+&lt;/style&gt;
+
+
+
+# Deposit Insurance and Bail-outs
+### •  Reminder: Why Deposit Insurance?
+### •  The Problem of Moral Hazard
+### •  Bail-outs
+
+---
+
+# Reminder: Why Deposit Insurance?
+
+Last class we discussed the bank run model of [Diamond and Dybvig (1983)](#refpage1). Quick reminder:
+  - Consumers were ex-ante uncertain whether they prefer to consume _early_ (t=1) or _late_ (t=2).
+  - Restricted asset space: 
+      * (liquid) _short asset_: matures every period, zero return
+      * (illiquid) _long asset_: matures in t=2, positive return but early liquidation only at loss relative to purchase price
+  - In autarky, no consumer would hold the long asset.
+  - Banks offer consumers liquidity insurance: 
+     * issue demand deposits, redeemable anytime
+     * invest in a mix of short and long asset
+     * depositors share surplus from long asset investment 
+     * Pareto improvement!
+     
+---
+# Reminder: Why Deposit Insurance?
+
+What was the problem? 
+
+--
+
+ __Bank runs!__  Model has multiple equilibria:
+  1. _"Good equilibrium"_: If depositors expect everyone to withdraw
+    according to their type, late types don't withdraw early and the Pareto optimum is attained. 
+  2. _"Run equilibrium"_: If depositors expect some late consumers to withdraw "early" in t=1,    banks' costly premature liquidation of the long asset will inflict losses on whoever withdraws late!&lt;br&gt;
+     `\(\Rightarrow\)` Late consumers will want to withdraw early &lt;br&gt; `\(\Rightarrow\)` _Bank run_&lt;br&gt;
+     `\(\Rightarrow\)` Inefficient liquidation of long asset. Pareto inferior.
+  
+Remedy: __Deposit insurance__ 
+---
+# Deposit Insurance
+
+To break the logic of panic-based runs in [Diamond-Dybvig (1983)](#refpage1), deposit insurance can help:
+
+ * Insured depositors always get paid in full:&lt;br&gt; 
+   insurance covers eventual shortfall if bank can't pay.
+ * No incentive for late consumers to withdraw early, even if they
+   think that other late consumers will withdraw in t=1.
+ * Eliminates Pareto-inferior bank run equilibrium completely!
+ 
+Indeed bank
+runs, once a common phenomenon all over the U.S., have practically disappeared following the
+introduction of deposit insurance:
+ * FDIC: 1933 Banking Act, 
+ * NCUA: 1934 Federal Credit Union Act.
+
+---
+# Moral Hazard: Risk Shifting
+
+But we shouldn't conclude that all is great: deposit insurance opens 
+up an obvious new channel of moral hazard: depositors no longer demand compensation commensurate to bank risk!
+
+Consider a bank that runs for one period, zero interest on deposits, liquidates fully in t=1:
+.pull-left[ 
+.center[__t=0__]
+
+| Assets               | Liabilities |
+| -------------------- | ----------- |
+| Loans L              | Deposits D  |
+| Insurance Premiums P | Equity E    |
+]
+
+.pull-right[
+.center[__t=1__]
+
+| Assets               | Liabilities |
+| -------------------- | ----------- |
+| Loans `\(\tilde L\)`              | Deposits D  |
+| Insurance Payments `\(\tilde S\)` | Liq. value `\(\tilde V\)` |
+
+]
+
+---
+# Moral Hazard: Risk Shifting
+
+
+ * At date 1, insurance pays `\(\tilde S = \max(0, D-\tilde L)\)`
+ * So liq. value of bank is `\(\tilde V = \tilde L -D + \tilde S\)`
+ * Combining the two, we have
+    `$$\tilde V = \tilde L - D + \max(0, D-\tilde L)$$`
+ * From balance sheet identity in t=0, we know that `\(D=L+P-E\)`, so
+    `$$\tilde V = E + (\tilde L - L) - P +\max(0, D-\tilde L)$$`
+  We interpret this that the banks' liquidation value is initial equity plus value gain `\(\tilde L - L\)` in loans plus
+  a term
+      `$$\max(0, D-\tilde L)-P$$`
+      
+  `\(\Rightarrow\)`  reads like a put option on bank assets `\(\tilde L\)` at strike `\(D\)`!
+---
+# The Classic Risk Shifting Problem
+
+This equivalence between deposit insurance and a put option on bank assets was first recognized in a seminal paper by [Merton (1977)](#refpage2).
+
+ * to maximize bank value, one 
+
+---
+# Cross Country Evidence
+[Demirgüç-Kunt and Detragiache (2002)](#refpage1) present a cross-country empirical study of deposit insurance moral hazard:
+ * gradual introduction of deposit insurance in 61 countries over the time period 1980-1997
+ * around half of the 898 observations fall into periods in which deposit insurance is available
+ 
+They ask: 
+
+ * With deposit insurance, are there more or fewer banking crises?
+ * Does banking crisis probability depend on specific deposit insurance design features, e.g. government involvement, funding status, coinsurance, coverage limits?
+ * In all this, does quality of (legal) institutions matter?
+
+---
+# Cross Country Evidence (cont.)
+
+Key Findings:
+
+ * Detrimental effect of explicit deposit insurance on banking stability
+ * Effect more pronounced where institutions are weak
+ * Higher coverage caps, more credible pre-funding of deposit insurance and presence of government in deposit insurance scheme increase the risk of crisis.
+ 
+ 
+
+
+---
+# Bail-Outs and Moral Hazard
+
+Expectations that a bank will receive a bail-out generates analogous moral hazard channel as deposit insurance. However, there are important differences:
+  * Whilst all banks have deposit insurance by law, bail-outs are discretionary.
+  * Receiving a bail-out may depend on political connections, systemic relevance of the institution etc.
+  * Asymmetric coverage by bail-out implies that competitors of banks that are under the umbrella of bail-out stand in the rain, facing fiercer competition for depositors, market share; this damages their charter value. 
+  * Consequence [(Hakenes and Schnabel, 2010)](#refpage2): bail outs increase risk in competitors!! 
+  * Empirically holds, see [Hakenes, Schnabel and Gropp (2010)](#refpage2).
+
+
+
+---
+class:inverse,center,middle,mline
+
+#Promise vs. Reality of Bail-ins
+---
+# Bail-in as solution?
+
+**"Let private money pay for the next bail-out"...**
+
+ * Bail-in regimes give regulators the power to declare 
+   at their discretion the bail-in of some (typically subordinated) debt.
+   The debt is written off / converted to equity to relieve the ailing
+   financial institution. 
+ * In theory, these risky debt claims are thought to impose discipline on institutions because their risk _is_ priced.
+ * In reality,use of this instrument complicated, much to be learned:
+     - banks used intentional misselling of bail-in debt to particularly vulnerable groups as to force bail-out
+     - Cyprus bail-in gave equity (and thus control) into hands of people who (due to proximity to Kremlin) would never have been granted a banking license.
+     
+
+
+---
+name:refpage1
+# References  
+
+__Dam, L. and Koetter, M.__ (2012), "Bank Bailouts and Moral Hazard: Evidence from Germany", _The Review of Financial Studies_ 25(8), pp. 2343–2380 [[link]](https://doi.org/10.1093/rfs/hhs056)
+
+__Demirgüç-Kunt, A. and Detragiache, E.__ (2002), "Does deposit insurance increase banking system stability? An empirical investigation", _Journal of Monetary Economics_ 49, &lt;br&gt; pp. 1373–1406 [[link]](https://doi.org/10.1016/S0304-3932%2802%2900171-X)
+
+__Diamond, D. and Dybvig, P.__ (1983), "Bank Runs, Deposit Insurance, and Liquidity", _Journal of Political Economy_ 91 (3), &lt;br&gt; pp. 401-419 [[link]](https://www.jstor.org/stable/1837095)
+
+
+
+---
+name:refpage2
+# References 
+
+__Gropp, R., Hakenes, H. and Schnabel, I.__ (2011), "Competition, Risk-shifting, and Public Bail-out Policies", _Review of Financial Studies_ 24(6), pp. 2084–2120 [[link]](https://doi.org/10.1093/rfs/hhq114)
+
+__Hakenes, H. and Schnabel, I.__ (2010), "Banks without parachutes: Competitive effects of government bail-out policies", 
+_Journal of Financial Stability_ 6 (3), pp. 156-168
+[[link]](https://doi.org/10.1016/j.jfs.2009.05.006)
+
+__Merton, R.__ (1977), "An analytic derivation of the cost of deposit insurance and loan guarantees: An application of modern option pricing theory", _Journal of Banking and Finance_ 1 (1), &lt;br&gt; pp. 3-11 [[link]](https://doi.org/10.1016/0378-4266%2877%2990015-2)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
