@@ -17,6 +17,7 @@ This is a hands-on introduction to FinTech and Blockchains for future data scien
 
 The course is taught as a mix of lectures and lab sessions which teach applied, more technical skills. 
 
+<!--
 ### Lecture slides
 
 Below you can find links to the lecture slides. Any feedback is welcome.
@@ -31,4 +32,4 @@ Below you can find links to the lecture slides. Any feedback is welcome.
 | [Lecture 06](https://silviopetriconi.github.io/fintech/Class06.html)                                                   | Smart Contracts, Tokens and ICOs               |                                                           |                                         |
 | [Lecture 07](https://silviopetriconi.github.io/fintech/Class07.html)                                                   | Distributed Ledgers, Facebook Libra             |                                                           |                                         |
 |                                                              | - MIDTERM TEACHING BREAK -                      |                                                           |                                         |
-
+-->
