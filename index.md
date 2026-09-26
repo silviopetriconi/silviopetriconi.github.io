@@ -14,7 +14,9 @@ title: Home
     </address>
     <p><a href="{{ site.author.profile_url }}">UCalgary profile</a> ·
        <a href="{{ site.author.scholar_url }}">Google Scholar</a> ·
-       <a href="https://github.com/{{ site.author.github }}">GitHub</a></p>
+       <a href="https://github.com/{{ site.author.github }}">GitHub</a> ·
+       <a href="{{ site.author.linkedin }}">LinkedIn</a> ·
+       <a href="https://orcid.org/{{ site.author.orcid }}">ORCID</a></p>
   </div>
 </div>
 
