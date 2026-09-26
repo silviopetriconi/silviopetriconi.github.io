@@ -1,0 +1,7 @@
+{%- comment -%}
+  Usage: {% include collection-list.html docs=site.publications %}
+  Optional: by="order" to sort on another numeric front-matter field (default "year"); newest/highest first.
+{%- endcomment -%}
+{% assign key = include.by | default: "year" %}
+{% assign sorted = include.docs | sort: key | reverse %}
+{% for doc in sorted %}{% include entry.html item=doc %}{% else %}<p class="muted">Nothing here yet.</p>{% endfor %}

@@ -1,0 +1,9 @@
+{% assign i = include.item %}
+{% assign href = i.doi | prepend: "https://doi.org/" %}
+{% unless i.doi %}{% assign href = i.draft | default: i.pdf | default: i.link | relative_url %}{% endunless %}
+<div class="entry">
+  <h3>{% if i.doi or i.draft or i.pdf or i.link %}<a href="{{ href }}">{{ i.title }}</a>{% else %}{{ i.title }}{% endif %}</h3>
+  {% include meta.html item=i %}
+  {% if i.abstract %}<p>{{ i.abstract }}</p>{% endif %}
+  {% include links.html item=i %}
+</div>

@@ -1,0 +1,11 @@
+{% assign i = include.item %}
+<p class="meta">
+  {% if i.authors %}{{ i.authors }}{% elsif i.coauthors %}with {{ i.coauthors | join: ", " }}{% endif %}
+  {% if i.venue %}{% if i.authors or i.coauthors %} · {% endif %}<em>{{ i.venue }}</em>{% if i.volume %}, {{ i.volume }}{% endif %}{% if i.pages %}: {{ i.pages }}{% endif %}{% endif %}
+  {% if i.year %} ({{ i.year }}){% endif %}
+  {% if i.status %} <span class="tag">{{ i.status }}</span>{% endif %}
+  {% if i.role %}{{ i.role }}{% endif %}
+  {% if i.institution %}{% if i.role %} · {% endif %}{{ i.institution }}{% endif %}
+  {% if i.level %} · {{ i.level }}{% endif %}
+  {% if i.note %} · {{ i.note }}{% endif %}
+</p>

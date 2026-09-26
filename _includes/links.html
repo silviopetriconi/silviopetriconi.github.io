@@ -1,0 +1,10 @@
+{% assign i = include.item %}
+<p class="links">
+  {% if i.arxiv %}<a href="https://arxiv.org/abs/{{ i.arxiv }}">Preprint (arXiv)</a>{% endif %}
+  {% if i.doi %}<a href="https://doi.org/{{ i.doi }}">Published version</a>{% endif %}
+  {% if i.draft %}<a href="{{ i.draft | relative_url }}">Draft (PDF)</a>{% endif %}
+  {% if i.pdf %}<a href="{{ i.pdf | relative_url }}">PDF</a>{% endif %}
+  {% if i.ssrn %}<a href="{{ i.ssrn }}">SSRN</a>{% endif %}
+  {% if i.slides %}<a href="{{ i.slides | relative_url }}">Slides</a>{% endif %}
+  {% if i.link %}<a href="{{ i.link }}">arXiv</a>{% endif %}
+</p>

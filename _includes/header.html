@@ -1,0 +1,8 @@
+<header class="site-header">
+  <a class="brand" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
+  <nav>
+    {% for link in site.data.navigation %}
+      <a href="{{ link.url | relative_url }}"{% if page.url contains link.url %} aria-current="page"{% endif %}>{{ link.title }}</a>
+    {% endfor %}
+  </nav>
+</header>
